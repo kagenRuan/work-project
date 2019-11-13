@@ -1,0 +1,82 @@
+rabbitmq卸载：
+rpm -qa | grep rabbitmq-server 查找安装apm
+
+rpm -e rabbitmq-server 删除对于的包
+
+rabbit-server端口为5672
+rabbit-admin管理平台端口为15672
+
+rabbit安装：
+1. rpm -ivh  rabbitmq-server-3.6.6-1.el7.noarch.rpm  开始安装默认安装到/usr/lib/rabbitmq目录下
+2. vi /usr/lib/rabbitmq/lib/rabbitmq_server-3.6.6/ebin/rabbit.app 修改该配置文件中的
+        {loopback_users, [<<"guest">>]} 修改为 {loopback_users, [guest]}
+
+3.rabbit启动命令：rabbitmq-server start &
+        停止命令：rabbitmqctl stop_app
+        管理插件：rabbitmq-plugins enable rabbitmq_management
+        管理平台访问地址：
+        http://<ip>:15672
+
+
+注意：
+rabbitmq发送消息必须要指定exchange,
+否则会走默认队列中的AMQP Default队列而AMQP Default队列的路由规则则会把路由的名字跟队列中的名字匹配，
+如果匹配成功则发送消息否则不发送消息，否则消息被抛弃；
+
+
+
+Direct exchange ：直连，所有消息发送到Direct exchange上的消息被转发到RoutingKey中指定的queue队列上
+Topic exchange ：所有发送到Topic exchange 的消息被转发到锁关心的routing key中指定的topic的queue上
+Fanout exchange ： 不需要设置routingkey,直接绑定到queue队列上(这种交换机速度较快，因为不需要routingKey进行匹配)
+
+
+高级特性：
+  1. 消息的百分百投递：
+          1.消息成功发送
+          2.消息成功接收
+          3.发送端收到接收端的应答
+          4.完善的补偿机制
+        解决方案：两种方式
+          1.消息添加到数据库，对消息进行状态查询
+          2.消息的延迟投递，做二次确认，回调检查
+  2. 消息的幂等性：
+  3. 在海量订单产生的情况下，怎么避免消息的重复消费问题
+     解决方案：
+        1. 唯一ID+指纹机制，利用数据库去重
+        2. 利用redis的原子性去重
+  4. confirm确认消息，return新消息
+    confirm:发送端发送消息后，消费端收到消息并给发送端发送确认收到消息; 需要在消费端端channel.addConfigLinster(new ConfigLinster());
+    return:用于处理不可路由的消息; 需要在发送端channel.addReturnLinster(new ReturnLinster());
+
+  5.自定义消费端，需要设置 channel.basicConsume(MyFactory.QUEUE_NAME,true,new DefaultConsumer(channel));
+
+  6.消费端限流以及消息ACK
+        注意：1.不要开启手动Ack新消息
+        /**
+         * 限流措施
+         * 第一个参数：对消息的大小限制
+         * 第二个参数：每次发送多少条消息到消费端
+         * 第三个参数：
+         */
+        channel.basicQos(0,3,false);
+        /**
+         * 第一个参数：队列名称
+         * 第二个参数：是否自动ACK签收消息true自动签收false手动签收
+         * 第三个参数：自定义消费端接收消息
+         */
+        channel.basicConsume(MyFactory.QUEUE_NAME,false,new MyQueueingConsumer(channel));
+  消息ACK分为
+         ACK:表示消息已经成功处理，但是如果业务处理异常那么可以使用数据库日志记录来做补偿消息
+         NACK:表示消息处理失败
+  消息重回队列:对消息没有处理成功的消息进行重回队列
+
+  7.TTL队列与消息：也就是消息在当前队列中的生存时间(不是很重要)
+
+  8.死信队列(DLX)：（重要）
+    当一个消息在队列中变为死信后，然后push到另外一个exchange上；一句话就是一个exchange
+        称为死信队列的几大情况：
+        1.消息被拒绝
+        2.消息到达过期时间
+        3.队列达到最大长度
+    需要注意的地方：
+        1.死信队列不能与routingKey关联（需要测试）

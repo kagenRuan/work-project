@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+
+<mapper namespace="com.ruan.yuanyuan.dao.MessageMapper">
+
+
+    <select id="findAll" resultType="com.ruan.yuanyuan.entity.RabbitMessage">
+        SELECT * FROM yy_message
+    </select>
+
+    <select id="findMessageById" resultType="com.ruan.yuanyuan.entity.RabbitMessage">
+        SELECT * FROM yy_message WHERE message_id=#{messageId} AND is_valid='Y'
+    </select>
+
+
+    <insert id="insertMessage">
+         INSERT INTO yy_message
+                    (exchange,routing_key,status,body,message_id,error_msg,is_valid)
+                    VALUE (#{rabbitMessage.exchange},#{rabbitMessage.routingKey},#{rabbitMessage.status},#{rabbitMessage.body},#{rabbitMessage.messageId},#{rabbitMessage.errorMsg},#{rabbitMessage.isValid})
+    </insert>
+
+    <update id="updateMessageById">
+        UPDATE yy_message SET
+        <trim suffixOverrides=",">
+            <if test="message.status != null">
+                status=#{message.status},
+            </if>
+            <if test="message.errorMsg !=null">
+                error_msg=#{message.errorMsg}
+            </if>
+        </trim>
+        WHERE message_id=#{message.messageId} AND is_valid='Y'
+    </update>
+
+    <update id="updateMessageByMessageId">
+      UPDATE yy_message SET status=#{status} WHERE message_id=#{messageId}
+    </update>
+</mapper>

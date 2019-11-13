@@ -1,0 +1,58 @@
+spring:
+  mvc:
+    #指定静态资源的访问路径
+    static-path-pattern: /static/**
+  datasource:
+    url: jdbc:mysql://127.0.0.1:3306/cloudproject?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull
+    username: ryy
+    password: 123456
+    driver-class-name: com.mysql.jdbc.Driver
+    type: com.alibaba.druid.pool.DruidDataSource
+    initial-size: 5
+    min-idle: 5
+    max-active: 5
+    max-wait: 60000
+    time-between-eviction-runsMillis: 60000
+    min-evictable-idle-timeMillis: 300000
+    validation-query: select 'x' FROM DUAL
+    test-while-idle: true
+    test-on-borrow: false
+    test-on-return: false
+  thymeleaf:
+    prefix: classpath:/templates/
+    suffix: .html
+    mode: HTML5
+    encoding: UTF-8
+    cache: false
+  aop:
+    proxy-target-class: true
+  rabbitmq:
+    addresses: 127.0.0.1
+    port: 5672
+    username: admin
+    password: admin
+    virtual-host: /
+    connection-timeout: 15000
+    publisher-confirms: true #开启确认模式(生产端配置)
+    publisher-returns: true #开启返回模式(生产端配置)和mandatory这两个组合配合使用
+    template:
+      mandatory: true #生产端配置主要是用于在消息发送时路由不成功如果为false将会把消息删除true则会在ReturnCallback里面方法返回
+  redis:
+    host: 127.0.0.1
+    port: 6379
+    password: ruan330357580yuan
+#mybatis-plus插件配置
+mybatis-plus:
+  mapper-locations: mapper/*.xml
+  type-aliases-package: com.ruan.yuanyuan.entity
+  configuration:
+    map-underscore-to-camel-case: true #驼峰命名
+    call-setters-on-nulls: true #null忽略
+  global-config:
+    db-config:
+      id-type: uuid
+      update-strategy: not_null #可以修改某值为空
+
+logging:
+  level:
+    com.ruan.yuanyuan.dao: DEBUG

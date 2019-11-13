@@ -1,0 +1,46 @@
+#rabbitmq消费端
+spring:
+  rabbitmq:
+    addresses: 127.0.0.1
+    port: 5672
+    username: admin
+    password: admin
+    virtual-host: /
+    connection-timeout: 15000
+    listener: #这个是消费端的配置
+      simple:
+        acknowledge-mode: manual #消息的签收模式(manual 手动签收) 或者在配置文件中手动ACK####见rabbitmqConfig
+        concurrency: 1  #消费者数量
+        max-concurrency: 5 #最大消费者数量
+        prefetch: 1 #消费者每次从队列获取的消息数
+#        retry:
+#          enabled: true #是否开启重试机制
+#          max-attempts: 3 #最大重试次数
+#          initial-interval: 5000 #重试时间间隔
+#          max-interval: 300000 #重试最大时间间隔
+#          multiplier: 3 #重试时间间隔的计算器
+  datasource:
+    url: jdbc:mysql://127.0.0.1:3306/cloudproject?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull
+    username: ryy
+    password: 123456
+    driver-class-name: com.mysql.jdbc.Driver
+    type: com.alibaba.druid.pool.DruidDataSource
+    initial-size: 5 #初始化连接数
+    min-idle: 5     #最小连接池数量
+    max-active: 10  #最大连接池数量
+    time-between-eviction-runsMillis: 6000
+    test-while-idle: true
+    pool-prepared-statements: false #是否缓存preparedStatement##oracle建议开启mysql建议关闭
+mybatis-plus:
+  mapper-locations: classpath*:/mapper/*.xml
+  type-aliases-package: com.ruan.yuanyuan.entity
+  configuration:
+    map-underscore-to-camel-case: true #驼峰命名
+    call-setters-on-nulls: true #null忽略
+  global-config:
+    db-config:
+      id-type: uuid #主键生成策略
+      update-strategy: not_null #可以修改某值为空
+logging:
+  level:
+    com.ruan.yuanyuan.dao: DEBUG

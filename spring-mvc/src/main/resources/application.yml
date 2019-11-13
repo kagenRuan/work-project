@@ -1,0 +1,29 @@
+base:
+  package: com.ruan.yuanyuan
+server:
+  port: 8080
+spring:
+  application:
+    name: spring-mvc
+  datasource:
+    url: jdbc:mysql://127.0.0.1:3306/cloudproject?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull
+    username: ryy
+    password: 123456
+    driver-class-name: com.mysql.jdbc.Driver
+    type: com.alibaba.druid.pool.DruidDataSource
+#mybatis-plus插件配置
+mybatis-plus:
+  mapper-locations: mapper/*.xml
+  type-aliases-package: com.ruan.yuanyuan.entity
+  configuration:
+    map-underscore-to-camel-case: true #驼峰命名
+    call-setters-on-nulls: true #null忽略
+  global-config:
+    db-config:
+      id-type: uuid
+      update-strategy: not_null #可以修改某值为空
+logging:
+  level:
+    com.ruan.yuanyuan.dao: DEBUG
+
+
