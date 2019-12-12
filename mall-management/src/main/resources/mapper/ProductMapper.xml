@@ -9,7 +9,7 @@
 
     <insert id="add">
         INSERT INTO yy_product(name,inventory,create_time,price,is_valid)
-                    VALUE (#{productVo.name},#{productVo.inventory},#{productVo.createTime},#{productVo.price},#{productVo.isValid})
+        VALUE (#{productVo.name},#{productVo.inventory},#{productVo.createTime},#{productVo.price},#{productVo.isValid})
     </insert>
 
     <update id="deleteById">

@@ -6,10 +6,10 @@
 
     <select id="findUserByName" resultType="com.ruan.yuanyuan.entity.User">
         SELECT
-            id,
-            username,
-            password,
-            CASE WHEN status = '0' THEN '可以登录' WHEN  status = '1' THEN '禁止登录' END AS status
+        id,
+        username,
+        password,
+        CASE WHEN status = '0' THEN '可以登录' WHEN status = '1' THEN '禁止登录' END AS status
         FROM yy_user
         WHERE username=#{name}
     </select>
@@ -17,18 +17,19 @@
 
     <select id="findAllUser" resultType="com.ruan.yuanyuan.entity.User">
         SELECT
-            id,
-            username,
-            password,
-            CASE WHEN status = '0' THEN '可以登录' WHEN  status = '1' THEN '禁止登录' END AS status
+        id,
+        username,
+        password,
+        CASE WHEN status = '0' THEN '可以登录' WHEN status = '1' THEN '禁止登录' END AS status
         FROM yy_user
     </select>
 
     <insert id="addUser" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
-        insert into yy_user(username, password,status)values (#{user.username,jdbcType=VARCHAR},#{user.password,jdbcType=VARCHAR},#{user.status,jdbcType=VARCHAR})
+        insert into yy_user(username, password,status)values
+        (#{user.username,jdbcType=VARCHAR},#{user.password,jdbcType=VARCHAR},#{user.status,jdbcType=VARCHAR})
     </insert>
 
     <delete id="deleteUser">
-        delete from yy_user where  id=#{id}
+        delete from yy_user where id=#{id}
     </delete>
 </mapper>

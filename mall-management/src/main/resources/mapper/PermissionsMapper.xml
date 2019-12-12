@@ -6,20 +6,20 @@
 
     <select id="findById" resultType="com.ruan.yuanyuan.entity.Permissions">
         select
-           id,
-           name,
-           url,
-           parent_id as parentId
+        id,
+        name,
+        url,
+        parent_id as parentId
         from yy_permissions where id=#{id}
     </select>
 
 
     <select id="findAll" resultType="com.ruan.yuanyuan.entity.Permissions">
         select
-           id,
-           name,
-           url,
-           parent_id as parentId
+        id,
+        name,
+        url,
+        parent_id as parentId
         from yy_permissions
     </select>
 
@@ -28,24 +28,25 @@
     </delete>
 
     <insert id="add">
-        insert into yy_permissions(name,url,parent_id,resource_type)values (#{permissions.name},#{permissions.url},#{permissions.parentId},#{permissions.resourceType})
+        insert into yy_permissions(name,url,parent_id,resource_type)values
+        (#{permissions.name},#{permissions.url},#{permissions.parentId},#{permissions.resourceType})
     </insert>
 
     <select id="findAllPermissionsByParentId" resultType="com.ruan.yuanyuan.entity.Permissions">
         select
-           id,
-           name,
-           url,
-           parent_id as parentId
+        id,
+        name,
+        url,
+        parent_id as parentId
         from yy_permissions where parent_id=#{parentId}
     </select>
 
     <select id="findPermissionsByUserId" resultType="com.ruan.yuanyuan.vo.PermissionsVo">
         select
-            yp.id,
-            yp.parent_id as parentId,
-            yp.name,
-            yp.url
+        yp.id,
+        yp.parent_id as parentId,
+        yp.name,
+        yp.url
         from yy_user_role_ref yurr inner join yy_role_permissions_ref yrpr on yurr.role_id=yrpr.role_id
         inner join yy_permissions yp on yp.id=yrpr.permissions_id
         where yurr.user_id=#{userId}

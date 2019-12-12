@@ -5,11 +5,11 @@
 <mapper namespace="com.ruan.yuanyuan.dao.UserRoleMapper">
 
     <delete id="deleteUserRoleById">
-         delete  from  yy_user_role_ref where  id=#{id}
-     </delete>
+        delete from yy_user_role_ref where id=#{id}
+    </delete>
 
     <insert id="add">
-         insert into yy_user_role_ref(user_id,role_id) values (#{userId},#{roleId})
-     </insert>
+        insert into yy_user_role_ref(user_id,role_id) values (#{userId},#{roleId})
+    </insert>
 
 </mapper>

@@ -6,23 +6,23 @@
 
     <select id="findRoleById" resultType="com.ruan.yuanyuan.entity.Role">
         select
-           id,
-           name,
-           code
+        id,
+        name,
+        code
         from yy_role where id=#{id}
     </select>
 
 
     <select id="findAll" resultType="com.ruan.yuanyuan.entity.Role">
         select
-           id,
-           name
+        id,
+        name
         from yy_role
     </select>
 
 
     <delete id="deleteRoleById">
-        delete from yy_role where  id=#{id}
+        delete from yy_role where id=#{id}
     </delete>
 
     <insert id="add" useGeneratedKeys="true" keyProperty="id" keyColumn="id">

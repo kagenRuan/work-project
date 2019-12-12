@@ -15,9 +15,10 @@
 
 
     <insert id="insertMessage">
-         INSERT INTO yy_message
-                    (exchange,routing_key,status,body,message_id,error_msg,is_valid)
-                    VALUE (#{rabbitMessage.exchange},#{rabbitMessage.routingKey},#{rabbitMessage.status},#{rabbitMessage.body},#{rabbitMessage.messageId},#{rabbitMessage.errorMsg},#{rabbitMessage.isValid})
+        INSERT INTO yy_message
+        (exchange,routing_key,status,body,message_id,error_msg,is_valid)
+        VALUE
+        (#{rabbitMessage.exchange},#{rabbitMessage.routingKey},#{rabbitMessage.status},#{rabbitMessage.body},#{rabbitMessage.messageId},#{rabbitMessage.errorMsg},#{rabbitMessage.isValid})
     </insert>
 
     <update id="updateMessageById">
@@ -34,6 +35,6 @@
     </update>
 
     <update id="updateMessageByMessageId">
-      UPDATE yy_message SET status=#{status} WHERE message_id=#{messageId}
+        UPDATE yy_message SET status=#{status} WHERE message_id=#{messageId}
     </update>
 </mapper>

@@ -5,20 +5,21 @@
 
     <select id="findAll" resultType="com.ruan.yuanyuan.vo.OrderVo">
         SELECT
-          id,
-          order_sn AS orderSn,
-          CASE
-               WHEN status='1' THEN '待付款'
-               WHEN status='2' THEN '待发货'
-               WHEN status='3' THEN '已完成'
-               WHEN status='4' THEN '已取消'
-           END AS status
-          DATE_FORMAT(create_time,'%y-%d-%m %H:%m:%s') as createTime
+        id,
+        order_sn AS orderSn,
+        CASE
+        WHEN status='1' THEN '待付款'
+        WHEN status='2' THEN '待发货'
+        WHEN status='3' THEN '已完成'
+        WHEN status='4' THEN '已取消'
+        END AS status
+        DATE_FORMAT(create_time,'%y-%d-%m %H:%m:%s') as createTime
         FROM yy_order AND is_valid='Y'
     </select>
 
     <insert id="add">
-        INSERT INTO yy_order(order_sn,status,create_time,is_valid)VALUE(#{order.orderSn},#{order.status},#{order.createTime},#{order.isValid})
+        INSERT INTO
+        yy_order(order_sn,status,create_time,is_valid)VALUE(#{order.orderSn},#{order.status},#{order.createTime},#{order.isValid})
     </insert>
 
 </mapper>
