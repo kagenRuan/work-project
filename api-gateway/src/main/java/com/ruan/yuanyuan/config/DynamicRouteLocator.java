@@ -18,7 +18,7 @@ import java.util.Map;
  * 从数据库加载动态路由请求URL
  */
 public class DynamicRouteLocator extends SimpleRouteLocator implements RefreshableRouteLocator {
- 
+
     private IZuulApiRouteService zuulApiRouteService;
     private ZuulProperties properties;
 
@@ -31,7 +31,7 @@ public class DynamicRouteLocator extends SimpleRouteLocator implements Refreshab
         super(servletPath, properties);
         this.properties = properties;
     }
-    
+
     @Override
     public void refresh() {
         doRefresh();
@@ -39,6 +39,7 @@ public class DynamicRouteLocator extends SimpleRouteLocator implements Refreshab
 
     /**
      * 查询所有的配置服务信息
+     *
      * @return
      */
     @Override
@@ -48,7 +49,7 @@ public class DynamicRouteLocator extends SimpleRouteLocator implements Refreshab
         routesMap.putAll(super.locateRoutes());
         // 加载db中的路由表
         routesMap.putAll(locateRoutesFromDB());
-        
+
         // 统一处理一下路由path的格式
         LinkedHashMap<String, ZuulProperties.ZuulRoute> values = new LinkedHashMap<>();
         for (Map.Entry<String, ZuulProperties.ZuulRoute> entry : routesMap.entrySet()) {
@@ -64,23 +65,24 @@ public class DynamicRouteLocator extends SimpleRouteLocator implements Refreshab
             }
             values.put(path, entry.getValue());
         }
-        
+
         return values;
     }
 
     /**
      * 查询数据中的可用服务
+     *
      * @return
      */
     private Map<String, ZuulProperties.ZuulRoute> locateRoutesFromDB() {
         Map<String, ZuulProperties.ZuulRoute> routes = new LinkedHashMap<>();
         QueryWrapper wrapper = new QueryWrapper();
         wrapper.eq("enabled", true);
-        wrapper.eq("is_valid",Yum.YES.getCode());
+        wrapper.eq("is_valid", Yum.YES.getCode());
         List<ZuulApiRoute> zuulApiRoutes = zuulApiRouteService.list(wrapper);
 
         for (ZuulApiRoute result : zuulApiRoutes) {
-            if (StringUtils.isEmpty(result.getPath()) ) {
+            if (StringUtils.isEmpty(result.getPath())) {
                 continue;
             }
             if (StringUtils.isEmpty(result.getServiceId()) && StringUtils.isEmpty(result.getUrl())) {
@@ -88,14 +90,14 @@ public class DynamicRouteLocator extends SimpleRouteLocator implements Refreshab
             }
             ZuulProperties.ZuulRoute zuulRoute = new ZuulProperties.ZuulRoute();
             try {
-                BeanUtils.copyProperties(zuulRoute,result);
+                BeanUtils.copyProperties(zuulRoute, result);
                 zuulRoute.setId(result.getType());
             } catch (Exception e) {
-            	e.printStackTrace();
+                e.printStackTrace();
             }
             routes.put(zuulRoute.getPath(), zuulRoute);
         }
         return routes;
     }
- 
+
 }

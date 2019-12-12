@@ -17,11 +17,12 @@ public class ProductController {
 
     /**
      * 商品跳转页面
+     *
      * @return
      */
     @RequestMapping("/index")
     @RequiresPermissions("product:index")
-    public String index(){
+    public String index() {
         return "/product/index";
     }
 }

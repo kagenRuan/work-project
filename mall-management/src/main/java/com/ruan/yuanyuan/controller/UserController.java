@@ -28,52 +28,55 @@ public class UserController {
     private IUserService userService;
 
     @RequestMapping("/list")
-    public String list(){
+    public String list() {
         return "user/list";
     }
 
     @RequestMapping("/index")
-    public String add(){
+    public String add() {
         return "user/index";
     }
 
     /**
      * 查询所有的用户信息
+     *
      * @return
      */
     @RequestMapping("/findAll")
     @ResponseBody
-    public ResultObject findAll(){
-       List<User> userList =  userService.findAllUser();
-       return new ResultObject(userList);
+    public ResultObject findAll() {
+        List<User> userList = userService.findAllUser();
+        return new ResultObject(userList);
     }
 
     /**
      * 添加用户
+     *
      * @return
      */
-    @RequestMapping(value = "/add",method = RequestMethod.POST)
+    @RequestMapping(value = "/add", method = RequestMethod.POST)
     @ResponseBody
-    public ResultObject add(UserDto userDto){
+    public ResultObject add(UserDto userDto) {
         userService.addUser(userDto);
         return new ResultObject();
     }
 
     /**
      * 根据ID删除用户
+     *
      * @param id
      * @return
      */
-    @RequestMapping(value = "/deleteUserById",method = RequestMethod.GET)
+    @RequestMapping(value = "/deleteUserById", method = RequestMethod.GET)
     @ResponseBody
-    public ResultObject deleteUserById(@RequestParam("id") String id){
+    public ResultObject deleteUserById(@RequestParam("id") String id) {
         userService.deleteUser(id);
         return new ResultObject();
     }
 
 
     @RequestMapping("/update")
-    public String update(){
+    public String update() {
         return "user/update";
     }
 }

@@ -20,56 +20,61 @@ public class Production_ConsumerBlockQueue {
 
     private AtomicInteger atomicInteger = new AtomicInteger(0);
 
-    public Production_ConsumerBlockQueue(BlockingQueue blockingQueue){
-        this.blockingQueue=blockingQueue;
+    public Production_ConsumerBlockQueue(BlockingQueue blockingQueue) {
+        this.blockingQueue = blockingQueue;
     }
 
-    public  void changState(){
-        this.FLAG=false;
+    public void changState() {
+        this.FLAG = false;
         System.out.println(blockingQueue.size());
     }
+
     //生产者
-    public void production(){
+    public void production() {
         String data = null;
         boolean result;
-        while (FLAG){
+        while (FLAG) {
             try {
-                data = atomicInteger.incrementAndGet()+"";
-                result = blockingQueue.offer(data,2L, TimeUnit.SECONDS);
-                if(result){
-                    System.out.println(Thread.currentThread().getName()+"\t 插入队列数据"+data+"成功");
-                }else{
-                    System.out.println(Thread.currentThread().getName()+"\t 插入队列数据"+data+"失败");
+                data = atomicInteger.incrementAndGet() + "";
+                result = blockingQueue.offer(data, 2L, TimeUnit.SECONDS);
+                if (result) {
+                    System.out.println(Thread.currentThread().getName() + "\t 插入队列数据" + data + "成功");
+                } else {
+                    System.out.println(Thread.currentThread().getName() + "\t 插入队列数据" + data + "失败");
                 }
                 TimeUnit.SECONDS.sleep(1);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
         }
-        System.out.println(Thread.currentThread().getName()+"\t 停止生产  ");
+        System.out.println(Thread.currentThread().getName() + "\t 停止生产  ");
     }
 
     //消费者
-    public void consumer(){
+    public void consumer() {
         String data = null;
-        try{
+        try {
             while (FLAG) {
-                data = blockingQueue.poll(2L,TimeUnit.SECONDS);
-                if(null == data || data.equalsIgnoreCase("")){
+                data = blockingQueue.poll(2L, TimeUnit.SECONDS);
+                if (null == data || data.equalsIgnoreCase("")) {
                     FLAG = false;
                     return;
                 }
-                System.out.println(Thread.currentThread().getName()+"\t 从队列中获取到值："+data);
+                System.out.println(Thread.currentThread().getName() + "\t 从队列中获取到值：" + data);
             }
-        }catch (InterruptedException e) {
+        } catch (InterruptedException e) {
             e.printStackTrace();
         }
     }
 
     public static void main(String[] args) {
         Production_ConsumerBlockQueue production_consumerBlockQueue = new Production_ConsumerBlockQueue(new ArrayBlockingQueue(5));
-        new Thread(()->{production_consumerBlockQueue.production();},"A").start();
-        new Thread(()->{production_consumerBlockQueue.consumer();},"B").start();
+        new Thread(() -> {
+            production_consumerBlockQueue.production();
+        }, "A").start();
+        new Thread(() -> {
+            production_consumerBlockQueue.consumer();
+        }, "B").start();
 
 //        try {
 //            TimeUnit.SECONDS.sleep(5);

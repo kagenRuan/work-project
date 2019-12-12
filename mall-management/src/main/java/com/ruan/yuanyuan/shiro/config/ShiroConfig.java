@@ -48,7 +48,7 @@ public class ShiroConfig {
     /**
      * 配置thymeleaf整合shiro标签
      */
-    @Bean(name="shiroDialect")
+    @Bean(name = "shiroDialect")
     public ShiroDialect shiroDialect() {
         return new ShiroDialect();
     }
@@ -56,13 +56,14 @@ public class ShiroConfig {
 
     /**
      * 在没有权限时针对shiro不同的异常跳转不同的页面
+     *
      * @return
      */
     @Bean
-    public SimpleMappingExceptionResolver  simpleMappingExceptionResolver(){
+    public SimpleMappingExceptionResolver simpleMappingExceptionResolver() {
         SimpleMappingExceptionResolver simpleMappingExceptionResolver = new SimpleMappingExceptionResolver();
         Properties properties = new Properties();
-        properties.setProperty("org.apache.shiro.authz.UnauthorizedException","redirect:/noAuth");
+        properties.setProperty("org.apache.shiro.authz.UnauthorizedException", "redirect:/noAuth");
         simpleMappingExceptionResolver.setExceptionMappings(properties);
         return simpleMappingExceptionResolver;
     }
@@ -70,24 +71,23 @@ public class ShiroConfig {
 
     /**
      * 添加shiro注解 第二步
+     *
      * @param securityManager
      * @return
      */
     @Bean
-    public AuthorizationAttributeSourceAdvisor getAuthorizationAttributeSourceAdvisor(@Qualifier("defaultWebSecurityManager") DefaultWebSecurityManager securityManager){
+    public AuthorizationAttributeSourceAdvisor getAuthorizationAttributeSourceAdvisor(@Qualifier("defaultWebSecurityManager") DefaultWebSecurityManager securityManager) {
         AuthorizationAttributeSourceAdvisor authorizationAttributeSourceAdvisor = new AuthorizationAttributeSourceAdvisor();
         authorizationAttributeSourceAdvisor.setSecurityManager(securityManager);
-       return authorizationAttributeSourceAdvisor;
+        return authorizationAttributeSourceAdvisor;
     }
-
-
 
 
     /**
      * 创建ShiroFilterFbean 第三步
      */
     @Bean
-    public ShiroFilterFactoryBean shiroFilterFactoryBean(@Qualifier("defaultWebSecurityManager") DefaultWebSecurityManager securityManager){
+    public ShiroFilterFactoryBean shiroFilterFactoryBean(@Qualifier("defaultWebSecurityManager") DefaultWebSecurityManager securityManager) {
         ShiroFilterFactoryBean shiroFilterFactoryBean = new ShiroFilterFactoryBean();
         shiroFilterFactoryBean.setSecurityManager(securityManager);
 
@@ -103,7 +103,7 @@ public class ShiroConfig {
         //限制同一帐号同时在线的个数
 //        concerenMap.put("kickout", kickoutSessionControlFilter());
         //自定义登出过滤器
-        concerenMap.put("logout",logoutFilter());
+        concerenMap.put("logout", logoutFilter());
 
         shiroFilterFactoryBean.setFilters(concerenMap);
 
@@ -121,16 +121,16 @@ public class ShiroConfig {
         /**
          * 初始化需要拦截的路径
          */
-        Map<String,String> filterMap = new LinkedHashMap<>();
+        Map<String, String> filterMap = new LinkedHashMap<>();
         /**
          * 这里需要注意：当使用【perms】过滤器当拦截后，如果未授权会自动跳转到未授权页面
          */
 //        filterMap.put("/login","kickout,anon");
-        filterMap.put("/login","anon");
+        filterMap.put("/login", "anon");
         filterMap.put("/static/**", "anon");
         //logout是shiro提供的过滤器
-        filterMap.put("/logout","logout");
-        filterMap.put("/**","authc");
+        filterMap.put("/logout", "logout");
+        filterMap.put("/**", "authc");
 //        filterMap.put("/**","kickout,authc");
         shiroFilterFactoryBean.setFilterChainDefinitionMap(filterMap);
 
@@ -142,7 +142,7 @@ public class ShiroConfig {
      * 创建DefaultWebSecurityManager 第一步
      */
     @Bean(name = "defaultWebSecurityManager")
-    public DefaultWebSecurityManager getSecurityManager(){
+    public DefaultWebSecurityManager getSecurityManager() {
         DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
         //配置记住我
 //        securityManager.setRememberMeManager(rememberMeManager());
@@ -157,17 +157,19 @@ public class ShiroConfig {
 
     /**
      * 配置Shiro生命周期处理器
+     *
      * @return
      */
     @Bean(name = "lifecycleBeanPostProcessor")
     public LifecycleBeanPostProcessor lifecycleBeanPostProcessor() {
-         return new LifecycleBeanPostProcessor(); }
+        return new LifecycleBeanPostProcessor();
+    }
 
     /**
      * 创建Realm
      */
     @Bean(name = "shiroRealm")
-    public ShiroRealm getRealm(){
+    public ShiroRealm getRealm() {
         ShiroRealm shiroRealm = new ShiroRealm();
         shiroRealm.setCachingEnabled(true);
         //启用身份验证缓存，即缓存AuthenticationInfo信息，默认false
@@ -178,8 +180,6 @@ public class ShiroConfig {
         shiroRealm.setAuthorizationCacheName("authorizationCache");
         return shiroRealm;
     }
-
-
 
 
     /**
@@ -232,16 +232,18 @@ public class ShiroConfig {
 
     /**
      * 配置session监听
+     *
      * @return
      */
     @Bean("sessionListener")
-    public ShiroSessionListener sessionListener(){
+    public ShiroSessionListener sessionListener() {
         ShiroSessionListener sessionListener = new ShiroSessionListener();
         return sessionListener;
     }
 
     /**
      * 配置session会话ID生成器
+     *
      * @return
      */
     @Bean
@@ -254,9 +256,11 @@ public class ShiroConfig {
      * SessionDAO的作用是为Session提供CRUD并进行持久化的一个shiro组件
      * MemorySessionDAO 直接在内存中进行会话维护
      * EnterpriseCacheSessionDAO  提供了缓存功能的会话维护，默认情况下使用MapCache实现，内部使用ConcurrentHashMap保存缓存的会话。
+     *
      * @return
      */
-    @Bean public SessionDAO sessionDAO() {
+    @Bean
+    public SessionDAO sessionDAO() {
         RedisSessionDAO redisSessionDAO = new RedisSessionDAO();
         redisSessionDAO.setRedisManager(redisManager());
         //session在redis中的保存时间,最好大于session会话超时时间
@@ -268,10 +272,11 @@ public class ShiroConfig {
     /**
      * 配置保存sessionId的cookie
      * 注意：这里的cookie 不是上面的记住我 cookie 记住我需要一个cookie session管理 也需要自己的cookie
+     *
      * @return
      */
     @Bean
-    public SimpleCookie sessionIdCookie(){
+    public SimpleCookie sessionIdCookie() {
         //这个参数是cookie的名称
         SimpleCookie simpleCookie = new SimpleCookie("sid");
         //setcookie的httponly属性如果设为true的话，会增加对xss防护的安全系数。它有以下特点：
@@ -287,6 +292,7 @@ public class ShiroConfig {
 
     /**
      * 配置会话管理器，设定会话超时及保存
+     *
      * @return
      */
     @Bean
@@ -320,10 +326,11 @@ public class ShiroConfig {
     /**
      * shiro缓存管理器;
      * 需要添加到securityManager中
+     *
      * @return
      */
     @Bean
-    public RedisCacheManager ehCacheManager(){
+    public RedisCacheManager ehCacheManager() {
         RedisCacheManager cacheManager = new RedisCacheManager();
         cacheManager.setRedisManager(redisManager());
         cacheManager.setPrincipalIdFieldName("username");
@@ -333,7 +340,7 @@ public class ShiroConfig {
     }
 
     @Bean
-    public RedisManager redisManager(){
+    public RedisManager redisManager() {
         RedisManager redisManager = new RedisManager();
         redisManager.setHost("127.0.0.1:6379");
         redisManager.setPassword("ruan330357580yuan");
@@ -343,10 +350,11 @@ public class ShiroConfig {
     /**
      * 让某个实例的某个方法的返回值注入为Bean的实例
      * Spring静态注入
+     *
      * @return
      */
     @Bean
-    public MethodInvokingFactoryBean getMethodInvokingFactoryBean(){
+    public MethodInvokingFactoryBean getMethodInvokingFactoryBean() {
         MethodInvokingFactoryBean factoryBean = new MethodInvokingFactoryBean();
         factoryBean.setStaticMethod("org.apache.shiro.SecurityUtils.setSecurityManager");
         factoryBean.setArguments(new Object[]{getSecurityManager()});
@@ -382,7 +390,7 @@ public class ShiroConfig {
      * ==================================退出登录跳转到登录界面 start======================================================
      * 自定义的LogoutFilter 不能交由Spring管理否则会报错
      */
-    public LogoutFilter logoutFilter(){
+    public LogoutFilter logoutFilter() {
         LogoutFilter logoutFilter = new LogoutFilter();
         logoutFilter.setRedirectUrl("/login");
         return logoutFilter;

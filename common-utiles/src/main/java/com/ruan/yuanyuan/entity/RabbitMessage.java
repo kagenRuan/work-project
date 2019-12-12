@@ -11,7 +11,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  * @date 2018/12/119:52
  */
 @TableName("yy_message")
-public class RabbitMessage extends BaseEntity{
+public class RabbitMessage extends BaseEntity {
 
     private static final long serialVersionUID = -8982270966374304312L;
 
@@ -146,7 +146,7 @@ public class RabbitMessage extends BaseEntity{
     }
 
 
-    public Integer addRetryNum(){
-        return getRetryNum()+1;
+    public Integer addRetryNum() {
+        return getRetryNum() + 1;
     }
 }

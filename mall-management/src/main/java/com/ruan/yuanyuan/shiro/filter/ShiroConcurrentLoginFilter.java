@@ -24,11 +24,17 @@ import java.util.LinkedList;
  */
 public class ShiroConcurrentLoginFilter extends AccessControlFilter {
 
-    /** 踢出后到的地址 */
+    /**
+     * 踢出后到的地址
+     */
     private String url;
-    /**  踢出之前登录的/之后登录的用户 默认踢出之前登录的用户 */
+    /**
+     * 踢出之前登录的/之后登录的用户 默认踢出之前登录的用户
+     */
     private boolean userStatus = false;
-    /**  同一个帐号最大会话数 默认1 */
+    /**
+     * 同一个帐号最大会话数 默认1
+     */
     private int maxSession = 1;
     private SessionManager sessionManager;
     private Cache<String, Deque<Serializable>> cache;
@@ -48,7 +54,7 @@ public class ShiroConcurrentLoginFilter extends AccessControlFilter {
     @Override
     protected boolean onAccessDenied(ServletRequest servletRequest, ServletResponse servletResponse) throws Exception {
         Subject subject = getSubject(servletRequest, servletResponse);
-        if(!subject.isAuthenticated() && !subject.isRemembered()) {
+        if (!subject.isAuthenticated() && !subject.isRemembered()) {
             //如果没有登录，直接进行之后的流程
             return true;
         }
@@ -59,19 +65,20 @@ public class ShiroConcurrentLoginFilter extends AccessControlFilter {
         Serializable sessionId = session.getId();
         // 初始化用户的队列放到缓存里
         Deque<Serializable> deque = cache.get(username);
-        if(deque == null) {
+        if (deque == null) {
             deque = new LinkedList<Serializable>();
-            cache.put(username, deque); }
+            cache.put(username, deque);
+        }
         //如果队列里没有此sessionId，且用户没有被踢出；放入队列
-        if(!deque.contains(sessionId) && session.getAttribute("kickout") == null) {
+        if (!deque.contains(sessionId) && session.getAttribute("kickout") == null) {
             deque.push(sessionId);
         }
         //如果队列里的sessionId数超出最大会话数，开始踢人
-        while(deque.size() > maxSession) {
+        while (deque.size() > maxSession) {
             Serializable kickoutSessionId = null;
-            if(userStatus) {
+            if (userStatus) {
                 //如果踢出后者
-                kickoutSessionId=deque.getFirst();
+                kickoutSessionId = deque.getFirst();
                 kickoutSessionId = deque.removeFirst();
             } else {
                 //否则踢出前者
@@ -79,13 +86,13 @@ public class ShiroConcurrentLoginFilter extends AccessControlFilter {
             }
             try {
                 Session kickoutSession = sessionManager.getSession(new DefaultSessionKey(kickoutSessionId));
-                if(kickoutSession != null) {
+                if (kickoutSession != null) {
                     //设置会话的kickout属性表示踢出了
                     kickoutSession.setAttribute("kickout", true);
                 }
             } catch (Exception e) {
                 //ignore exception e.printStackTrace();
-                }
+            }
         }
         //如果被踢出了，直接退出，重定向到踢出后的地址
         if (session.getAttribute("kickout") != null) {

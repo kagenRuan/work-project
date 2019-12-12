@@ -18,7 +18,7 @@ public class RClassPathMapperScanner extends ClassPathScanningCandidateComponent
 
     private static final Logger LOGGER = LoggerFactory.getLogger(RClassPathMapperScanner.class);
 
-    private static void  warn(Supplier<?> supplier){
+    private static void warn(Supplier<?> supplier) {
         LOGGER.warn(JSON.toJSONString(supplier.get()));
     }
 
@@ -40,25 +40,25 @@ public class RClassPathMapperScanner extends ClassPathScanningCandidateComponent
     }
 
 
-    public static  int testBasic(){
-        int i=1;
-        try{
+    public static int testBasic() {
+        int i = 1;
+        try {
             i++;
-            System.out.println("try i="+i);
+            System.out.println("try i=" + i);
             return i;
-        }catch (Exception e){
-            i ++ ;
-            System.out.println("catch i="+i);
+        } catch (Exception e) {
+            i++;
+            System.out.println("catch i=" + i);
             return i;
-        }finally {
-            i =10;
-            System.out.println("finaly i = "+i);
+        } finally {
+            i = 10;
+            System.out.println("finaly i = " + i);
         }
 
     }
 
 
-     static class City{
+    static class City {
 
         public City(String id) {
             this.id = id;
@@ -79,7 +79,7 @@ public class RClassPathMapperScanner extends ClassPathScanningCandidateComponent
 }
 
 @FunctionalInterface
-interface DefaultFunction{
+interface DefaultFunction {
 
     void get();
 

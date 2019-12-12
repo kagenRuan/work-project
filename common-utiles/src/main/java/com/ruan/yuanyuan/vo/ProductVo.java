@@ -4,8 +4,8 @@ import java.math.BigDecimal;
 
 /**
  * @author ryy
- * @Title: 商品vo
  * @version 1.0
+ * @Title: 商品vo
  * @Description: 商品vo
  * @date 2018/12/119:38
  */

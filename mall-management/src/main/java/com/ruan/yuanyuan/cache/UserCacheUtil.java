@@ -25,22 +25,21 @@ import java.util.List;
 public class UserCacheUtil {
 
 
-    public static final String PERMISSION_CACHE_KET="shiro:cache:authorizationCache:";
+    public static final String PERMISSION_CACHE_KET = "shiro:cache:authorizationCache:";
 
-    public static UserVo getUser(){
+    public static UserVo getUser() {
         HashOperations hashOperations = SpringBeanUtil.getBean(HashOperations.class);
         Subject subject = SecurityUtils.getSubject();
-        User user = (User)subject.getPrincipal();
+        User user = (User) subject.getPrincipal();
         UserVo userVo = new UserVo();
-        BeanUtils.copyProperties(user,userVo);
-        Object permissions = hashOperations.get(PERMISSION_CACHE_KET,user.getUsername());
-        if(!ObjectUtils.isEmpty(permissions)){
-            List<PermissionsVo> permissionsVoList = JSON.parseArray(permissions.toString(),PermissionsVo.class);
+        BeanUtils.copyProperties(user, userVo);
+        Object permissions = hashOperations.get(PERMISSION_CACHE_KET, user.getUsername());
+        if (!ObjectUtils.isEmpty(permissions)) {
+            List<PermissionsVo> permissionsVoList = JSON.parseArray(permissions.toString(), PermissionsVo.class);
             userVo.setPermissionsVoList(permissionsVoList);
         }
         return userVo;
     }
-
 
 
 }

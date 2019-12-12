@@ -56,7 +56,7 @@ public class PermissionsDto {
     }
 
     public String getParentId() {
-        return StringUtils.isEmpty(id)?"0":id;
+        return StringUtils.isEmpty(id) ? "0" : id;
     }
 
     public void setParentId(String parentId) {

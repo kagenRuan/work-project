@@ -22,9 +22,9 @@ public class GlobalExceptionHandler {
     private static ResultObject resultObject = new ResultObject();
 
     @ExceptionHandler(value = Exception.class)
-    public ResultObject defaultErrorHandler(Exception exception){
-        if(exception instanceof BusinessException){
-            BusinessException businessException = (BusinessException)exception;
+    public ResultObject defaultErrorHandler(Exception exception) {
+        if (exception instanceof BusinessException) {
+            BusinessException businessException = (BusinessException) exception;
             resultObject.setCode(businessException.getCode());
             resultObject.setMsg(businessException.getMessage());
             return resultObject;

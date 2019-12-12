@@ -17,11 +17,11 @@ import static org.springframework.cloud.netflix.zuul.filters.support.FilterConst
  * @author ceshi
  * @Title: 限流过滤器
  * @Package ${package_name}
- * @Description: 需要放在请求的最前面也就是前置过滤器,请求过来是就需要进入到这个filter
+ * @Description: 需要放在请求的最前面也就是前置过滤器, 请求过来是就需要进入到这个filter
  * @date 2018/12/621:52
  */
 //@Component
-public class RateFilter  extends ZuulFilter{
+public class RateFilter extends ZuulFilter {
     /**
      * 这里使用的是goole guava的令牌通jar包,这里表示每秒创建100个令牌
      */
@@ -34,7 +34,7 @@ public class RateFilter  extends ZuulFilter{
 
     @Override
     public int filterOrder() {
-        return SERVLET_DETECTION_FILTER_ORDER -1;
+        return SERVLET_DETECTION_FILTER_ORDER - 1;
     }
 
     @Override
@@ -44,6 +44,7 @@ public class RateFilter  extends ZuulFilter{
 
     /**
      * 这里的业务逻辑，由于令牌桶的限制，如果没有获得令牌怎返回结果
+     *
      * @return
      * @throws ZuulException
      */
@@ -52,7 +53,7 @@ public class RateFilter  extends ZuulFilter{
         RequestContext requestContext = RequestContext.getCurrentContext();
         HttpServletResponse response = requestContext.getResponse();
         ResponseVo responseVo = new ResponseVo();
-        if(!rateLimiter.tryAcquire()){
+        if (!rateLimiter.tryAcquire()) {
             requestContext.setSendZuulResponse(false);
             response.setCharacterEncoding("UTF-8");
             requestContext.setResponse(response);

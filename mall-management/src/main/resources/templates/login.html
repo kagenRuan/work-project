@@ -16,13 +16,15 @@
                 <div class="layui-form-item layui-col-md6">
                     <label class="layui-form-label">用户名：</label>
                     <div class="layui-input-block">
-                        <input type="text" id="username" name="username" required placeholder="请输入用户名" class="layui-input">
+                        <input type="text" id="username" name="username" required placeholder="请输入用户名"
+                               class="layui-input">
                     </div>
                 </div>
                 <div class="layui-form-item layui-col-md6">
                     <label class="layui-form-label">密&nbsp;&nbsp;&nbsp;&nbsp;码：</label>
                     <div class="layui-input-block">
-                        <input type="password" id="password" name="password" required  placeholder="请输入密码" class="layui-input">
+                        <input type="password" id="password" name="password" required placeholder="请输入密码"
+                               class="layui-input">
                     </div>
                 </div>
 
@@ -40,9 +42,9 @@
     /**
      * 跳转注册
      */
-   function registered() {
+    function registered() {
         layer.msg('注册页面');
-   }
+    }
 
     /**
      * 提交注册信息
@@ -53,14 +55,14 @@
             url: "login",
             contentType: "application/json; charset=utf-8",
             dataType: "json",
-            data:JSON.stringify({
+            data: JSON.stringify({
                 "username": $("#username").val(),
                 "password": $("#password").val()
             }),
             success: function (data) {
-                if(data.code === 0){
-                    window.location.href="/index";
-                }else{
+                if (data.code === 0) {
+                    window.location.href = "/index";
+                } else {
                     layer.msg(data.msg);
                 }
             }

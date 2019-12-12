@@ -7,11 +7,11 @@ package com.ruan.yuanyuan.mesage.enums;
  * version:
  * Description: 队列交换机类型
  */
-public enum  RabbitMqExchangeTypeEnum {
+public enum RabbitMqExchangeTypeEnum {
 
 
-    DIRECT("DIRECT","direct"),
-    TOPIC("TOPIC","topic"),
+    DIRECT("DIRECT", "direct"),
+    TOPIC("TOPIC", "topic"),
 
     ;
 

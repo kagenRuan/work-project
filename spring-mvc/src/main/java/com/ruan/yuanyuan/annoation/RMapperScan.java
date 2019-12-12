@@ -9,7 +9,7 @@ import java.lang.annotation.*;
  * @version:1.0
  * @Description: 主要用于扫描mapper
  */
-@Target({ElementType.TYPE,ElementType.METHOD}) //注解用于类和方法上面
+@Target({ElementType.TYPE, ElementType.METHOD}) //注解用于类和方法上面
 @Retention(RetentionPolicy.RUNTIME) //运行时使用
 @Documented
 public @interface RMapperScan {

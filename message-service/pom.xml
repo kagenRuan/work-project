@@ -64,9 +64,9 @@
         <!--redis end-->
 
         <!--<dependency>-->
-            <!--<groupId>mysql</groupId>-->
-            <!--<artifactId>mysql-connector-java</artifactId>-->
-            <!--<scope>${mysql.version}</scope>-->
+        <!--<groupId>mysql</groupId>-->
+        <!--<artifactId>mysql-connector-java</artifactId>-->
+        <!--<scope>${mysql.version}</scope>-->
         <!--</dependency>-->
 
         <dependency>

@@ -18,41 +18,42 @@ public class TestProjectApplicationTests {
 
     /**
      * 并发工具countDownLatch使用,多线程处理集合数据
+     *
      * @throws InterruptedException
      */
     @Test
     public void countDownLatch() throws InterruptedException {
         final int pageSize = 300;
         List<String> list = new CopyOnWriteArrayList();
-        for(int i=0;i<1000;i++){
-            list.add(i+"");
+        for (int i = 0; i < 1000; i++) {
+            list.add(i + "");
         }
 
-        int threadNum = list.size() % pageSize == 0 ? list.size() / pageSize:(list.size() / pageSize)+1;
+        int threadNum = list.size() % pageSize == 0 ? list.size() / pageSize : (list.size() / pageSize) + 1;
         CountDownLatch countDownLatch = new CountDownLatch(threadNum);
-        for(int i=0;i<threadNum;i++){
+        for (int i = 0; i < threadNum; i++) {
             int startIndex = i;
-            int endIndex = (i+1) * pageSize >= list.size()?list.size():(i+1)*pageSize;
-            new Thread(()->{
-                List<String> result = this.getList(list,startIndex*pageSize,endIndex);
+            int endIndex = (i + 1) * pageSize >= list.size() ? list.size() : (i + 1) * pageSize;
+            new Thread(() -> {
+                List<String> result = this.getList(list, startIndex * pageSize, endIndex);
                 countDownLatch.countDown();
                 set.addAll(result);
-            },i+"").start();
+            }, i + "").start();
         }
-        try{
+        try {
             countDownLatch.await();
-            System.out.println("处理后的数据长度："+set.size());
+            System.out.println("处理后的数据长度：" + set.size());
             System.out.println(set);
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    public List<String> getList(List<String> sources,int startIndex,int endIndex){
-        System.out.println("第"+Thread.currentThread().getName()+"个线程：startIndex:"+startIndex+"endIndex:"+endIndex);
+    public List<String> getList(List<String> sources, int startIndex, int endIndex) {
+        System.out.println("第" + Thread.currentThread().getName() + "个线程：startIndex:" + startIndex + "endIndex:" + endIndex);
         List<String> list = new ArrayList<>();
-        if(!ObjectUtils.isEmpty(sources)){
-            for(int i=startIndex;i<endIndex;i++){
+        if (!ObjectUtils.isEmpty(sources)) {
+            for (int i = startIndex; i < endIndex; i++) {
                 list.add(sources.get(i));
             }
             set.addAll(list);
@@ -69,12 +70,12 @@ public class TestProjectApplicationTests {
 //        Map<String,String> map = new HashMap<>();
 //        List list = new ArrayList();
 
-        System.out.println(1*0.76);
-        System.out.println(32*0.75);
+        System.out.println(1 * 0.76);
+        System.out.println(32 * 0.75);
     }
 
     @Test
-    public void testBit(){
+    public void testBit() {
         /**
          * TODO 二进制最简单计算
          * 举例：求 int a = 12的二进制，求二进制也就是要除2取余
@@ -84,7 +85,7 @@ public class TestProjectApplicationTests {
          * 1/2=0   余1  1除2等于0   余1 反推2*0+1=1
          *                   二级制=1100   余数反写
          */
-        int a =12;
+        int a = 12;
         //12/2=6 0
         //6/2=3 0
         //3/2=1 1
@@ -92,10 +93,6 @@ public class TestProjectApplicationTests {
 //        System.out.println(Integer.parseInt("1010",2));
 
     }
-
-
-
-
 
 
 }

@@ -14,13 +14,13 @@ public class TestCountDownLatch {
         testCountDownLatch.TestCountDownLatch2();
     }
 
-    public void TestCountDownLatch2(){
+    public void TestCountDownLatch2() {
         CountDownLatch countDownLatch = new CountDownLatch(6);
         try {
-            for(int i=1;i<7;i++){
+            for (int i = 1; i < 7; i++) {
                 Integer index = i;
-                new Thread(()->{
-                    System.out.println("#######"+CityEnum.getNameByNum(index).getName()+"被灭#########");
+                new Thread(() -> {
+                    System.out.println("#######" + CityEnum.getNameByNum(index).getName() + "被灭#########");
                     countDownLatch.countDown();
                 }).start();
             }
@@ -32,13 +32,13 @@ public class TestCountDownLatch {
     }
 
 
-    public void TestCountDownLatch1(){
+    public void TestCountDownLatch1() {
         CountDownLatch countDownLatch = new CountDownLatch(6);
         try {
-            for(int i=0;i<6;i++){
+            for (int i = 0; i < 6; i++) {
                 String index = String.valueOf(i);
-                new Thread(()->{
-                    System.out.println("########执行"+index+"次#########");
+                new Thread(() -> {
+                    System.out.println("########执行" + index + "次#########");
                     countDownLatch.countDown();
                 }).start();
             }

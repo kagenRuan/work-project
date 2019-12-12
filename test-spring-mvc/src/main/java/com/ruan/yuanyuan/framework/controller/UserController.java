@@ -26,10 +26,10 @@ public class UserController {
 
 
     @RRequestMapping("/login")
-    public void login(@RRequestParam("name") String name, @RRequestParam("age") String age,HttpServletRequest request, HttpServletResponse response){
+    public void login(@RRequestParam("name") String name, @RRequestParam("age") String age, HttpServletRequest request, HttpServletResponse response) {
 
         try {
-            response.getWriter().write("获取的参数名称name的值为："+name+";age="+age);
+            response.getWriter().write("获取的参数名称name的值为：" + name + ";age=" + age);
         } catch (IOException e) {
             e.printStackTrace();
         }

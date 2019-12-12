@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.Headers;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.stereotype.Component;
+
 import java.io.IOException;
 import java.util.Map;
 
@@ -30,32 +31,33 @@ public class OrderMessageConsumer {
 
     /**
      * 订单消息消费方法
+     *
      * @param orderMessageVo 接收到的消息体
-     * @param channel 通道
-     * @param headers 消息header
+     * @param channel        通道
+     * @param headers        消息header
      * @throws IOException
      * @Description TODO 监听到消息时需要根据消息ID到数据库查询消息，主要是做消息的幂等也就是消息的重复消费
-     *                   同时还需要将消息的状态改为消费成功MessageStatusEnum枚举中
+     * 同时还需要将消息的状态改为消费成功MessageStatusEnum枚举中
      */
-    @RabbitListener(bindings = { @QueueBinding(
-            value =@Queue(value = "${order.rabbitmq.queue.name}",durable = "${order.rabbitmq.queue.durable}"),
-            exchange = @Exchange(value = "${order.rabbitmq.exchange.name}",durable = "${order.rabbitmq.exchange.durable}",ignoreDeclarationExceptions = "${order.rabbitmq.exchange.ignoreDeclarationExceptions}"),
+    @RabbitListener(bindings = {@QueueBinding(
+            value = @Queue(value = "${order.rabbitmq.queue.name}", durable = "${order.rabbitmq.queue.durable}"),
+            exchange = @Exchange(value = "${order.rabbitmq.exchange.name}", durable = "${order.rabbitmq.exchange.durable}", ignoreDeclarationExceptions = "${order.rabbitmq.exchange.ignoreDeclarationExceptions}"),
             key = "${order.rabbitmq.routing.key}"
     )
     })
     @RabbitHandler
-    public void onOrderMessage(@Payload OrderMessageVo orderMessageVo, Channel channel, @Headers Map<String,Object> headers) throws IOException {
+    public void onOrderMessage(@Payload OrderMessageVo orderMessageVo, Channel channel, @Headers Map<String, Object> headers) throws IOException {
         logger.info("<<<<<<<<OrderMessageConsumer#onOrderMessage>>>>>>>>订单消息消费方法 orderMessage:{}", JSON.toJSONString(orderMessageVo));
-        Long deliveryTag =  (Long) headers.get(AmqpHeaders.DELIVERY_TAG);
-        try{
+        Long deliveryTag = (Long) headers.get(AmqpHeaders.DELIVERY_TAG);
+        try {
 
             /**
              * 手动ACK
              * deliveryTag:该消息的index
              * multiple：是否批量.true:将一次性拒绝所有小于deliveryTag的消息。
              */
-            channel.basicAck(deliveryTag,false);
-        }catch (Exception e){
+            channel.basicAck(deliveryTag, false);
+        } catch (Exception e) {
             e.printStackTrace();
             /**
              * 出现异常将消息重新放回mq中，不要将消息重新放在队列的头部，一定要放在尾部防止出现死循环
@@ -63,7 +65,7 @@ public class OrderMessageConsumer {
              * b:是否批量. true：将一次性拒绝所有小于deliveryTag的消息
              * b1:是否重回队列。true将消息放入队列false废弃
              */
-            channel.basicNack(deliveryTag,false,true);
+            channel.basicNack(deliveryTag, false, true);
         }
 
     }

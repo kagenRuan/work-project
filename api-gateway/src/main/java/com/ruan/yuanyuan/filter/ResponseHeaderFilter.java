@@ -13,7 +13,7 @@ import static org.springframework.cloud.netflix.zuul.filters.support.FilterConst
 
 /**
  * @author RYY
- * @Title:  请求后处理(后置过滤器)
+ * @Title: 请求后处理(后置过滤器)
  * @Package com.ryy.zuul.filter
  * @Description: TODO 主要是用于在请求之后做逻辑处理,比如可以是在登录成功后返回token
  * @date 2018/12/621:41
@@ -29,7 +29,7 @@ public class ResponseHeaderFilter extends ZuulFilter {
 
     @Override
     public int filterOrder() {
-        return SEND_RESPONSE_FILTER_ORDER -1 ;
+        return SEND_RESPONSE_FILTER_ORDER - 1;
     }
 
     @Override

@@ -9,16 +9,16 @@
 
     <insert id="add">
         INSERT INTO yy_order_detail(id_product,id_order,name,num,price,total_price,create_time,is_valid)VALUES
-        <foreach collection="orderDetails" item="item" index= "index" separator =",">
+        <foreach collection="orderDetails" item="item" index="index" separator=",">
             (
-             #{item.idProduct},
-             #{item.idOrder},
-             #{item.name},
-             #{item.num},
-             #{item.price},
-             #{item.totalPrice},
-             #{item.createTime},
-             #{item.isValid}
+            #{item.idProduct},
+            #{item.idOrder},
+            #{item.name},
+            #{item.num},
+            #{item.price},
+            #{item.totalPrice},
+            #{item.createTime},
+            #{item.isValid}
             )
         </foreach>
     </insert>

@@ -8,6 +8,7 @@ import java.time.temporal.ChronoField;
 import java.time.temporal.TemporalField;
 import java.time.temporal.WeekFields;
 import java.util.*;
+
 /**
  * User: ruanyuanyuan
  * Date: 2019-09-20
@@ -17,19 +18,20 @@ import java.util.*;
  */
 public class DateUtil {
 
-    public static  final String YYYY_MM_DD="yyyy/MM/dd";
+    public static final String YYYY_MM_DD = "yyyy/MM/dd";
 
     /**
      * 推算汇报日期
-     * @param start 周报开始时间
-     * @param end   周报结束时间
+     *
+     * @param start  周报开始时间
+     * @param end    周报结束时间
      * @param report 汇报时间
      * @return
      */
-    public static LocalDate getDate(LocalDate start,LocalDate end,int report){
-        while (start.isBefore(end) || start.compareTo(end) == 0){
-           int week = start.getDayOfWeek().getValue();
-            if(week == report){
+    public static LocalDate getDate(LocalDate start, LocalDate end, int report) {
+        while (start.isBefore(end) || start.compareTo(end) == 0) {
+            int week = start.getDayOfWeek().getValue();
+            if (week == report) {
                 return start;
             }
             start = start.plusDays(1);
@@ -40,7 +42,7 @@ public class DateUtil {
     /**
      * 获取本周第一天
      */
-    public static LocalDate getCurrentDate(){
+    public static LocalDate getCurrentDate() {
         LocalDate now = LocalDate.now();
         TemporalField fieldISO = WeekFields.of(Locale.FRANCE).dayOfWeek();
         LocalDate current = now.with(fieldISO, 1);
@@ -49,18 +51,19 @@ public class DateUtil {
 
     /**
      * 时间转String
-     * @param date 时间
+     *
+     * @param date  时间
      * @param prent 格式
      * @return String
      */
-    public static String getLocalDateStr(LocalDate date,String prent){
+    public static String getLocalDateStr(LocalDate date, String prent) {
         return date.format(DateTimeFormatter.ofPattern(prent));
     }
 
     /**
-     * @param date  Date时间转换为LocalDate
+     * @param date Date时间转换为LocalDate
      */
-    public static LocalDate getLocalDate(Date date){
+    public static LocalDate getLocalDate(Date date) {
         Instant instant = date.toInstant();
         ZoneId zone = ZoneId.systemDefault();
         LocalDateTime localDateTime = LocalDateTime.ofInstant(instant, zone);
@@ -70,50 +73,54 @@ public class DateUtil {
 
     /**
      * 时间转换LocalDate
-     * @param date 时间
+     *
+     * @param date  时间
      * @param prent 格式
      * @return
      */
-    public static LocalDate strToLocalDate(String date,String prent){
-        if(StringUtils.isEmpty(prent)){
-          return LocalDate.parse(date);
+    public static LocalDate strToLocalDate(String date, String prent) {
+        if (StringUtils.isEmpty(prent)) {
+            return LocalDate.parse(date);
         }
-        return LocalDate.parse(date,DateTimeFormatter.ofPattern(prent));
+        return LocalDate.parse(date, DateTimeFormatter.ofPattern(prent));
     }
 
     /**
      * 根据时间加减天数
+     *
      * @param date 时间
      * @param num  天数
      */
-    public static String getPlusDays(LocalDate date,int num){
+    public static String getPlusDays(LocalDate date, int num) {
         LocalDate _date = date.plusDays(num);
         return getLocalDateStr(_date, DateUtil.YYYY_MM_DD);
     }
 
-   /**
+    /**
      * 获取星期中的指定周几
-     * @param date 时间
+     *
+     * @param date      时间
      * @param dayOfWeek 周几枚举
      * @return
      */
-    public static LocalDate getDayWithNum(LocalDate date, DayOfWeek dayOfWeek){
-       return date.with(ChronoField.DAY_OF_WEEK, dayOfWeek.getValue());
+    public static LocalDate getDayWithNum(LocalDate date, DayOfWeek dayOfWeek) {
+        return date.with(ChronoField.DAY_OF_WEEK, dayOfWeek.getValue());
     }
 
     /**
-     * select subdate(curdate(),date_format(curdate(),'%w')-1)//获取当前日期在本周的周一 
-     * select subdate(curdate(),date_format(curdate(),'%w')-2)//获取当前日期在本周的周二 
-     * select subdate(curdate(),date_format(curdate(),'%w')-7)//获取当前日期在本周的周日 
-     * %W 星期名字(Sunday……Saturday)    
+     * select subdate(curdate(),date_format(curdate(),'%w')-1)//获取当前日期在本周的周一
+     * select subdate(curdate(),date_format(curdate(),'%w')-2)//获取当前日期在本周的周二
+     * select subdate(curdate(),date_format(curdate(),'%w')-7)//获取当前日期在本周的周日
+     * %W 星期名字(Sunday……Saturday)
      * %w 一个星期中的天数(0=Sunday   ……6=Saturday）
-     * 
+     * <p>
      * 获取星期中的指定周几
-     * @param date 时间
+     *
+     * @param date     时间
      * @param weekName 周几英文名称
      * @return
      */
-    public static LocalDate getDayWithNum(LocalDate date,String weekName){
-        return date.with(ChronoField.DAY_OF_WEEK,DayOfWeek.valueOf(weekName).getValue());
+    public static LocalDate getDayWithNum(LocalDate date, String weekName) {
+        return date.with(ChronoField.DAY_OF_WEEK, DayOfWeek.valueOf(weekName).getValue());
     }
 }

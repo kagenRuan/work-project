@@ -56,12 +56,12 @@ public class DelMessageConfig {
      * 声明死信队列
      */
     @Bean
-    public Queue orderPayDeadLetterQueue(){
-        Map<String,Object> maps = new HashMap<>(2);
-        maps.put("x-dead-letter-exchange",TDL_ORDER_PAY_DEAD_LETTER_CONSUMER_EXCHANGE);
-        maps.put("x-dead-letter-routing-key",TDL_ORDER_PAY_DEAD_LETTER_CONSUMER_ROUTING_KEY);
-        maps.put("x-message-ttl",50000);
-        return new Queue(TDL_ORDER_PAY_DEAD_LETTER_PROVIDER_QUEUE,true,false,false,maps);
+    public Queue orderPayDeadLetterQueue() {
+        Map<String, Object> maps = new HashMap<>(2);
+        maps.put("x-dead-letter-exchange", TDL_ORDER_PAY_DEAD_LETTER_CONSUMER_EXCHANGE);
+        maps.put("x-dead-letter-routing-key", TDL_ORDER_PAY_DEAD_LETTER_CONSUMER_ROUTING_KEY);
+        maps.put("x-message-ttl", 50000);
+        return new Queue(TDL_ORDER_PAY_DEAD_LETTER_PROVIDER_QUEUE, true, false, false, maps);
     }
 
 
@@ -69,16 +69,6 @@ public class DelMessageConfig {
     private Binding bindingOrderDirect() {
         return BindingBuilder.bind(orderPayDeadLetterQueue()).to(orderPayDeadLetterDirectExchange()).with(TDL_ORDER_PAY_DEAD_LETTER_PROVIDER_ROUTING_KEY);
     }
-
-
-
-
-
-
-
-
-
-
 
 
 }

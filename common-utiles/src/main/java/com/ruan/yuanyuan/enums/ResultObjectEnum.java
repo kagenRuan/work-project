@@ -7,9 +7,9 @@ package com.ruan.yuanyuan.enums;
  */
 public enum ResultObjectEnum {
 
-    SUCCESS("SUCCESS",0),
-    FAIL("FAIL",1),
-    NOT_TOKEN("NOT_TOKEN",401),
+    SUCCESS("SUCCESS", 0),
+    FAIL("FAIL", 1),
+    NOT_TOKEN("NOT_TOKEN", 401),
     ;
 
     ResultObjectEnum(String name, Integer code) {
@@ -18,7 +18,7 @@ public enum ResultObjectEnum {
     }
 
     private String name;
-    private  Integer code;
+    private Integer code;
 
     public String getName() {
         return name;

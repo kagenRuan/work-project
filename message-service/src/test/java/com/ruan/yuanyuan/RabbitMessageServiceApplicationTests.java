@@ -32,18 +32,18 @@ public class RabbitMessageServiceApplicationTests {
     @Test
     public void test() throws SQLException {
         List<RabbitMessage> rabbitMessageList = new ArrayList<>();
-        for(int i=101320;i<1000000;i++){
+        for (int i = 101320; i < 1000000; i++) {
             RabbitMessage message = new RabbitMessage();
             message.setStatus("1");
             message.setExchange(RabbitMqExchangeEnum.ORDER_PAY_EXCHANGE.code);
             message.setRoutingKey(RabbitMqRoutingKeyEnum.ORDER_PAY_ROUTING_KEY.code);
             message.setQueueNme(RabbitMqQueueEnum.ORDER_PAY_QUEUE.code);
-            message.setMessageId(i+"");
+            message.setMessageId(i + "");
             message.setRetryNum(i);
-            message.setBody(i+"");
+            message.setBody(i + "");
             message.setMessageType("OTHER");
             rabbitMessageList.add(message);
-            if(rabbitMessageList.size() > 10000){
+            if (rabbitMessageList.size() > 10000) {
                 messageService.saveBatch(rabbitMessageList);
                 rabbitMessageList.clear();
             }
@@ -52,9 +52,8 @@ public class RabbitMessageServiceApplicationTests {
     }
 
 
-
     @Test
-    public void testAnnotationConfig(){
+    public void testAnnotationConfig() {
         AnnotationConfigApplicationContext configApplicationContext = new AnnotationConfigApplicationContext(RabbitMqConfig.class);
     }
 

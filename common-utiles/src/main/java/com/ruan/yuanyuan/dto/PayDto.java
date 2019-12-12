@@ -2,6 +2,7 @@ package com.ruan.yuanyuan.dto;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+
 /**
  * 支付DTO
  */

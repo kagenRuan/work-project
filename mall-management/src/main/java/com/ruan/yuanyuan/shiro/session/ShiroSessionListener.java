@@ -23,6 +23,7 @@ public class ShiroSessionListener implements SessionListener {
 
     /**
      * 会话创建时触发
+     *
      * @param session
      */
     @Override
@@ -33,6 +34,7 @@ public class ShiroSessionListener implements SessionListener {
 
     /**
      * 退出会话时触发
+     *
      * @param session
      */
     @Override
@@ -43,6 +45,7 @@ public class ShiroSessionListener implements SessionListener {
 
     /**
      * 会话过期时触发
+     *
      * @param session
      */
     @Override
@@ -54,6 +57,7 @@ public class ShiroSessionListener implements SessionListener {
 
     /**
      * 获取在线人数使用
+     *
      * @return
      */
     public AtomicInteger getSessionCount() {

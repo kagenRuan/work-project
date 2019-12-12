@@ -1,28 +1,28 @@
 <!DOCTYPE web-app PUBLIC
- "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
- "http://java.sun.com/dtd/web-app_2_3.dtd" >
+        "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
+        "http://java.sun.com/dtd/web-app_2_3.dtd" >
 
 <web-app>
 
-  <display-name>Archetype Created Web Application</display-name>
-  <!--
-    配置手写的DispatcherServlet 与springMvc的DispatcherServlet一样的原理
-    load-on-startup:这个值越小该类越先启动
-  -->
-  <servlet>
-    <servlet-name>RSpringMvc</servlet-name>
-    <servlet-class>com.ruan.yuanyuan.framework.servlet.RDispatcherServlet</servlet-class>
-    <init-param>
-      <param-name>contextConfigLocation</param-name>
-      <param-value>classpath*:application-web.properties</param-value>
-    </init-param>
-    <load-on-startup>1</load-on-startup>
-  </servlet>
-  
-  <servlet-mapping>
-    <servlet-name>RSpringMvc</servlet-name>
-    <url-pattern>/*</url-pattern>
-  </servlet-mapping>
+    <display-name>Archetype Created Web Application</display-name>
+    <!--
+      配置手写的DispatcherServlet 与springMvc的DispatcherServlet一样的原理
+      load-on-startup:这个值越小该类越先启动
+    -->
+    <servlet>
+        <servlet-name>RSpringMvc</servlet-name>
+        <servlet-class>com.ruan.yuanyuan.framework.servlet.RDispatcherServlet</servlet-class>
+        <init-param>
+            <param-name>contextConfigLocation</param-name>
+            <param-value>classpath*:application-web.properties</param-value>
+        </init-param>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>RSpringMvc</servlet-name>
+        <url-pattern>/*</url-pattern>
+    </servlet-mapping>
 
 
 </web-app>

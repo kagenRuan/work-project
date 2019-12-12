@@ -21,6 +21,7 @@ public interface PermissionsMapper extends BaseMapper<Permissions> {
 
     /**
      * 查询资源
+     *
      * @param id
      * @return
      */
@@ -28,24 +29,28 @@ public interface PermissionsMapper extends BaseMapper<Permissions> {
 
     /**
      * 查询所有的资源
+     *
      * @return
      */
     List<Permissions> findAll();
 
     /**
      * 删除资源
+     *
      * @param id
      */
     void deletePermissionsById(String id);
 
     /**
      * 添加资源
+     *
      * @param permissionsDto
      */
     void add(@Param("permissions") PermissionsDto permissionsDto);
 
     /**
      * 根据父id查询资源
+     *
      * @param parentId 父id
      * @return
      */
@@ -53,6 +58,7 @@ public interface PermissionsMapper extends BaseMapper<Permissions> {
 
     /**
      * 根据用户id查询用户的资源
+     *
      * @param userId
      * @return
      */
@@ -60,6 +66,7 @@ public interface PermissionsMapper extends BaseMapper<Permissions> {
 
     /**
      * 根据角色查询权限
+     *
      * @param roles
      * @return
      */

@@ -16,6 +16,7 @@ public interface IMessageService extends IService<RabbitMessage> {
 
     /**
      * 根据消息ID查询消息
+     *
      * @param messageId 消息ID
      * @return
      */
@@ -23,18 +24,21 @@ public interface IMessageService extends IService<RabbitMessage> {
 
     /**
      * 插入消息
+     *
      * @param rabbitMessage 消息实体
      */
     boolean insert(RabbitMessage rabbitMessage);
 
     /**
      * 根据消息ID修改消息
+     *
      * @param rabbitMessage 消息
      */
     boolean updateById(RabbitMessage rabbitMessage);
 
     /**
      * 查询所有的消息数据
+     *
      * @return
      */
     List<RabbitMessage> findAll();

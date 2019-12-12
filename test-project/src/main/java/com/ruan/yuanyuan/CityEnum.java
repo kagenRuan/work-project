@@ -4,12 +4,12 @@ import java.util.Arrays;
 
 public enum CityEnum {
 
-    ONE(1,"成都"),
-    TWO(2,"遂宁"),
-    THREE(3,"巴中"),
-    FORE(4,"简阳"),
-    FIVE(5,"德阳"),
-    SIX(6,"重庆"),
+    ONE(1, "成都"),
+    TWO(2, "遂宁"),
+    THREE(3, "巴中"),
+    FORE(4, "简阳"),
+    FIVE(5, "德阳"),
+    SIX(6, "重庆"),
     ;
 
     CityEnum(Integer num, String name) {
@@ -36,8 +36,8 @@ public enum CityEnum {
         this.name = name;
     }
 
-    public static CityEnum getNameByNum(int num){
+    public static CityEnum getNameByNum(int num) {
         CityEnum[] cityEnums = CityEnum.values();
-        return Arrays.stream(cityEnums).filter(obj ->obj.getNum() == num).findFirst().get();
+        return Arrays.stream(cityEnums).filter(obj -> obj.getNum() == num).findFirst().get();
     }
 }

@@ -91,7 +91,7 @@ public class UserDto implements Serializable {
     }
 
     public String getStatus() {
-        return StringUtils.isEmpty(status)?"0":status;
+        return StringUtils.isEmpty(status) ? "0" : status;
     }
 
     public void setStatus(String status) {

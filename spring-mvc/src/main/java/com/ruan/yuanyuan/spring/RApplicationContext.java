@@ -22,9 +22,13 @@ public class RApplicationContext {
     private RDefaultListableBeanFactory rDefaultListableBeanFactory = new RDefaultListableBeanFactory();
 
 
-    /** 事件监听器 */
+    /**
+     * 事件监听器
+     */
     private Set<ApplicationListener<?>> earlyApplicationListeners;
-    /** 事件派发器*/
+    /**
+     * 事件派发器
+     */
     private Set<ApplicationEvent> earlyApplicationEvents;
 
 
@@ -38,31 +42,33 @@ public class RApplicationContext {
 
     /**
      * 扫描注解配置文件，将配置文件的Bean的定义信息放入到BeanDefinitionMap容器中
+     *
      * @param annotatedClasses 配置文件
      */
-    private void register(Class<?>... annotatedClasses){
-        for (Class<?> annotatedClass:annotatedClasses){
+    private void register(Class<?>... annotatedClasses) {
+        for (Class<?> annotatedClass : annotatedClasses) {
             registerBeanDefinition(annotatedClass);
         }
     }
 
     /**
      * 直接注册Bean的定义信息到容器中
+     *
      * @param annotatedClass
      */
-    private void  registerBeanDefinition(Class<?> annotatedClass){
+    private void registerBeanDefinition(Class<?> annotatedClass) {
         String beanName = StringUtils.loverFirstChar(annotatedClass.getSimpleName());
         RBeanDefinition beanDefinition = new RBeanDefinition();
         beanDefinition.setBeanClass(annotatedClass);
         beanDefinition.setName(StringUtils.loverFirstChar(annotatedClass.getSimpleName()));
-        rDefaultListableBeanFactory.registerBeanDefinition(beanName,beanDefinition);
+        rDefaultListableBeanFactory.registerBeanDefinition(beanName, beanDefinition);
     }
 
 
     /**
      * 初始化IOC容器
      */
-    private void  refresh(){
+    private void refresh() {
         /**
          * 准备刷新上下文，初始化事件监听器和事件派发器
          */
@@ -80,23 +86,23 @@ public class RApplicationContext {
     }
 
 
-    private  void  prepareRefresh(){
+    private void prepareRefresh() {
         earlyApplicationListeners = new LinkedHashSet<>();
         earlyApplicationEvents = new LinkedHashSet<>();
     }
 
-    private RDefaultListableBeanFactory obtainFreshBeanFactory(){
+    private RDefaultListableBeanFactory obtainFreshBeanFactory() {
         rDefaultListableBeanFactory.setSerializationId(UUID.randomUUID().toString());
         return rDefaultListableBeanFactory;
     }
 
 
-    private void finishBeanFactoryInitialization(RDefaultListableBeanFactory rDefaultListableBeanFactory){
+    private void finishBeanFactoryInitialization(RDefaultListableBeanFactory rDefaultListableBeanFactory) {
         rDefaultListableBeanFactory.preInstantiateSingletons();
     }
 
 
-    public Object getBean(String name){
+    public Object getBean(String name) {
         Object obj = rDefaultListableBeanFactory.getBean(name);
         return obj;
     }

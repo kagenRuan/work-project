@@ -11,7 +11,7 @@ import com.baomidou.mybatisplus.annotation.TableName;
  * Description:灰度发布
  */
 @TableName("yy_gray_release_config")
-public class GrayReleaseConfig  extends BaseEntity{
+public class GrayReleaseConfig extends BaseEntity {
 
     /**
      * 服务ID

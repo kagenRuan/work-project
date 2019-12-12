@@ -9,9 +9,8 @@ package com.ruan.yuanyuan.enums;
  */
 public enum UserTypeEnum {
 
-    ADMIN(1,"管理员"),
-    USER(2,"普通用户")
-    ;
+    ADMIN(1, "管理员"),
+    USER(2, "普通用户");
 
     private Integer code;
     private String message;
@@ -35,4 +34,5 @@ public enum UserTypeEnum {
 
     public void setMessage(String message) {
         this.message = message;
-    }}
+    }
+}

@@ -24,7 +24,7 @@
 
     <!--添加-->
     <div id="add_role" style="display: none">
-        <form class="layui-form" id="add_role_form"  method="post">
+        <form class="layui-form" id="add_role_form" method="post">
             <div class="layui-form-item layui-col-md8">
                 <label class="layui-form-label">商品名称：</label>
                 <div class="layui-input-block">
@@ -36,27 +36,27 @@
 </div>
 <script>
     //JavaScript代码区域
-    layui.use(['element','table','form'], function(){
+    layui.use(['element', 'table', 'form'], function () {
         var table = layui.table;
-        var form  = layui.form;
+        var form = layui.form;
 
         var tableRoles = table.render({
             elem: '#test'
-            ,url: '/mall/role/findAll/'
-            ,title: '角色信息'
-            ,toolbar: '<div class="layui-table-tool-temp">' +
-                        '<div class="layui-inline" lay-event="add"><i class="layui-icon layui-icon-add-1"></i></div>' +
-                        '<div class="layui-inline" lay-event="delete"><i class="layui-icon layui-icon-delete"></i></div>' +
-                      '</div>'
-            ,cols:
+            , url: '/mall/role/findAll/'
+            , title: '角色信息'
+            , toolbar: '<div class="layui-table-tool-temp">' +
+                '<div class="layui-inline" lay-event="add"><i class="layui-icon layui-icon-add-1"></i></div>' +
+                '<div class="layui-inline" lay-event="delete"><i class="layui-icon layui-icon-delete"></i></div>' +
+                '</div>'
+            , cols:
                 [
                     [
-                        {field:'id', width:80, title: 'ID', sort: true}
-                        ,{field:'name', width:100, title: '角色名称'}
-                        ,{field: 'right', width: 230, align:'center',title:'操作', toolbar: '#barDemo'}
+                        {field: 'id', width: 80, title: 'ID', sort: true}
+                        , {field: 'name', width: 100, title: '角色名称'}
+                        , {field: 'right', width: 230, align: 'center', title: '操作', toolbar: '#barDemo'}
                     ]
                 ]
-            ,parseData: function(res){ //res 即为原始返回的数据
+            , parseData: function (res) { //res 即为原始返回的数据
                 return {
                     "code": res.code, //解析接口状态
                     "msg": res.msg, //解析提示文本
@@ -69,25 +69,25 @@
         /**
          * 添加角色弹窗
          */
-        function addRole(){
+        function addRole() {
             //页面层-自定义
             layer.open({
-                title:"添加角色"
-                ,type: 1
-                ,area: ['400px', '300px']
-                ,shade: 0
-                ,content: $("#add_role")
-                ,btn: ['保存', '关闭']
-                ,yes: function(){
+                title: "添加角色"
+                , type: 1
+                , area: ['400px', '300px']
+                , shade: 0
+                , content: $("#add_role")
+                , btn: ['保存', '关闭']
+                , yes: function () {
                     addRoleInfo();
                 }
-                ,btn2: function(){
+                , btn2: function () {
                     $("#add_role_form")[0].reset();
                     layer.closeAll();
                 }
 
-                ,zIndex: layer.zIndex //重点1
-                ,success: function(layero) {
+                , zIndex: layer.zIndex //重点1
+                , success: function (layero) {
                     layer.setTop(layero); //重点2
                 }
             });
@@ -96,19 +96,19 @@
         /**
          * 添加角色数据
          */
-        function addRoleInfo(){
+        function addRoleInfo() {
             $.ajax({
                 type: "POST",
                 url: "/mall/role/add",
-                data:$("#add_role_form").serialize(),
+                data: $("#add_role_form").serialize(),
                 success: function (data) {
-                    if(data.code === 0){
+                    if (data.code === 0) {
                         layer.msg("添加成功");
                         layer.closeAll();
                         //添加成功后重载数据
                         tableRoles.reload();
                         $("#add_role_form")[0].reset();
-                    }else{
+                    } else {
                         layer.msg(data.msg);
                     }
                 }
@@ -119,17 +119,17 @@
          * 删除角色
          * @param id
          */
-        function deleteRole(id){
-            var param = "?id="+id;
+        function deleteRole(id) {
+            var param = "?id=" + id;
             $.ajax({
                 type: "get",
-                url: "/mall/role/deleteRoleById"+param,
+                url: "/mall/role/deleteRoleById" + param,
                 success: function (data) {
-                    if(data.code === 0){
+                    if (data.code === 0) {
                         layer.msg("删除用户成功");
                         //添加成功后重载数据
                         tableRoles.reload();
-                    }else{
+                    } else {
                         layer.msg(data.msg);
                     }
                 }
@@ -137,17 +137,17 @@
         }
 
 
-        table.on('tool(test)', function(obj){
+        table.on('tool(test)', function (obj) {
             var data = obj.data //获得当前行数据
             var layEvent = obj.event;
-            if(layEvent === 'detail'){
+            if (layEvent === 'detail') {
                 layer.msg('查看操作');
-            } else if(layEvent === 'del'){
-                layer.confirm('真的删除行么', function(index){
+            } else if (layEvent === 'del') {
+                layer.confirm('真的删除行么', function (index) {
                     layer.close(index);
                     deleteRole(data.id);
                 });
-            } else if(layEvent === 'edit'){
+            } else if (layEvent === 'edit') {
                 layer.msg('编辑操作');
             }
         });
@@ -155,10 +155,10 @@
         /**
          * layer 自带工具图标触发事件
          */
-        table.on('toolbar(test)', function(obj){
+        table.on('toolbar(test)', function (obj) {
             var checkStatus = table.checkStatus(obj.config.id)
             var data = checkStatus.data;
-            switch(obj.event){
+            switch (obj.event) {
                 case 'add':
                     addRole();
                     findAllUser();
@@ -179,7 +179,8 @@
                 //         layer.msg('删除');
                 //     }
                 //     break;
-            };
+            }
+            ;
         });
 
 
@@ -191,15 +192,15 @@
                 type: "get",
                 url: "/mall/user/findAll",
                 success: function (data) {
-                    if(data.code === 0){
+                    if (data.code === 0) {
                         var option = "";
-                        for(var i=0;i<data.data.length;i++){
-                            option +="<option value="+data.data[i].id+">"+data.data[i].username+"</option>"
+                        for (var i = 0; i < data.data.length; i++) {
+                            option += "<option value=" + data.data[i].id + ">" + data.data[i].username + "</option>"
                         }
                         $(".select_user").append(option);
                         //这里需要动态刷新select
                         form.render('select');
-                    }else{
+                    } else {
                         layer.msg(data.msg);
                     }
                 }

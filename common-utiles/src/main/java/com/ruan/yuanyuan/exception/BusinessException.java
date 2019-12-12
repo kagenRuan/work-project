@@ -15,14 +15,14 @@ public class BusinessException extends RuntimeException {
     public BusinessException() {
     }
 
-    public BusinessException(Integer code,String message) {
-        this.code=code;
-        this.message=message;
+    public BusinessException(Integer code, String message) {
+        this.code = code;
+        this.message = message;
     }
 
-    public BusinessException(Integer code,String message,String... arg) {
-        this.code=code;
-        this.message=String.format(message,arg);
+    public BusinessException(Integer code, String message, String... arg) {
+        this.code = code;
+        this.message = String.format(message, arg);
     }
 
     public BusinessException(String message) {

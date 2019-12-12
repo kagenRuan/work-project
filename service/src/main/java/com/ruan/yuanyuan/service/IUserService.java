@@ -15,6 +15,7 @@ import java.util.List;
 public interface IUserService {
     /**
      * 根据用户名查询用户信息
+     *
      * @param name 用户名称
      * @return com.ruam.yuanyuan.entity.User
      */
@@ -22,18 +23,21 @@ public interface IUserService {
 
     /**
      * 查询所有的用户信息
+     *
      * @return
      */
     List<User> findAllUser();
 
     /**
      * 添加用户信息
+     *
      * @param userDto
      */
-    void  addUser(UserDto userDto);
+    void addUser(UserDto userDto);
 
     /**
      * 删除用户
+     *
      * @param id
      */
     void deleteUser(String id);

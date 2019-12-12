@@ -11,13 +11,12 @@ import org.springframework.util.StringUtils;
  */
 public enum MessageStatusEnum {
 
-    NOT_DELIVERY("1","消息未投递"),
-    SED_DELIVERY("2","消息投递中"),
-    CAN_DELIVERY("3","消息已投递"),
-    MESSAGE_DELIVERY_FAIL("4","消息投递失败"),
-    ALREADY_MESSAGE("5","消息已消费"),
-    MESSAGE_EXCEPTION("6","消息异常")
-    ;
+    NOT_DELIVERY("1", "消息未投递"),
+    SED_DELIVERY("2", "消息投递中"),
+    CAN_DELIVERY("3", "消息已投递"),
+    MESSAGE_DELIVERY_FAIL("4", "消息投递失败"),
+    ALREADY_MESSAGE("5", "消息已消费"),
+    MESSAGE_EXCEPTION("6", "消息异常");
 
     public String code;
     public String message;
@@ -43,10 +42,10 @@ public enum MessageStatusEnum {
         this.message = message;
     }
 
-    public static MessageStatusEnum getEnum(String name){
-        if(!StringUtils.isEmpty(name)){
-            for(MessageStatusEnum messageStatusEnum:MessageStatusEnum.values()){
-                if(messageStatusEnum.getCode().equals(name)){
+    public static MessageStatusEnum getEnum(String name) {
+        if (!StringUtils.isEmpty(name)) {
+            for (MessageStatusEnum messageStatusEnum : MessageStatusEnum.values()) {
+                if (messageStatusEnum.getCode().equals(name)) {
                     return messageStatusEnum;
                 }
             }

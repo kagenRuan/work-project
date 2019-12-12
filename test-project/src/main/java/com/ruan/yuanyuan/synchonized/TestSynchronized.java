@@ -9,22 +9,19 @@ package com.ruan.yuanyuan.synchonized;
  */
 public class TestSynchronized {
 
-    public void  test1(){
+    public void test1() {
         System.out.println("正常方法");
     }
 
-    public void test2(){
-        synchronized (this){
+    public void test2() {
+        synchronized (this) {
             System.out.println("方法块");
         }
     }
 
-    public synchronized static void test3(){
+    public synchronized static void test3() {
         System.out.println("方法");
     }
-
-
-
 
 
 }

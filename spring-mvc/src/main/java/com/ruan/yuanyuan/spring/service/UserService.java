@@ -10,5 +10,5 @@ package com.ruan.yuanyuan.spring.service;
 public interface UserService {
 
 
-    void  test();
+    void test();
 }

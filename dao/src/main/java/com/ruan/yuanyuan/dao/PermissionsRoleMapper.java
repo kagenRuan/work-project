@@ -16,12 +16,14 @@ public interface PermissionsRoleMapper extends BaseMapper<RealmRoleRef> {
 
     /**
      * 删除资源角色信息
+     *
      * @param id
      */
     void deletePermissionsRoleById(String id);
 
     /**
      * 添加资源与角色关系
+     *
      * @param permissionsId
      * @param permissionsId
      */

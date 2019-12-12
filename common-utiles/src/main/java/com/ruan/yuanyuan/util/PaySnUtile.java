@@ -9,9 +9,9 @@ package com.ruan.yuanyuan.util;
  */
 public class PaySnUtile {
 
-    private static final String PAY_SN ="paysn";
+    private static final String PAY_SN = "paysn";
 
-    public static String getPaySn(){
+    public static String getPaySn() {
         StringBuilder sb = new StringBuilder(PAY_SN);
         Long result = System.currentTimeMillis();
         sb.append(result);

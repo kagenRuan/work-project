@@ -21,7 +21,7 @@ public class ResultObject implements Serializable {
 
     public ResultObject() {
         this.code = ResultObjectEnum.SUCCESS.getCode();
-        this.msg  = ResultObjectEnum.SUCCESS.getName();
+        this.msg = ResultObjectEnum.SUCCESS.getName();
     }
 
     public ResultObject(Object data) {

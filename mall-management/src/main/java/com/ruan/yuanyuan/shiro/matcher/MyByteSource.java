@@ -17,7 +17,7 @@ import java.util.Arrays;
  * version:
  * Description:
  */
-public class MyByteSource implements ByteSource,Serializable {
+public class MyByteSource implements ByteSource, Serializable {
 
     private byte[] bytes;
     private String cachedHex;
@@ -72,7 +72,7 @@ public class MyByteSource implements ByteSource,Serializable {
 
     @Override
     public String toHex() {
-        if ( this.cachedHex == null ) {
+        if (this.cachedHex == null) {
             this.cachedHex = Hex.encodeToString(getBytes());
         }
         return this.cachedHex;
@@ -80,7 +80,7 @@ public class MyByteSource implements ByteSource,Serializable {
 
     @Override
     public String toBase64() {
-        if ( this.cachedBase64 == null ) {
+        if (this.cachedBase64 == null) {
             this.cachedBase64 = Base64.encodeToString(getBytes());
         }
         return this.cachedBase64;

@@ -47,7 +47,7 @@ public class OrderServiceApplicationTests {
     private IZuulApiRouteService service;
 
     @Test
-    public void createOrder() throws Exception{
+    public void createOrder() throws Exception {
         //创建订单
         List<ProductDto> productDtoList = new ArrayList<>();
         ProductDto productDto = new ProductDto();
@@ -68,7 +68,7 @@ public class OrderServiceApplicationTests {
         //模拟调用支付
         Thread.sleep(10000);//10000
         //创建支付订单
-        OrderPay orderPay = orderPayService.create(orderList.stream().map(obj ->obj.getId()).collect(Collectors.toList()));
+        OrderPay orderPay = orderPayService.create(orderList.stream().map(obj -> obj.getId()).collect(Collectors.toList()));
         Thread.sleep(10000);
         CorrelationData correlationData = new CorrelationData();
         correlationData.setId(orderPay.getPaySn());
@@ -90,36 +90,36 @@ public class OrderServiceApplicationTests {
         message.setFiled1(orderPay.getPaySn());
         boolean result = messageService.save(message);
         BusinessAssert.isTrue(result, ExceptionUtil.OrderPayExceptionEnum.ORDER_PAY_FAIL);
-        rabbitMessageProvider.sendMessage(RabbitMqExchangeEnum.ORDER_PAY_EXCHANGE, RabbitMqRoutingKeyEnum.ORDER_PAY_ROUTING_KEY,orderPay,correlationData);
+        rabbitMessageProvider.sendMessage(RabbitMqExchangeEnum.ORDER_PAY_EXCHANGE, RabbitMqRoutingKeyEnum.ORDER_PAY_ROUTING_KEY, orderPay, correlationData);
     }
 
 
     @Test
-    public void testDeadQueue(){
+    public void testDeadQueue() {
         OrderPay orderPay = new OrderPay();
         orderPay.setPaySn("1");
         CorrelationData correlationData = new CorrelationData();
         correlationData.setId("1");
-        rabbitMessageProvider.sendMessage(RabbitMqExchangeEnum.TDL_ORDER_PAY_DEAD_LETTER_PROVIDER_EXCHANGE,RabbitMqRoutingKeyEnum.TDL_ORDER_PAY_DEAD_LETTER_PROVIDER_ROUTING_KEY,orderPay,correlationData);
+        rabbitMessageProvider.sendMessage(RabbitMqExchangeEnum.TDL_ORDER_PAY_DEAD_LETTER_PROVIDER_EXCHANGE, RabbitMqRoutingKeyEnum.TDL_ORDER_PAY_DEAD_LETTER_PROVIDER_ROUTING_KEY, orderPay, correlationData);
     }
 
     @Test
     @Transactional
-    public void testProductPrice(){
+    public void testProductPrice() {
         Product product = productService.getById("1");
         product.setPrice(new BigDecimal(7));
         productService.updateById(product);
         OrderPay orderPay = orderPayService.getById("231f0842c0de23e7d1b749c2ff4fa0fe");
         orderPay.setAmount(new BigDecimal(70));
         orderPayService.updateById(orderPay);
-        BusinessAssert.isTrue(false,ExceptionUtil.ProductExceptionEnum.PRODUCT_NUM_NOT_NULL);
+        BusinessAssert.isTrue(false, ExceptionUtil.ProductExceptionEnum.PRODUCT_NUM_NOT_NULL);
         QueryWrapper queryWrapper = new QueryWrapper();
         List<ZuulApiRoute> list = service.list(queryWrapper);
     }
 
 
     @Test
-    public void testBigDecimal(){
+    public void testBigDecimal() {
 //        List<Order> list = new ArrayList<>();
 //        Order order = new Order();
 //        order.setAmount(new BigDecimal(1.2));
@@ -133,8 +133,6 @@ public class OrderServiceApplicationTests {
         BigDecimal amount = list.stream().collect(CollectorsUtil.summingBigDecimal(x -> x));
         System.out.println(amount);
     }
-
-
 
 
 }

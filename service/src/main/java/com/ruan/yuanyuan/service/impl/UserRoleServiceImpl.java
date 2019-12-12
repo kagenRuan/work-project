@@ -23,6 +23,7 @@ public class UserRoleServiceImpl extends ServiceImpl<UserRoleMapper, UserRoleRef
 
     /**
      * 删除用户角色关系
+     *
      * @param id
      */
     @Override
@@ -33,12 +34,13 @@ public class UserRoleServiceImpl extends ServiceImpl<UserRoleMapper, UserRoleRef
 
     /**
      * 添加用户与角色关系
+     *
      * @param userId 用户ID
      * @param roleId 角色id
      */
     @Override
     @Transactional
     public void add(String userId, String roleId) {
-        userRoleMapper.add(userId,roleId);
+        userRoleMapper.add(userId, roleId);
     }
 }

@@ -9,9 +9,9 @@ package com.ruan.yuanyuan.spring.beanFactory;
  */
 public class RBeanDefinition<T> {
 
-     private Class<T> beanClass;
+    private Class<T> beanClass;
 
-     private String name;
+    private String name;
 
     public Class<T> getBeanClass() {
         return beanClass;

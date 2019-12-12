@@ -18,23 +18,23 @@ public class Production_Consumer {
     /**
      * 加一
      */
-    public void increment(){
+    public void increment() {
         //加锁
         lock.lock();
         try {
             /**
              * 如果num不为0时则需要等待不能对num进行加一
              */
-            while ( 0 != num){
-              condition.await();
+            while (0 != num) {
+                condition.await();
             }
             num++;
-            System.out.println(Thread.currentThread().getName()+"\t"+num);
+            System.out.println(Thread.currentThread().getName() + "\t" + num);
             //唤醒其他线程
             condition.signalAll();
-        }catch (InterruptedException e) {
+        } catch (InterruptedException e) {
             e.printStackTrace();
-        }finally {
+        } finally {
             lock.unlock();
         }
     }
@@ -42,21 +42,21 @@ public class Production_Consumer {
     /**
      * 减一
      */
-    public void decrement(){
+    public void decrement() {
         lock.lock();
         try {
             /**
              * 当num为0时则对num加一
              */
-            while ( 0 == num){
+            while (0 == num) {
                 condition.await();
             }
             num--;
-            System.out.println(Thread.currentThread().getName()+"\t"+num);
+            System.out.println(Thread.currentThread().getName() + "\t" + num);
             condition.signalAll();
-        }catch (InterruptedException e) {
+        } catch (InterruptedException e) {
             e.printStackTrace();
-        }finally {
+        } finally {
             lock.unlock();
         }
     }
@@ -64,20 +64,20 @@ public class Production_Consumer {
     public static void main(String[] args) throws InterruptedException {
         Production_Consumer production_consumer = new Production_Consumer();
 
-        new Thread(()->{
+        new Thread(() -> {
             //每个线程执行5次
-            for(int i=1;i<=5;i++){
+            for (int i = 1; i <= 5; i++) {
                 production_consumer.decrement();
             }
-        },"B线程").start();
+        }, "B线程").start();
 
 
-        new Thread(()->{
+        new Thread(() -> {
             //每个线程执行5次
-            for(int i=1;i<=5;i++){
+            for (int i = 1; i <= 5; i++) {
                 production_consumer.increment();
             }
-        },"A线程").start();
+        }, "A线程").start();
 
 
     }

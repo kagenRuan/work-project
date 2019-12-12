@@ -26,7 +26,7 @@ public class Permissions extends BaseEntity {
      * 父级ID
      */
     @TableField("parent_Id")
-    private String  parentId;
+    private String parentId;
 
     public String getName() {
         return name;

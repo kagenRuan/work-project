@@ -30,11 +30,12 @@ public class UrlFilter extends ZuulFilter {
 
     @Override
     public int filterOrder() {
-        return SERVLET_DETECTION_FILTER_ORDER -1;
+        return SERVLET_DETECTION_FILTER_ORDER - 1;
     }
 
     /**
      * 这里可以对资源进行判断
+     *
      * @return
      */
     @Override
@@ -44,7 +45,7 @@ public class UrlFilter extends ZuulFilter {
         HttpServletResponse response = requestContext.getResponse();
         ResponseVo responseVo = new ResponseVo();
         String url = request.getRequestURI();
-        if(url.contains("/order/getOrder") || url.contains("/product/getProductByIdProduct")){
+        if (url.contains("/order/getOrder") || url.contains("/product/getProductByIdProduct")) {
             return true;
         }
         response.setCharacterEncoding("UTF-8");
@@ -57,6 +58,7 @@ public class UrlFilter extends ZuulFilter {
 
     /**
      * 这里进行业务逻辑处理
+     *
      * @return
      * @throws ZuulException
      */

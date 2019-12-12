@@ -16,24 +16,25 @@ public class Test读写锁 {
     /**
      * 缓存map
      */
-    private static volatile Map<String,Object> map = new HashMap<>();
+    private static volatile Map<String, Object> map = new HashMap<>();
     private ReadWriteLock readWriteLock = new ReentrantReadWriteLock();
 
     /**
      * 模拟写缓存时加写锁
+     *
      * @param key
      * @param value
      */
-    public void put(String key,String value){
+    public void put(String key, String value) {
         Lock lock = readWriteLock.writeLock();
         lock.lock();
-        try{
-            System.out.println(Thread.currentThread().getName()+"#######正在写入##########key:\t"+key);
-            map.put(key,value);
-            System.out.println(Thread.currentThread().getName()+"#######写入完成##########");
-        }catch (Exception e){
+        try {
+            System.out.println(Thread.currentThread().getName() + "#######正在写入##########key:\t" + key);
+            map.put(key, value);
+            System.out.println(Thread.currentThread().getName() + "#######写入完成##########");
+        } catch (Exception e) {
             e.printStackTrace();
-        }finally {
+        } finally {
             lock.unlock();
         }
 
@@ -41,19 +42,20 @@ public class Test读写锁 {
 
     /**
      * 模拟写缓存时加读锁
+     *
      * @param key
      */
-    public void get(String key){
+    public void get(String key) {
 
         Lock lock = readWriteLock.readLock();
         lock.lock();
-        try{
-            System.out.println(Thread.currentThread().getName()+"########正在读取########");
+        try {
+            System.out.println(Thread.currentThread().getName() + "########正在读取########");
             Object value = map.get(key);
-            System.out.println(Thread.currentThread().getName()+"########正在读取########key:\t"+value);
-        }catch (Exception e){
+            System.out.println(Thread.currentThread().getName() + "########正在读取########key:\t" + value);
+        } catch (Exception e) {
             e.printStackTrace();
-        }finally {
+        } finally {
             lock.unlock();
         }
 
@@ -64,19 +66,22 @@ public class Test读写锁 {
         /**
          * 10个线程写数据
          */
-        for(int i=0;i<10;i++){
+        for (int i = 0; i < 10; i++) {
             final String k = String.valueOf(i);
-            new Thread(()->{new Test读写锁().put(k,k+"==");},String.valueOf(i)).start();
+            new Thread(() -> {
+                new Test读写锁().put(k, k + "==");
+            }, String.valueOf(i)).start();
         }
-
 
 
         /**
          * 20个线程读数据
          */
-        for(int i=0;i<10;i++){
+        for (int i = 0; i < 10; i++) {
             final String k = String.valueOf(i);
-            new Thread(()->{new Test读写锁().get(k);},String.valueOf(i)).start();
+            new Thread(() -> {
+                new Test读写锁().get(k);
+            }, String.valueOf(i)).start();
         }
 
     }

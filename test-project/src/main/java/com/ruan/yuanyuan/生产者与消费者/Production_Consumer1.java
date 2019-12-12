@@ -12,87 +12,88 @@ import java.util.concurrent.locks.ReentrantLock;
  */
 public class Production_Consumer1 {
 
-    private int num =1 ;
+    private int num = 1;
     Lock lock = new ReentrantLock();
     Condition condition = lock.newCondition();
     Condition condition1 = lock.newCondition();
     Condition condition2 = lock.newCondition();
 
-    private void print5(){
+    private void print5() {
         lock.lock();
         try {
-            while (num != 1){
+            while (num != 1) {
                 condition.await();
             }
-            for(int i=0;i<5;i++){
-                System.out.println(Thread.currentThread().getName()+"\t" +i);
+            for (int i = 0; i < 5; i++) {
+                System.out.println(Thread.currentThread().getName() + "\t" + i);
             }
             num = 2;
             //用于唤醒B其他线程
             condition1.signal();
         } catch (InterruptedException e) {
             e.printStackTrace();
-        }finally {
+        } finally {
             lock.unlock();
         }
     }
-    private void print10(){
+
+    private void print10() {
         lock.lock();
         try {
-            while (num != 2){
+            while (num != 2) {
                 condition1.await();
             }
-            for(int i=0;i<10;i++){
-                System.out.println(Thread.currentThread().getName()+"\t" +i);
+            for (int i = 0; i < 10; i++) {
+                System.out.println(Thread.currentThread().getName() + "\t" + i);
             }
             num = 3;
             //用于唤醒C其他线程
             condition2.signal();
         } catch (InterruptedException e) {
             e.printStackTrace();
-        }finally {
+        } finally {
             lock.unlock();
         }
     }
 
-    private void print15(){
+    private void print15() {
         lock.lock();
         try {
-            while (num != 3){
+            while (num != 3) {
                 condition2.await();
             }
-            for(int i=0;i<15;i++){
-                System.out.println(Thread.currentThread().getName()+"\t" +i);
+            for (int i = 0; i < 15; i++) {
+                System.out.println(Thread.currentThread().getName() + "\t" + i);
             }
             num = 1;
             //用于唤醒A其他线程
             condition.signal();
         } catch (InterruptedException e) {
             e.printStackTrace();
-        }finally {
+        } finally {
             lock.unlock();
         }
     }
 
     public static void main(String[] args) {
         Production_Consumer1 production_consumer1 = new Production_Consumer1();
-        new Thread(()->{
-            for(int i=0;i<10;i++){
+        new Thread(() -> {
+            for (int i = 0; i < 10; i++) {
                 production_consumer1.print5();
             }
-        },"A").start();
+        }, "A").start();
 
-        new Thread(()->{
-            for(int i=0;i<10;i++){
+        new Thread(() -> {
+            for (int i = 0; i < 10; i++) {
                 production_consumer1.print10();
             }
-        },"B").start();
+        }, "B").start();
 
-        new Thread(()->{
-            for(int i=0;i<10;i++){
+        new Thread(() -> {
+            for (int i = 0; i < 10; i++) {
                 production_consumer1.print15();
             }
-        },"C").start();
+        }, "C").start();
 
     }
 

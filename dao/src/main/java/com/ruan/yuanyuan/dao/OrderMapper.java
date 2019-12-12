@@ -19,12 +19,14 @@ public interface OrderMapper extends BaseMapper<Order> {
 
     /**
      * 查询所有订单
+     *
      * @return
      */
     List<OrderVo> findAll();
 
     /**
      * 添加订单
+     *
      * @param order
      * @return
      */

@@ -6,7 +6,7 @@ package com.ruan.yuanyuan.vo;
 public class ResponseVo {
 
     private Integer code;
-    private String  msg;
+    private String msg;
     private Object data;
 
     public ResponseVo() {

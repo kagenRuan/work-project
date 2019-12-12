@@ -15,7 +15,7 @@ import java.util.List;
  * version:1.0
  * Description:商品DAO
  */
-public interface ProductMapper  extends BaseMapper<Product> {
+public interface ProductMapper extends BaseMapper<Product> {
 
 
 }

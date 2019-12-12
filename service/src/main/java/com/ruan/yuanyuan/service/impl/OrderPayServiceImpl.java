@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.ObjectUtils;
+
 import java.math.BigDecimal;
 import java.util.Collection;
 import java.util.List;
@@ -32,6 +33,7 @@ public class OrderPayServiceImpl extends ServiceImpl<OrderPayMapper, OrderPay> i
 
     /**
      * 创建支付订单
+     *
      * @param orderIds
      * @return
      */
@@ -40,13 +42,13 @@ public class OrderPayServiceImpl extends ServiceImpl<OrderPayMapper, OrderPay> i
     public OrderPay create(List<String> orderIds) {
         BusinessAssert.isFalse(ObjectUtils.isEmpty(orderIds), ExceptionUtil.OrderExceptionEnum.ORDER_ID_NOT_NULL);
         Collection<Order> orderList = orderService.listByIds(orderIds);
-        BusinessAssert.isFalse(ObjectUtils.isEmpty(orderList),ExceptionUtil.OrderExceptionEnum.ORDER_NOT_EXITS);
+        BusinessAssert.isFalse(ObjectUtils.isEmpty(orderList), ExceptionUtil.OrderExceptionEnum.ORDER_NOT_EXITS);
         //支付单号
         String paySn = PaySnUtile.getPaySn();
         OrderPay orderPay = new OrderPay();
         orderPay.setPaySn(paySn);
         BigDecimal amount = BigDecimal.ZERO;
-        for(Order order:orderList){
+        for (Order order : orderList) {
             amount = amount.add(order.getAmount());
             orderPay.setAmount(amount);
             order.setPaySn(paySn);
@@ -55,9 +57,9 @@ public class OrderPayServiceImpl extends ServiceImpl<OrderPayMapper, OrderPay> i
         orderPay.setPayType("ZFB");
         orderPay.setStatus("1");//待支付
         boolean saveOrderPay = super.save(orderPay);
-        BusinessAssert.isTrue(saveOrderPay,ExceptionUtil.OrderPayExceptionEnum.ORDER_PAY_CREATE_FAIL);
+        BusinessAssert.isTrue(saveOrderPay, ExceptionUtil.OrderPayExceptionEnum.ORDER_PAY_CREATE_FAIL);
         boolean updateOrder = orderService.updateBatchById(orderList);
-        BusinessAssert.isTrue(updateOrder,ExceptionUtil.OrderExceptionEnum.ORDER_UPDATE_FAIL);
+        BusinessAssert.isTrue(updateOrder, ExceptionUtil.OrderExceptionEnum.ORDER_UPDATE_FAIL);
         return orderPay;
     }
 }

@@ -23,6 +23,7 @@ public class PermissionsRoleServiceImpl extends ServiceImpl<PermissionsRoleMappe
 
     /**
      * 删除资源与角色
+     *
      * @param id
      */
     @Override
@@ -33,12 +34,13 @@ public class PermissionsRoleServiceImpl extends ServiceImpl<PermissionsRoleMappe
 
     /**
      * 添加资源与角色
+     *
      * @param permissionsId
      * @param roleId
      */
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void add(String permissionsId, String roleId) {
-        permissionsRoleMapper.add(permissionsId,roleId);
+        permissionsRoleMapper.add(permissionsId, roleId);
     }
 }

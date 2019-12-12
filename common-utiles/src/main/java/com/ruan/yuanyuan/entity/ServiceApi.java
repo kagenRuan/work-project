@@ -11,7 +11,7 @@ import com.baomidou.mybatisplus.annotation.TableName;
  * Description:所有的API请求
  */
 @TableName("service")
-public class ServiceApi extends BaseEntity{
+public class ServiceApi extends BaseEntity {
     /**
      * 服务名称
      */

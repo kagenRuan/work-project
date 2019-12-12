@@ -26,7 +26,7 @@ import java.util.stream.Collectors;
  * Description: 资源 添加，删除和修改了权限后都需要清空缓存
  */
 @Service
-public class PermissionsServiceImpl extends ServiceImpl<PermissionsMapper,Permissions> implements IPermissionsService {
+public class PermissionsServiceImpl extends ServiceImpl<PermissionsMapper, Permissions> implements IPermissionsService {
 
 
     @Autowired
@@ -34,6 +34,7 @@ public class PermissionsServiceImpl extends ServiceImpl<PermissionsMapper,Permis
 
     /**
      * 根据ID查询资源
+     *
      * @param id
      * @return
      */
@@ -45,6 +46,7 @@ public class PermissionsServiceImpl extends ServiceImpl<PermissionsMapper,Permis
 
     /**
      * 查询所有的角色
+     *
      * @return
      */
     @Override
@@ -55,6 +57,7 @@ public class PermissionsServiceImpl extends ServiceImpl<PermissionsMapper,Permis
 
     /**
      * 根据ID删除资源
+     *
      * @param id
      */
     @Override
@@ -65,6 +68,7 @@ public class PermissionsServiceImpl extends ServiceImpl<PermissionsMapper,Permis
 
     /**
      * 添加资源
+     *
      * @param permissionsDto
      */
     @Override
@@ -75,6 +79,7 @@ public class PermissionsServiceImpl extends ServiceImpl<PermissionsMapper,Permis
 
     /**
      * 根据parentId查询资源
+     *
      * @param parentId 父id
      * @return
      */
@@ -88,10 +93,10 @@ public class PermissionsServiceImpl extends ServiceImpl<PermissionsMapper,Permis
     public List<PermissionsVo> findPermissionsByUserId(String userId) {
         List<PermissionsVo> resultPermissionsVoList = new ArrayList<>();
         List<PermissionsVo> permissionsVoList = permissionsMapper.findPermissionsByUserId(userId);
-        if(!ObjectUtils.isEmpty(permissionsVoList)){
-            permissionsVoList.forEach(obj ->{
+        if (!ObjectUtils.isEmpty(permissionsVoList)) {
+            permissionsVoList.forEach(obj -> {
                 PermissionsVo permissionsVo = new PermissionsVo();
-                if("0".equals(obj.getParentId())){
+                if ("0".equals(obj.getParentId())) {
                     permissionsVo.setId(obj.getId());
                     permissionsVo.setName(obj.getName());
                     permissionsVo.setUrl(obj.getUrl());
@@ -100,10 +105,10 @@ public class PermissionsServiceImpl extends ServiceImpl<PermissionsMapper,Permis
                 }
             });
         }
-        if(!ObjectUtils.isEmpty(resultPermissionsVoList)){
-            Map<String,List<PermissionsVo>> maps = permissionsVoList.stream().
-                                                                     filter(obj ->!obj.getParentId().equals("0")).
-                                                                     collect(Collectors.groupingBy(PermissionsVo::getParentId));
+        if (!ObjectUtils.isEmpty(resultPermissionsVoList)) {
+            Map<String, List<PermissionsVo>> maps = permissionsVoList.stream().
+                    filter(obj -> !obj.getParentId().equals("0")).
+                    collect(Collectors.groupingBy(PermissionsVo::getParentId));
 
             for (PermissionsVo permissionsVo : resultPermissionsVoList) {
                 List<PermissionsVo> permissionsVos = maps.get(permissionsVo.getId());
@@ -116,6 +121,7 @@ public class PermissionsServiceImpl extends ServiceImpl<PermissionsMapper,Permis
 
     /**
      * 根据角色查询权限
+     *
      * @param roles
      * @return
      */

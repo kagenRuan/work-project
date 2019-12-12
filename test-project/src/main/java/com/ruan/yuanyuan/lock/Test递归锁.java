@@ -9,40 +9,43 @@ import java.util.concurrent.locks.ReentrantLock;
  */
 public class Test递归锁 {
 
-    public synchronized void sendSms(){
-        System.out.println(Thread.currentThread().getName()+"#####发送短信");
+    public synchronized void sendSms() {
+        System.out.println(Thread.currentThread().getName() + "#####发送短信");
         sendMq();
     }
 
-    public synchronized void sendMq(){
-        System.out.println(Thread.currentThread().getName()+"#####发送消息");
+    public synchronized void sendMq() {
+        System.out.println(Thread.currentThread().getName() + "#####发送消息");
     }
 
 
     Lock lock = new ReentrantLock();
-    public void sendSmsLock(){
+
+    public void sendSmsLock() {
         lock.lock();
-        try{
-            System.out.println(Thread.currentThread().getName()+"#####发送短信");
+        try {
+            System.out.println(Thread.currentThread().getName() + "#####发送短信");
             sendMqLock();
-        }finally {
+        } finally {
             lock.unlock();
         }
     }
 
-    public void sendMqLock(){
+    public void sendMqLock() {
         lock.lock();
-        try{
-            System.out.println(Thread.currentThread().getName()+"#####发送消息");
-        }finally {
+        try {
+            System.out.println(Thread.currentThread().getName() + "#####发送消息");
+        } finally {
             lock.unlock();
         }
 
     }
 
     public static void main(String[] args) {
-       for(int i=0;i<2;i++){
-           new Thread(()->{new Test递归锁().sendSmsLock();},String.valueOf(i)).start();
-       }
+        for (int i = 0; i < 2; i++) {
+            new Thread(() -> {
+                new Test递归锁().sendSmsLock();
+            }, String.valueOf(i)).start();
+        }
     }
 }

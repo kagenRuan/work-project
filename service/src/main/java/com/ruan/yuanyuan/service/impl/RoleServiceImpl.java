@@ -24,7 +24,7 @@ import java.util.Set;
  * Description: 角色
  */
 @Service
-public class RoleServiceImpl extends ServiceImpl<RoleMapper,Role> implements IRoleService {
+public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements IRoleService {
 
     @Autowired
     private RoleMapper roleMapper;
@@ -35,6 +35,7 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper,Role> implements IRo
 
     /**
      * 根据id查询角色
+     *
      * @param id
      * @return
      */
@@ -46,6 +47,7 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper,Role> implements IRo
 
     /**
      * 查询所有的角色
+     *
      * @return
      */
     @Override
@@ -56,6 +58,7 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper,Role> implements IRo
 
     /**
      * 根据ID删除角色
+     *
      * @param id
      */
     @Override
@@ -66,6 +69,7 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper,Role> implements IRo
 
     /**
      * 添加角色
+     *
      * @param roleDto
      */
     @Override
@@ -76,10 +80,10 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper,Role> implements IRo
         Permissions permissions = permissionsService.findPermissionsById(roleDto.getPermissionsId());
         permissionsList.add(permissions);
 
-        if(!ObjectUtils.isEmpty(permissionsList)){
-            permissionsList.forEach(obj ->{
+        if (!ObjectUtils.isEmpty(permissionsList)) {
+            permissionsList.forEach(obj -> {
                 // 添加用户与角色关系
-                permissionsRoleService.add(obj.getId(),roleDto.getId());
+                permissionsRoleService.add(obj.getId(), roleDto.getId());
             });
         }
     }

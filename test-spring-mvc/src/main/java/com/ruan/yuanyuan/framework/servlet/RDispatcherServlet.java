@@ -31,18 +31,18 @@ public class RDispatcherServlet extends HttpServlet {
     /**
      * 用于获取到在web.xml配置文件中配置的文件路径值(也就是获取它classpath*:application-web.properties)
      */
-    private static final String LOCATION ="contextConfigLocation";
+    private static final String LOCATION = "contextConfigLocation";
     /**
      * handerMapping
      */
 //    private List<RHander> handerMapping = new ArrayList<>();
-    private Map<String,RHander> handerMapping = new ConcurrentHashMap<>();
+    private Map<String, RHander> handerMapping = new ConcurrentHashMap<>();
     /**
      * handlerAdapter
      */
-    private Map<RHander,RHandlerAdapter> handlerAdapters = new HashMap<>();
+    private Map<RHander, RHandlerAdapter> handlerAdapters = new HashMap<>();
 
-    private Map<String,Object> paramMapping = new HashMap<>();
+    private Map<String, Object> paramMapping = new HashMap<>();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -59,7 +59,7 @@ public class RDispatcherServlet extends HttpServlet {
     public void init(ServletConfig config) throws ServletException {
 
         RApplicationContext applicationContext = new RApplicationContext(config.getInitParameter(LOCATION));
-        Map<String,Object> map = applicationContext.getAll();
+        Map<String, Object> map = applicationContext.getAll();
         System.err.println("DispatcherServlet 已启动并初始化完成");
 
         //请求解析
@@ -95,15 +95,16 @@ public class RDispatcherServlet extends HttpServlet {
 
     /**
      * 请求到达后逻辑处理
+     *
      * @param request
      * @param response
      */
-    private void doDispatch(HttpServletRequest request,HttpServletResponse response){
+    private void doDispatch(HttpServletRequest request, HttpServletResponse response) {
 
         RHander hander = getHandler(request);
         try {
             //根据请求的url查询Handeler中是否包含次url,没有则直接返回404，否则往下走
-            if(null == hander){
+            if (null == hander) {
                 response.getWriter().write(404);
                 return;
             }
@@ -112,11 +113,11 @@ public class RDispatcherServlet extends HttpServlet {
             RHandlerAdapter ha = getHandlerAdapter(hander);
 
             //执行请求
-            ha.handle(request,response,hander);
+            ha.handle(request, response, hander);
 
         } catch (IOException e) {
             e.printStackTrace();
-        } catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -124,11 +125,12 @@ public class RDispatcherServlet extends HttpServlet {
 
     /**
      * 方法的适配器
+     *
      * @param hander
      * @return
      */
-    private RHandlerAdapter getHandlerAdapter(RHander hander){
-        if(handlerAdapters.isEmpty()){
+    private RHandlerAdapter getHandlerAdapter(RHander hander) {
+        if (handlerAdapters.isEmpty()) {
             return null;
         }
         RHandlerAdapter handlerAdapter = handlerAdapters.get(hander);
@@ -137,11 +139,12 @@ public class RDispatcherServlet extends HttpServlet {
 
     /**
      * url 与方法的映射关系
+     *
      * @param request
      * @return
      */
-    private RHander getHandler(HttpServletRequest request){
-        if(handerMapping.isEmpty()){
+    private RHander getHandler(HttpServletRequest request) {
+        if (handerMapping.isEmpty()) {
             return null;
         }
 
@@ -153,142 +156,148 @@ public class RDispatcherServlet extends HttpServlet {
         /**
          * 将请求资源域名前面的部分替换为空，并且替换后的请求路径有多个//则替换为单个
          */
-        url = url.replace(contextPath,"").replaceAll("/+","/");
-        if(handerMapping.containsKey(url)){
-         return handerMapping.get(url);
+        url = url.replace(contextPath, "").replaceAll("/+", "/");
+        if (handerMapping.containsKey(url)) {
+            return handerMapping.get(url);
         }
         return null;
 
     }
 
     //请求解析
-    private void initMultipartResolver(RApplicationContext applicationContext){
+    private void initMultipartResolver(RApplicationContext applicationContext) {
         System.out.println("====请求解析 start======");
 
         System.out.println("====请求解析 end======");
 
     }
+
     //国际化
-    private  void initLocaleResolver(RApplicationContext applicationContext){
+    private void initLocaleResolver(RApplicationContext applicationContext) {
         System.out.println("====国际化 start======");
         System.out.println("====国际化 end======");
 
     }
+
     //主题view层
-    private void initThemeResolver(RApplicationContext applicationContext){
+    private void initThemeResolver(RApplicationContext applicationContext) {
         System.out.println("====主题view层 start======");
         System.out.println("====主题view层 end======");
 
     }
 
     //解析url与controller中的menthod的关系保存到HandlerMapping
-    private void initHandlerMappings(RApplicationContext applicationContext){
+    private void initHandlerMappings(RApplicationContext applicationContext) {
 
         System.out.println("====解析url与controller中的menthod的关系 start======");
 
-        Map<String,Object> ioc = applicationContext.getAll();
-        if(ioc.isEmpty()){
+        Map<String, Object> ioc = applicationContext.getAll();
+        if (ioc.isEmpty()) {
             return;
         }
 
         /**
          * 拿到ioc容器中所有的beanDefition进行循环
          */
-        for (Map.Entry<String,Object> bean:ioc.entrySet()){
-           Class<?> clazz = bean.getValue().getClass();
-           String url = "";
+        for (Map.Entry<String, Object> bean : ioc.entrySet()) {
+            Class<?> clazz = bean.getValue().getClass();
+            String url = "";
 
             /**
              * 首先判断类上是否添加@RController注解,如果没有则说明该路径不能被请求
              */
-           boolean i =  clazz.isAnnotationPresent(RController.class);
-           if(!clazz.isAnnotationPresent(RController.class)){
-               continue;
-           }
+            boolean i = clazz.isAnnotationPresent(RController.class);
+            if (!clazz.isAnnotationPresent(RController.class)) {
+                continue;
+            }
 
             /**
              * 判断类上是否有@RequestMapping注解，如果有则需要拿到设置的请求路径
              */
-           if(clazz.isAnnotationPresent(RRequestMapping.class)){
-               RRequestMapping rRequestMapping = clazz.getAnnotation(RRequestMapping.class);
-               url = rRequestMapping.value();
-           }
+            if (clazz.isAnnotationPresent(RRequestMapping.class)) {
+                RRequestMapping rRequestMapping = clazz.getAnnotation(RRequestMapping.class);
+                url = rRequestMapping.value();
+            }
 
 
             /**
              * 拿到类里面的所以方法并循环，如果方法上有@RequestMapping注解，则拿到设置的请求路径和类上的请求路径进行拼接保存到HandlerMapping中
              */
             Method[] methods = clazz.getMethods();
-           for(Method method:methods){
-               if(method.isAnnotationPresent(RRequestMapping.class)){
-                   RRequestMapping rRequestMapping = method.getAnnotation(RRequestMapping.class);
-                   handerMapping.put(url+rRequestMapping.value(),new RHander(bean.getValue(),method));
-               }
-           }
+            for (Method method : methods) {
+                if (method.isAnnotationPresent(RRequestMapping.class)) {
+                    RRequestMapping rRequestMapping = method.getAnnotation(RRequestMapping.class);
+                    handerMapping.put(url + rRequestMapping.value(), new RHander(bean.getValue(), method));
+                }
+            }
         }
 
         System.out.println("====解析url与controller中的menthod的关系 将请求url与controller中的方法映射关系保存到HandlerMapping中 end======");
 
 
     }
+
     //初始化Adapter,主要是把HandlerMapping中的添加的方法里面的参数拿出来并添加到Adapter中以便在请求是使用
-    private void initHandlerAdapters(RApplicationContext applicationContext){
+    private void initHandlerAdapters(RApplicationContext applicationContext) {
         System.out.println("====适配，匹配url与方法 start======");
 
-        if(handerMapping.isEmpty()){
+        if (handerMapping.isEmpty()) {
             return;
         }
 
-        for(Map.Entry<String,RHander> bean:handerMapping.entrySet()){
+        for (Map.Entry<String, RHander> bean : handerMapping.entrySet()) {
             //获取方法中所以的参数，并且循环
-            Class<?>[]  classes = bean.getValue().method.getParameterTypes();
+            Class<?>[] classes = bean.getValue().method.getParameterTypes();
 
-            for(int i=0;i<classes.length;i++){
+            for (int i = 0; i < classes.length; i++) {
                 Class clas = classes[i];
-                if(clas == HttpServletRequest.class || clas == HttpServletResponse.class){
-                    paramMapping.put(clas.getName(),i);
+                if (clas == HttpServletRequest.class || clas == HttpServletResponse.class) {
+                    paramMapping.put(clas.getName(), i);
 
                 }
             }
 
             Annotation[][] annoations = bean.getValue().method.getParameterAnnotations();
 
-            for(int i=0;i<annoations.length;i++){
-                for(Annotation annotation:annoations[i]){
-                    if(annotation instanceof RRequestParam){
+            for (int i = 0; i < annoations.length; i++) {
+                for (Annotation annotation : annoations[i]) {
+                    if (annotation instanceof RRequestParam) {
                         String name = ((RRequestParam) annotation).value();
-                        paramMapping.put(name,i);
+                        paramMapping.put(name, i);
                     }
                 }
             }
 
-            handlerAdapters.put(bean.getValue(),new RHandlerAdapter(paramMapping));
+            handlerAdapters.put(bean.getValue(), new RHandlerAdapter(paramMapping));
         }
 
 
         System.out.println("====适配，匹配url与方法 end======");
 
     }
+
     //异常解析
-    private void initHandlerExceptionResolvers(RApplicationContext applicationContext){
+    private void initHandlerExceptionResolvers(RApplicationContext applicationContext) {
         System.out.println("====异常解析 start======");
         System.out.println("====异常解析 end======");
 
     }
+
     //视图转发
-    private void initRequestToViewNameTranslator(RApplicationContext applicationContext){
+    private void initRequestToViewNameTranslator(RApplicationContext applicationContext) {
         System.out.println("====视图转发 start======");
         System.out.println("====视图转发 end======");
 
     }
+
     //解析模板内容
-    private void initViewResolvers(RApplicationContext applicationContext){
+    private void initViewResolvers(RApplicationContext applicationContext) {
         System.out.println("====解析模板内容 start======");
         System.out.println("====解析模板内容 end======");
 
     }
 
-    private void initFlashMapManager(RApplicationContext applicationContext){
+    private void initFlashMapManager(RApplicationContext applicationContext) {
         System.out.println("====请求解析 start======");
         System.out.println("====请求解析 start======");
 

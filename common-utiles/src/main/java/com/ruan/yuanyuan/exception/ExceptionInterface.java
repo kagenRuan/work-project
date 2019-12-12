@@ -11,12 +11,14 @@ public interface ExceptionInterface {
 
     /**
      * 用于获取异常code码
+     *
      * @return code
      */
     int getCode();
 
     /**
      * 用于获取异常信息描述
+     *
      * @return message
      */
     String getMessage();

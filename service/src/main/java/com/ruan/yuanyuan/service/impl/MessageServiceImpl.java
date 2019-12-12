@@ -22,53 +22,58 @@ import java.util.List;
  * Description:消息消费端
  */
 @Service
-public class MessageServiceImpl extends ServiceImpl<MessageMapper,RabbitMessage> implements IMessageService {
+public class MessageServiceImpl extends ServiceImpl<MessageMapper, RabbitMessage> implements IMessageService {
 
 
     @Autowired
     private MessageMapper messageMapper;
+
     /**
      * 查询消息
+     *
      * @param messageId 消息ID
      * @return
      */
     @Override
     public RabbitMessage findByMessageId(String messageId) {
         BusinessAssert.notBlank(messageId, ExceptionUtil.MessageExceptionEnum.MESSAGE_ID_NOT_NULL);
-        RabbitMessage rabbitMessage =messageMapper.selectOne(new QueryWrapper<RabbitMessage>().eq("message_id",messageId));
+        RabbitMessage rabbitMessage = messageMapper.selectOne(new QueryWrapper<RabbitMessage>().eq("message_id", messageId));
         return rabbitMessage;
     }
 
     /**
      * 添加消息
+     *
      * @param rabbitMessage 消息实体
      */
     @Override
     @Transactional(rollbackFor = Exception.class)
     public boolean insert(RabbitMessage rabbitMessage) {
-       int result = messageMapper.insert(rabbitMessage);
-       return result>0?true:false;
+        int result = messageMapper.insert(rabbitMessage);
+        return result > 0 ? true : false;
     }
 
     /**
      * 修改消息
+     *
      * @param rabbitMessage 消息ID
      */
     @Override
     @Transactional(rollbackFor = Exception.class)
     public boolean updateById(RabbitMessage rabbitMessage) {
         int result = messageMapper.updateById(rabbitMessage);
-        return result>0?true:false;
+        return result > 0 ? true : false;
     }
 
     /**
      * 查询所有的消息
+     *
      * @return
      */
     @Override
     public List<RabbitMessage> findAll() {
         QueryWrapper queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("is_valid",Yum.YES.getCode());
+        queryWrapper.eq("is_valid", Yum.YES.getCode());
         return messageMapper.selectList(queryWrapper);
     }
 

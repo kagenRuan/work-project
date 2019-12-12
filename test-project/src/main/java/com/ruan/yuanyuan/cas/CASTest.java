@@ -4,7 +4,6 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * CAS(compareAndSet)比较与交换理论
- *
  */
 public class CASTest {
 
@@ -17,7 +16,7 @@ public class CASTest {
          */
         AtomicInteger atomicInteger = new AtomicInteger(5);
         atomicInteger.getAndAdd(1);
-        System.out.println(atomicInteger.compareAndSet(5,2019)+"=="+atomicInteger.get());
-        System.out.println(atomicInteger.compareAndSet(5,1024)+"=="+atomicInteger.get());
+        System.out.println(atomicInteger.compareAndSet(5, 2019) + "==" + atomicInteger.get());
+        System.out.println(atomicInteger.compareAndSet(5, 1024) + "==" + atomicInteger.get());
     }
 }

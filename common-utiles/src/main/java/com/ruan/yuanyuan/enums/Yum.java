@@ -9,9 +9,8 @@ package com.ruan.yuanyuan.enums;
  */
 public enum Yum {
 
-    YES("Y","有效"),
-    NO("N","无效")
-    ;
+    YES("Y", "有效"),
+    NO("N", "无效");
     private String code;
     private String message;
 
@@ -34,4 +33,5 @@ public enum Yum {
 
     public void setMessage(String message) {
         this.message = message;
-    }}
+    }
+}

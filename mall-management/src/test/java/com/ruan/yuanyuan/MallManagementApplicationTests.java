@@ -14,15 +14,14 @@ import org.springframework.test.context.junit4.SpringRunner;
 public class MallManagementApplicationTests {
 
 
-
     @Autowired
     private HashOperations hashOperations;
+
     @Test
-    public void testRedis(){
-        hashOperations.put("shiro:cache:authorizationCache:","adad","sss");
+    public void testRedis() {
+        hashOperations.put("shiro:cache:authorizationCache:", "adad", "sss");
 
     }
-
 
 
 }

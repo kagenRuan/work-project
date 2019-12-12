@@ -28,7 +28,7 @@ public class OrderVo {
     /**
      * 订单详情
      */
-    private List<OrderDetailVo>  orderDetailVos;
+    private List<OrderDetailVo> orderDetailVos;
 
     public String getId() {
         return id;

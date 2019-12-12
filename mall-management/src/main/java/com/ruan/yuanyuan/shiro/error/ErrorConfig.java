@@ -21,6 +21,7 @@ public class ErrorConfig implements WebServerFactoryCustomizer<ConfigurableWebSe
 
     /**
      * /error/noAuth | /error/404 | /error/500 配置的是ErrorPageController控制器中的请求路径
+     *
      * @param factory
      */
     @Override

@@ -41,7 +41,8 @@ public class ShiroRealm extends AuthorizingRealm {
     /**
      * 执行授权逻辑
      * TODO 只有当shiro和页面结合页面上有shiro标签或者使用@RequiresPermissions注解时才会调用此方法，否则这个方法时无效的
-     *      如果前后端分离可以直接把权限信息存入到redis中，不走这个方法
+     * 如果前后端分离可以直接把权限信息存入到redis中，不走这个方法
+     *
      * @param principalCollection
      * @return
      */
@@ -49,18 +50,18 @@ public class ShiroRealm extends AuthorizingRealm {
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
         logger.info("《《《《《《《执行授权逻辑》》》》》》》》");
         SimpleAuthorizationInfo simpleAuthorizationInfo = new SimpleAuthorizationInfo();
-        User user = (User)principalCollection.getPrimaryPrincipal();
+        User user = (User) principalCollection.getPrimaryPrincipal();
         //1、查询用户角色
         Set<Role> roleSet = roleService.findRoleById(user.getId());
         //添加角色
-        SimpleAuthorizationInfo authorizationInfo =  new SimpleAuthorizationInfo();
+        SimpleAuthorizationInfo authorizationInfo = new SimpleAuthorizationInfo();
         for (Role role : roleSet) {
             authorizationInfo.addRole(role.getCode());
         }
         //查询用户权限
         Set<PermissionsVo> permissionsVos = permissionsService.findPermissionsByRoleId(roleSet);
         //添加权限
-        for (PermissionsVo permission:permissionsVos) {
+        for (PermissionsVo permission : permissionsVos) {
             authorizationInfo.addStringPermission(permission.getPermission());
         }
         return simpleAuthorizationInfo;
@@ -68,6 +69,7 @@ public class ShiroRealm extends AuthorizingRealm {
 
     /**
      * 执行认证逻辑
+     *
      * @param authenticationToken
      * @return
      * @throws AuthenticationException
@@ -75,23 +77,23 @@ public class ShiroRealm extends AuthorizingRealm {
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken) throws AuthenticationException {
         logger.info("《《《《《《《《执行认证逻辑》》》》》》");
-        UsernamePasswordToken token = (UsernamePasswordToken)authenticationToken;
+        UsernamePasswordToken token = (UsernamePasswordToken) authenticationToken;
         String username = token.getUsername();
 
         /**
          * 判断用户名
          */
-        if(StringUtils.isEmpty(username)){
+        if (StringUtils.isEmpty(username)) {
             return null;
         }
         User user = userService.findUserByName(username);
-        if(ObjectUtils.isEmpty(user)){
+        if (ObjectUtils.isEmpty(user)) {
             return null;
         }
         /**
          * 2.判断密码，直接返回其子类
          */
-        return new SimpleAuthenticationInfo(user,user.getPassword(),new MyByteSource(user.getUsername()),getName());
+        return new SimpleAuthenticationInfo(user, user.getPassword(), new MyByteSource(user.getUsername()), getName());
     }
 
 }

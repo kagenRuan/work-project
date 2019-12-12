@@ -9,10 +9,10 @@ package com.ruan.yuanyuan.mesage.enums;
  */
 public enum RabbitMqExchangeEnum {
 
-    ORDER_EXCHANGE("ORDER_EXCHANGE","订单交换机"),
-    PRODUCT_EXCHANGE("PRODUCT_EXCHANGE","商品交换机"),
-    ORDER_PAY_EXCHANGE("ORDER_PAY_EXCHANGE","支付订单交换机"),
-    TDL_ORDER_PAY_DEAD_LETTER_PROVIDER_EXCHANGE("TDL_ORDER_PAY_DEAD_LETTER_PROVIDER_EXCHANGE","支付订单死信交换机"),
+    ORDER_EXCHANGE("ORDER_EXCHANGE", "订单交换机"),
+    PRODUCT_EXCHANGE("PRODUCT_EXCHANGE", "商品交换机"),
+    ORDER_PAY_EXCHANGE("ORDER_PAY_EXCHANGE", "支付订单交换机"),
+    TDL_ORDER_PAY_DEAD_LETTER_PROVIDER_EXCHANGE("TDL_ORDER_PAY_DEAD_LETTER_PROVIDER_EXCHANGE", "支付订单死信交换机"),
 
     ;
 
@@ -41,9 +41,9 @@ public enum RabbitMqExchangeEnum {
     }
 
 
-    public static RabbitMqExchangeEnum getRabbitMqExchangeEnum(String name){
-        for(RabbitMqExchangeEnum rabbitMqExchangeEnum :RabbitMqExchangeEnum.values()){
-            if(rabbitMqExchangeEnum.getCode().equals(name)){
+    public static RabbitMqExchangeEnum getRabbitMqExchangeEnum(String name) {
+        for (RabbitMqExchangeEnum rabbitMqExchangeEnum : RabbitMqExchangeEnum.values()) {
+            if (rabbitMqExchangeEnum.getCode().equals(name)) {
                 return rabbitMqExchangeEnum;
             }
         }

@@ -17,7 +17,7 @@
         FROM yy_order AND is_valid='Y'
     </select>
 
-    <insert id="add" >
+    <insert id="add">
         INSERT INTO yy_order(order_sn,status,create_time,is_valid)VALUE(#{order.orderSn},#{order.status},#{order.createTime},#{order.isValid})
     </insert>
 

@@ -19,11 +19,9 @@ public class RConfig {
     @RAutoWried
     private UserService userService;
 
-    public void test(){
+    public void test() {
         userService.test();
     }
-
-
 
 
 }

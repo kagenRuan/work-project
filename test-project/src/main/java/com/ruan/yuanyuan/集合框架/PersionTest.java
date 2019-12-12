@@ -11,22 +11,23 @@ public class PersionTest {
     /**
      * 基本数据类型
      */
-    public void changeAge(int age){
-      age = 30;
+    public void changeAge(int age) {
+        age = 30;
     }
 
     /**
      * 对象引用
+     *
      * @param p
      */
-    public void setPersionName(PersionTest p){
+    public void setPersionName(PersionTest p) {
         p.setName("ryy");
     }
 
     /**
      * 字符串引用
      */
-    public void getPersiongName(String str){
+    public void getPersiongName(String str) {
         str = "rt";
     }
 

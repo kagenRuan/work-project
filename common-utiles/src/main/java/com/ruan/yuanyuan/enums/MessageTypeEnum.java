@@ -9,9 +9,8 @@ package com.ruan.yuanyuan.enums;
  */
 public enum MessageTypeEnum {
 
-    ORDER("ORDER","订单"),
-    ORDER_PAY("ORDER_PAY","支付订单")
-    ;
+    ORDER("ORDER", "订单"),
+    ORDER_PAY("ORDER_PAY", "支付订单");
 
     private String code;
     private String message;
@@ -38,9 +37,9 @@ public enum MessageTypeEnum {
     }
 
 
-    public static MessageTypeEnum getMessageTypeEnum(String name){
-        for(MessageTypeEnum type:MessageTypeEnum.values()){
-            if(type.getCode().equals(name)){
+    public static MessageTypeEnum getMessageTypeEnum(String name) {
+        for (MessageTypeEnum type : MessageTypeEnum.values()) {
+            if (type.getCode().equals(name)) {
                 return type;
             }
         }

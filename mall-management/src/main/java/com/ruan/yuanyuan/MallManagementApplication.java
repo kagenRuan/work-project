@@ -11,9 +11,9 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EnableTransactionManagement
 public class MallManagementApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(MallManagementApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(MallManagementApplication.class, args);
+    }
 
 //	@Override
 //	protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {

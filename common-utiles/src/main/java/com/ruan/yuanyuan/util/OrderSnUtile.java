@@ -14,13 +14,14 @@ public class OrderSnUtile implements Serializable {
     private static final long serialVersionUID = -4521961069551950396L;
 
     //自定义的
-    private static final String ORDER_SN="order";
+    private static final String ORDER_SN = "order";
 
     /**
      * 获取订单编号
+     *
      * @return
      */
-    public static String getOrderSn(){
+    public static String getOrderSn() {
         StringBuilder sb = new StringBuilder(ORDER_SN);
         Long result = System.currentTimeMillis();
         sb.append(result);

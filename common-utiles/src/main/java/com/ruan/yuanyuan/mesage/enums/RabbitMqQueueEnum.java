@@ -9,13 +9,11 @@ package com.ruan.yuanyuan.mesage.enums;
  */
 public enum RabbitMqQueueEnum {
 
-    ORDER_QUEUE("ORDER_QUEUE","订单队列"),
-    PRODUCT_QUEUE("PRODUCT_QUEUE","商品队列"),
-    ORDER_PAY_QUEUE("ORDER_PAY_QUEUE","订单支付队列"),
-    TDL_ORDER_PAY_DEAD_LETTER_PROVIDER_QUEUE("TDL_ORDER_PAY_DEAD_LETTER_PROVIDER_QUEUE","支付订单死信队列生产端"),
-    TDL_ORDER_PAY_DEAD_LETTER_CONSUMER_QUEUE("TDL_ORDER_PAY_DEAD_LETTER_CONSUMER_QUEUE","支付订单死信队列消费端")
-
-            ;
+    ORDER_QUEUE("ORDER_QUEUE", "订单队列"),
+    PRODUCT_QUEUE("PRODUCT_QUEUE", "商品队列"),
+    ORDER_PAY_QUEUE("ORDER_PAY_QUEUE", "订单支付队列"),
+    TDL_ORDER_PAY_DEAD_LETTER_PROVIDER_QUEUE("TDL_ORDER_PAY_DEAD_LETTER_PROVIDER_QUEUE", "支付订单死信队列生产端"),
+    TDL_ORDER_PAY_DEAD_LETTER_CONSUMER_QUEUE("TDL_ORDER_PAY_DEAD_LETTER_CONSUMER_QUEUE", "支付订单死信队列消费端");
 
     RabbitMqQueueEnum(String code, String name) {
         this.code = code;

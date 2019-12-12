@@ -20,6 +20,7 @@ public class CollectorsUtil {
 
     static final Set<Collector.Characteristics> BGDECIMAL_ID
             = Collections.emptySet();
+
     /**
      * Simple implementation class for {@code Collector}.
      *
@@ -36,7 +37,7 @@ public class CollectorsUtil {
         CollectorImpl(Supplier<A> supplier,
                       BiConsumer<A, T> accumulator,
                       BinaryOperator<A> combiner,
-                      Function<A,R> finisher,
+                      Function<A, R> finisher,
                       Set<Characteristics> characteristics) {
             this.supplier = supplier;
             this.accumulator = accumulator;

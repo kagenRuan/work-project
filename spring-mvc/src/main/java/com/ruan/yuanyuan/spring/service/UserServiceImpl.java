@@ -10,7 +10,7 @@ import com.ruan.yuanyuan.annoation.RService;
  * @Description:用户服务接口
  */
 @RService
-public class UserServiceImpl implements UserService{
+public class UserServiceImpl implements UserService {
 
     @Override
     public void test() {

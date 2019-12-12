@@ -12,19 +12,19 @@ import org.springframework.context.annotation.Configuration;
  */
 @Configuration
 public class DynamicRouteConfiguration {
- 
+
     @Autowired
     private ZuulProperties zuulProperties;
     @Autowired
     private ServerProperties server;
     @Autowired
     private IZuulApiRouteService zuulApiRouteService;
- 
+
     @Bean
     public DynamicRouteLocator routeLocator() {
-    	DynamicRouteLocator routeLocator = new DynamicRouteLocator(this.server.getServlet().getPath(), this.zuulProperties);
+        DynamicRouteLocator routeLocator = new DynamicRouteLocator(this.server.getServlet().getPath(), this.zuulProperties);
         routeLocator.setZuulApiRouteService(zuulApiRouteService);
         return routeLocator;
     }
- 
+
 }

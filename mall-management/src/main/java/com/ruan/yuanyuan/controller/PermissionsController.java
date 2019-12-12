@@ -38,28 +38,30 @@ public class PermissionsController {
     private HashOperations hashOperations;
 
     @RequestMapping("/index")
-    public String index(){
+    public String index() {
         return "permissions/index";
     }
 
     /**
      * 添加资源
+     *
      * @param permissionsDto
      * @return
      */
-    @RequestMapping(value = "/add",method = RequestMethod.POST)
+    @RequestMapping(value = "/add", method = RequestMethod.POST)
     @ResponseBody
-    public ResultObject add(PermissionsDto permissionsDto){
+    public ResultObject add(PermissionsDto permissionsDto) {
         permissionsService.add(permissionsDto);
         UserVo userVo = UserCacheUtil.getUser();
         List<PermissionsVo> permissionsVoList = permissionsService.findPermissionsByUserId(userVo.getId());
-        hashOperations.put(UserCacheUtil.PERMISSION_CACHE_KET,userVo.getId(), JSON.toJSON(permissionsVoList));
+        hashOperations.put(UserCacheUtil.PERMISSION_CACHE_KET, userVo.getId(), JSON.toJSON(permissionsVoList));
         return new ResultObject();
     }
 
 
     /**
      * 根据ID查询资源
+     *
      * @param id
      * @return
      */
@@ -72,6 +74,7 @@ public class PermissionsController {
 
     /**
      * 查询所有的资源
+     *
      * @return
      */
     @RequestMapping("/findAll")
@@ -83,6 +86,7 @@ public class PermissionsController {
 
     /**
      * 根据ID删除资源
+     *
      * @param id
      */
     @RequestMapping("/deletePermissionsById")
@@ -94,13 +98,14 @@ public class PermissionsController {
 
     /**
      * 根据父级id查询资源
+     *
      * @return
      */
     @RequestMapping("/findAllPermissionsByParentId")
     @ResponseBody
-    public ResultObject findAllPermissionsByParentId(){
-       List<Permissions> permissionsList = permissionsService.findAllPermissionsByParentId("0");
-       return new ResultObject(permissionsList);
+    public ResultObject findAllPermissionsByParentId() {
+        List<Permissions> permissionsList = permissionsService.findAllPermissionsByParentId("0");
+        return new ResultObject(permissionsList);
     }
 
 
@@ -109,7 +114,7 @@ public class PermissionsController {
      */
     @RequestMapping("/findPermissionsByUserId")
     @ResponseBody
-    public ResultObject findPermissionsByUserId(){
+    public ResultObject findPermissionsByUserId() {
         List<PermissionsVo> permissionsVoList = permissionsService.findPermissionsByUserId("16");
         return new ResultObject(permissionsVoList);
     }

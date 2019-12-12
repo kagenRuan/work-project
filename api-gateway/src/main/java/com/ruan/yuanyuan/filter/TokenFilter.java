@@ -20,10 +20,11 @@ import static org.springframework.cloud.netflix.zuul.filters.support.FilterConst
  * 使用zuul鉴权(前置过滤器)
  */
 //@Component
-public class TokenFilter extends ZuulFilter{
+public class TokenFilter extends ZuulFilter {
 
     /**
      * 这个表示前置过滤器，也就是在请求前处理,进行参数校验
+     *
      * @return{PRE_TYPE:pre 代表请求之前 post代表请求之后}
      */
     @Override
@@ -34,6 +35,7 @@ public class TokenFilter extends ZuulFilter{
 
     /**
      * 这个表示顺序，这个值越小越靠前
+     *
      * @return
      */
     @Override
@@ -48,6 +50,7 @@ public class TokenFilter extends ZuulFilter{
 
     /**
      * 这里是过滤器逻辑,目前这里的逻辑是,如果请求url后面没有token参数则返回错误,没有权限
+     *
      * @return
      * @throws ZuulException
      */
@@ -58,7 +61,7 @@ public class TokenFilter extends ZuulFilter{
         HttpServletResponse response = requestContext.getResponse();
         ResponseVo responseVo = new ResponseVo();
         String token = request.getParameter("token");
-        if(!StringUtils.isNotBlank(token)){
+        if (!StringUtils.isNotBlank(token)) {
             //这里设置zuul响应为false
             requestContext.setSendZuulResponse(false);
             //设置响应httpStatus码为401(没有权限)

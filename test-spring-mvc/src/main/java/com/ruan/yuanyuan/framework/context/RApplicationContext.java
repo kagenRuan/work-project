@@ -23,27 +23,28 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 public class RApplicationContext {
 
-    private static final String SCAN_PACKAGE="sacnPackage";
+    private static final String SCAN_PACKAGE = "sacnPackage";
 
     /**
      * 存放bean的map容器
      */
-    Map<String,Object> beanDefilion = new ConcurrentHashMap<>();
+    Map<String, Object> beanDefilion = new ConcurrentHashMap<>();
     /**
      * 用于保存bean的信息
      */
-    List<String>  beanCache  = new ArrayList<>();
+    List<String> beanCache = new ArrayList<>();
 
     /**
      * 这里不像springMvc那么复杂，直接从类路径classpath下查找配置文件
      * 也就是说这里默认初始化spring ioc【模拟，后期改造】
      * 并且这里的配置文件也先用简易版Properties代替xml
+     *
      * @param location
      */
-    public RApplicationContext(String location){
+    public RApplicationContext(String location) {
         //第一步：定位配置文件路径
-        InputStream stream = this.getClass().getClassLoader().getResourceAsStream(location.replace("classpath*:",""));
-        try{
+        InputStream stream = this.getClass().getClassLoader().getResourceAsStream(location.replace("classpath*:", ""));
+        try {
             //第二步：载入配置文件信息
             Properties properties = new Properties();
             properties.load(stream);
@@ -55,7 +56,7 @@ public class RApplicationContext {
             //第五步：注入
             populateBean();
 
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -84,40 +85,40 @@ public class RApplicationContext {
     }
 
 
-    private void doCreateBean(){
-        if(beanCache.size() == 0){
+    private void doCreateBean() {
+        if (beanCache.size() == 0) {
             return;
         }
 
-        try{
+        try {
             /**
              * 在spring源码 中这里是需要根据代理来生产bean的【后期需要改造】
              * 同时还需要判断哪些bean需要初始化哪些不需要初始化
              * 需要初始化的bean为@Service,@Conponet,@Controller类似的注解都主要初始化
              */
-            for(String beanPackageName:beanCache){
+            for (String beanPackageName : beanCache) {
                 Class<?> aClass = Class.forName(beanPackageName);
-                if(aClass.isAnnotationPresent(RController.class)){
+                if (aClass.isAnnotationPresent(RController.class)) {
                     String id = loverFirstChar(aClass.getSimpleName());
-                    beanDefilion.put(id,aClass.newInstance());
+                    beanDefilion.put(id, aClass.newInstance());
 
-                }else if(aClass.isAnnotationPresent(RService.class)){
+                } else if (aClass.isAnnotationPresent(RService.class)) {
                     RService rService = aClass.getAnnotation(RService.class);
-                    beanDefilion.put(rService.value().equalsIgnoreCase("")?loverFirstChar(aClass.getSimpleName()):rService.value(),aClass.newInstance());
+                    beanDefilion.put(rService.value().equalsIgnoreCase("") ? loverFirstChar(aClass.getSimpleName()) : rService.value(), aClass.newInstance());
                     /**
                      * 获取类实现的接口并初始化
                      */
                     Class[] interfaces = aClass.getInterfaces();
-                    for(Class inter:interfaces){
-                        beanDefilion.put(inter.getName(),aClass.newInstance());
+                    for (Class inter : interfaces) {
+                        beanDefilion.put(inter.getName(), aClass.newInstance());
                     }
-                }else{
+                } else {
                     continue;
                 }
 
 
             }
-        }catch (ClassNotFoundException e){
+        } catch (ClassNotFoundException e) {
             e.printStackTrace();
         } catch (IllegalAccessException e) {
             e.printStackTrace();
@@ -130,12 +131,13 @@ public class RApplicationContext {
 
     /**
      * 首字母小写
+     *
      * @param beanName
      * @return
      */
-    private String loverFirstChar(String beanName){
+    private String loverFirstChar(String beanName) {
         char[] chars = beanName.toCharArray();
-        chars[0] +=32;
+        chars[0] += 32;
         return String.valueOf(chars);
 
     }
@@ -143,38 +145,38 @@ public class RApplicationContext {
     /**
      * 注入bean实行
      */
-    private void populateBean(){
-        if(beanDefilion.isEmpty()){
+    private void populateBean() {
+        if (beanDefilion.isEmpty()) {
             return;
         }
 
-        try{
-            for(Map.Entry<String,Object> bean : beanDefilion.entrySet()){
+        try {
+            for (Map.Entry<String, Object> bean : beanDefilion.entrySet()) {
 
                 //取出所有的属性包括私有属性
                 Field[] fields = bean.getValue().getClass().getDeclaredFields();
-                for(Field field:fields){
+                for (Field field : fields) {
 
-                    if(!field.isAnnotationPresent(RAutoWried.class)){
+                    if (!field.isAnnotationPresent(RAutoWried.class)) {
                         continue;
                     }
 
                     RAutoWried rAutoWried = field.getAnnotation(RAutoWried.class);
                     String id = rAutoWried.value();
-                    if(id.equalsIgnoreCase("")){
+                    if (id.equalsIgnoreCase("")) {
                         id = field.getType().getName();
                     }
 
                     //设置可以访问私有属性
                     field.setAccessible(true);
 
-                    field.set(bean.getValue(),beanDefilion.get(id));
+                    field.set(bean.getValue(), beanDefilion.get(id));
                 }
 
             }
-        }catch (IllegalAccessException e){
+        } catch (IllegalAccessException e) {
             e.printStackTrace();
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -182,12 +184,12 @@ public class RApplicationContext {
     }
 
     //获取bean
-    public Object getBean(String name){
+    public Object getBean(String name) {
         return beanDefilion.get(name);
     }
 
 
-    public Map<String,Object> getAll(){
+    public Map<String, Object> getAll() {
         return beanDefilion;
     }
 }

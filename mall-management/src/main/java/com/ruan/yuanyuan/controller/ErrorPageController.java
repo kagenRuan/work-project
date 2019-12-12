@@ -18,7 +18,7 @@ public class ErrorPageController {
      * 400页面
      */
     @RequestMapping("/400")
-    public String Page400(){
+    public String Page400() {
         return "error/400";
     }
 
@@ -26,7 +26,7 @@ public class ErrorPageController {
      * 401页面
      */
     @RequestMapping("/401")
-    public String Page401(){
+    public String Page401() {
         return "error/401";
     }
 
@@ -34,7 +34,7 @@ public class ErrorPageController {
      * 404页面
      */
     @RequestMapping("/404")
-    public String Page404(){
+    public String Page404() {
         return "error/404";
     }
 
@@ -43,7 +43,7 @@ public class ErrorPageController {
      * 500页面
      */
     @RequestMapping("/500")
-    public String Page500(){
+    public String Page500() {
         return "error/500";
     }
 

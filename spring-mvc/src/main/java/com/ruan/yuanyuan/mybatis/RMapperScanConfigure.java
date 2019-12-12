@@ -29,6 +29,6 @@ public class RMapperScanConfigure implements BeanDefinitionRegistryPostProcessor
 
     @Override
     public void afterPropertiesSet() throws Exception {
-        Assert.isNull(basePackage,"this basePackage not null");
+        Assert.isNull(basePackage, "this basePackage not null");
     }
 }

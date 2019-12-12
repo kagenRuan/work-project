@@ -57,7 +57,7 @@ public class BaseEntity implements Serializable {
     }
 
     public String getIsValid() {
-        return StringUtils.isEmpty(isValid)?Yum.YES.getCode():isValid;
+        return StringUtils.isEmpty(isValid) ? Yum.YES.getCode() : isValid;
     }
 
     public void setIsValid(String isValid) {
@@ -73,7 +73,7 @@ public class BaseEntity implements Serializable {
     }
 
     public Date getCreateTime() {
-        return ObjectUtils.isEmpty(createTime)?new Date():createTime;
+        return ObjectUtils.isEmpty(createTime) ? new Date() : createTime;
     }
 
     public void setCreateTime(Date createTime) {
@@ -89,16 +89,16 @@ public class BaseEntity implements Serializable {
     }
 
     public Date getUpdateTime() {
-        return ObjectUtils.isEmpty(updateTime)?new Date():updateTime;
+        return ObjectUtils.isEmpty(updateTime) ? new Date() : updateTime;
     }
 
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
     }
 
-    public void initBean(){
-        this.createTime=new Date();
-        this.updateTime=new Date();
-        this.isValid=Yum.YES.getCode();
+    public void initBean() {
+        this.createTime = new Date();
+        this.updateTime = new Date();
+        this.isValid = Yum.YES.getCode();
     }
 }

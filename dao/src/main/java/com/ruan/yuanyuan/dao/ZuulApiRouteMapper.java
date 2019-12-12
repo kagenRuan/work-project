@@ -10,5 +10,5 @@ import com.ruan.yuanyuan.entity.ZuulApiRoute;
  * version:1.0
  * Description:网关路由dao
  */
-public interface ZuulApiRouteMapper  extends BaseMapper<ZuulApiRoute> {
+public interface ZuulApiRouteMapper extends BaseMapper<ZuulApiRoute> {
 }

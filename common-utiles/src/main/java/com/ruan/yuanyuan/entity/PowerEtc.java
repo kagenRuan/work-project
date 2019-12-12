@@ -11,7 +11,7 @@ import com.baomidou.mybatisplus.annotation.TableName;
  * Description: 业务本地消息幂等表
  */
 @TableName("yy_power_etc")
-public class PowerEtc extends BaseEntity{
+public class PowerEtc extends BaseEntity {
 
     @TableField("message_id")
     private String MessageId;

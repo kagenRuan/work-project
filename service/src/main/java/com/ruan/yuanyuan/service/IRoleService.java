@@ -17,6 +17,7 @@ public interface IRoleService {
 
     /**
      * 查询角色
+     *
      * @param id
      * @return
      */
@@ -24,18 +25,21 @@ public interface IRoleService {
 
     /**
      * 查询所有的角色
+     *
      * @return
      */
     List<Role> findAll();
 
     /**
      * 删除角色
+     *
      * @param id
      */
     void deleteRoleById(String id);
 
     /**
      * 添加角色
+     *
      * @param roleDto
      */
     void add(RoleDto roleDto);

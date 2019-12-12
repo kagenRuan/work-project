@@ -29,23 +29,24 @@ public class RoleController {
     private IRoleService roleService;
 
     @RequestMapping("/index")
-    public String index(){
+    public String index() {
         return "role/index";
     }
 
-    @RequestMapping(value = "/add",method = RequestMethod.POST)
+    @RequestMapping(value = "/add", method = RequestMethod.POST)
     @ResponseBody
-    public ResultObject add(RoleDto roleDto){
+    public ResultObject add(RoleDto roleDto) {
         roleService.add(roleDto);
         return new ResultObject();
     }
 
     /**
      * 根据id查询角色
+     *
      * @param id
      * @return
      */
-    @RequestMapping(value = "/findRoleById",method = RequestMethod.GET)
+    @RequestMapping(value = "/findRoleById", method = RequestMethod.GET)
     @ResponseBody
     public ResultObject findRoleById(@RequestParam("id") String id) {
         Set<Role> role = roleService.findRoleById(id);
@@ -54,6 +55,7 @@ public class RoleController {
 
     /**
      * 查询所有的角色
+     *
      * @return
      */
     @RequestMapping("/findAll")
@@ -65,9 +67,10 @@ public class RoleController {
 
     /**
      * 根据ID删除角色
+     *
      * @param id
      */
-    @RequestMapping(value = "/deleteRoleById",method = RequestMethod.GET)
+    @RequestMapping(value = "/deleteRoleById", method = RequestMethod.GET)
     @ResponseBody
     public ResultObject deleteRoleById(@RequestParam("id") String id) {
         roleService.deleteRoleById(id);

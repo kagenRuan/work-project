@@ -21,7 +21,7 @@ import java.util.List;
  */
 
 @Service
-public class UserServiceImpl extends ServiceImpl<UserMapper,User> implements IUserService {
+public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IUserService {
 
 
     @Autowired
@@ -37,6 +37,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper,User> implements IUs
 
     /**
      * 查询所有的用户信息
+     *
      * @return
      */
     @Override
@@ -47,16 +48,17 @@ public class UserServiceImpl extends ServiceImpl<UserMapper,User> implements IUs
 
     /**
      * 添加用户
+     *
      * @param userDto
      */
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public void addUser(UserDto userDto){
+    public void addUser(UserDto userDto) {
         UserDto userDto1 = null;
-        for(int i=1;i<2000000;i++){
+        for (int i = 1; i < 2000000; i++) {
             userDto1 = new UserDto();
-            userDto1.setUsername(i+"");
-            userDto1.setPassword(i+"");
+            userDto1.setUsername(i + "");
+            userDto1.setPassword(i + "");
             userDto1.setStatus("0");
             userMapper.addUser(userDto1);
         }
@@ -68,6 +70,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper,User> implements IUs
 
     /**
      * 删除用户
+     *
      * @param id
      */
     @Override

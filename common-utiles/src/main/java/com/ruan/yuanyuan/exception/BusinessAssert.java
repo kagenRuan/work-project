@@ -11,65 +11,65 @@ import org.springframework.util.StringUtils;
  * version:
  * Description:
  */
-public abstract class BusinessAssert{
+public abstract class BusinessAssert {
 
 
     public BusinessAssert() {
     }
 
-    public static void isTrue(@Nullable boolean expression,ExceptionInterface exception) {
+    public static void isTrue(@Nullable boolean expression, ExceptionInterface exception) {
         if (!expression) {
-            throw new BusinessException(exception.getCode(),exception.getMessage());
+            throw new BusinessException(exception.getCode(), exception.getMessage());
         }
     }
 
-    public static void isFalse(@Nullable boolean expression,ExceptionInterface exception) {
-        if(expression){
-            throw new BusinessException(exception.getCode(),exception.getMessage());
+    public static void isFalse(@Nullable boolean expression, ExceptionInterface exception) {
+        if (expression) {
+            throw new BusinessException(exception.getCode(), exception.getMessage());
         }
     }
 
-    public static void isNull(@Nullable Object object,ExceptionInterface exception) {
+    public static void isNull(@Nullable Object object, ExceptionInterface exception) {
         if (object != null) {
-            throw new BusinessException(exception.getCode(),exception.getMessage());
+            throw new BusinessException(exception.getCode(), exception.getMessage());
         }
     }
 
-    public static void notNull(@Nullable Object object,ExceptionInterface exception) {
+    public static void notNull(@Nullable Object object, ExceptionInterface exception) {
         if (object == null) {
-            throw new BusinessException(exception.getCode(),exception.getMessage());
+            throw new BusinessException(exception.getCode(), exception.getMessage());
         }
     }
 
 
-    public static void isBlank(@Nullable String str,ExceptionInterface exception) {
+    public static void isBlank(@Nullable String str, ExceptionInterface exception) {
         if (StringUtils.hasLength(str)) {
-            throw new BusinessException(exception.getCode(),exception.getMessage());
+            throw new BusinessException(exception.getCode(), exception.getMessage());
         }
     }
 
-    public static void notBlank(@Nullable String str,ExceptionInterface exception) {
+    public static void notBlank(@Nullable String str, ExceptionInterface exception) {
         if (!StringUtils.hasLength(str)) {
-            throw new BusinessException(exception.getCode(),exception.getMessage());
+            throw new BusinessException(exception.getCode(), exception.getMessage());
         }
     }
 
 
-    public static void notBlank(@Nullable String str,ExceptionInterface exception,String... args) {
+    public static void notBlank(@Nullable String str, ExceptionInterface exception, String... args) {
         if (!StringUtils.hasLength(str)) {
-            throw new BusinessException(exception.getCode(),exception.getMessage(),args);
+            throw new BusinessException(exception.getCode(), exception.getMessage(), args);
         }
     }
 
-    public static void notEmpty(@Nullable Object[] array,ExceptionInterface exception) {
+    public static void notEmpty(@Nullable Object[] array, ExceptionInterface exception) {
         if (ObjectUtils.isEmpty(array)) {
-            throw new BusinessException(exception.getCode(),exception.getMessage());
+            throw new BusinessException(exception.getCode(), exception.getMessage());
         }
     }
 
-    public static void isEmpty(@Nullable Object[] array,ExceptionInterface exception) {
+    public static void isEmpty(@Nullable Object[] array, ExceptionInterface exception) {
         if (!ObjectUtils.isEmpty(array)) {
-            throw new BusinessException(exception.getCode(),exception.getMessage());
+            throw new BusinessException(exception.getCode(), exception.getMessage());
         }
     }
 

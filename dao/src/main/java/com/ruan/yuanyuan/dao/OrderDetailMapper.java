@@ -19,6 +19,7 @@ public interface OrderDetailMapper extends BaseMapper<OrderDetail> {
 
     /**
      * 根据订单ID查询订单详情
+     *
      * @param orderId 订单ID
      * @return OrderDetailVo
      */
@@ -26,6 +27,7 @@ public interface OrderDetailMapper extends BaseMapper<OrderDetail> {
 
     /**
      * 添加订单详情
+     *
      * @param orderDetails 订单详情集合
      * @return Integer
      */

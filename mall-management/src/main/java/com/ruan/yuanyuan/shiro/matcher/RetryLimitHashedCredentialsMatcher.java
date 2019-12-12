@@ -21,15 +21,16 @@ public class RetryLimitHashedCredentialsMatcher extends HashedCredentialsMatcher
 
     /**
      * 密码验证
+     *
      * @param token
      * @param info
      * @return
      */
     @Override
     public boolean doCredentialsMatch(AuthenticationToken token, AuthenticationInfo info) {
-        UsernamePasswordToken usernamePasswordToken = (UsernamePasswordToken)token;
+        UsernamePasswordToken usernamePasswordToken = (UsernamePasswordToken) token;
         String password = new String(usernamePasswordToken.getPassword());
-        User user = (User)info.getPrincipals().asSet().iterator().next();
+        User user = (User) info.getPrincipals().asSet().iterator().next();
         return password.equals(user.getPassword());
     }
 

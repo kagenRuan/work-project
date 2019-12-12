@@ -11,12 +11,13 @@ public class StringUtils {
 
     /**
      * 首字母小写
+     *
      * @param beanName
      * @return
      */
-    public static String loverFirstChar(String beanName){
+    public static String loverFirstChar(String beanName) {
         char[] chars = beanName.toCharArray();
-        chars[0] +=32;
+        chars[0] += 32;
         return String.valueOf(chars);
 
     }

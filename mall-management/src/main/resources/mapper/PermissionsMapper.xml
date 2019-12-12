@@ -40,7 +40,7 @@
         from yy_permissions where parent_id=#{parentId}
     </select>
 
-    <select id="findPermissionsByUserId"  resultType="com.ruan.yuanyuan.vo.PermissionsVo">
+    <select id="findPermissionsByUserId" resultType="com.ruan.yuanyuan.vo.PermissionsVo">
         select
             yp.id,
             yp.parent_id as parentId,
@@ -54,16 +54,16 @@
 
     <select id="findPermissionsByRoleId" resultType="com.ruan.yuanyuan.vo.PermissionsVo">
         SELECT
-           yps.parent_id AS parentId,
-           yps.parent_ids AS parentids,
-           yps.permission,
-           yps.resource_type AS resourceType,
-           yps.url,
-           yps.name
+        yps.parent_id AS parentId,
+        yps.parent_ids AS parentids,
+        yps.permission,
+        yps.resource_type AS resourceType,
+        yps.url,
+        yps.name
         FROM yy_permissions yps LEFT JOIN yy_role_permissions_ref yrpr ON yps.id = yrpr.permissions_id
         WHERE 1=1 AND yps.is_valid='Y' AND yrpr.role_id IN
         <foreach collection="roles" index="index" item="item" open="(" close=")" separator=",">
-          #{item.id}
+            #{item.id}
         </foreach>
     </select>
 </mapper>
