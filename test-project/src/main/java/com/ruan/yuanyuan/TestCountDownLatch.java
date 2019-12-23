@@ -1,5 +1,7 @@
 package com.ruan.yuanyuan;
 
+import java.util.List;
+import java.util.Vector;
 import java.util.concurrent.CountDownLatch;
 
 /**
@@ -8,10 +10,24 @@ import java.util.concurrent.CountDownLatch;
  */
 public class TestCountDownLatch {
 
-    public static void main(String[] args) {
+    static List<String> list = new Vector<>();
+    static CountDownLatch countDownLatch = new CountDownLatch(3);
 
+    public static void main(String[] args) {
+        //例子1
         TestCountDownLatch testCountDownLatch = new TestCountDownLatch();
         testCountDownLatch.TestCountDownLatch2();
+
+        //例子2
+        list.add("1");
+        list.add("2");
+        list.add("3");
+        testCountDownLatch.TestCountDownLatchA(list);
+        testCountDownLatch.TestCountDownLatchB(list);
+        testCountDownLatch.TestCountDownLatchC(list);
+        if (countDownLatch.getCount() == 0) {
+            testCountDownLatch.print();
+        }
     }
 
     public void TestCountDownLatch2() {
@@ -48,5 +64,55 @@ public class TestCountDownLatch {
         }
         //以上六个线程都已执行完后才这行这一步
         System.out.println("已经执行6次");
+    }
+
+    public void TestCountDownLatchA(List<String> list) {
+        new Thread(() -> {
+            try {
+                if (list.size() > 0) {
+                    System.out.println(Thread.currentThread().getName() + "删除数组中索引值为0的数据：" + list.get(0));
+                    list.remove(0);
+                    countDownLatch.countDown();
+                }
+                countDownLatch.await();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }, "A").start();
+    }
+
+    public void TestCountDownLatchB(List<String> list) {
+        new Thread(() -> {
+            try {
+                if (list.size() > 0) {
+                    System.out.println(Thread.currentThread().getName() + "删除数组中索引值为0的数据：" + list.get(0));
+                    list.remove(0);
+                    countDownLatch.countDown();
+                }
+                countDownLatch.await();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }, "B").start();
+    }
+
+    public void TestCountDownLatchC(List<String> list) {
+        new Thread(() -> {
+            try {
+                if (list.size() > 0) {
+                    System.out.println(Thread.currentThread().getName() + "删除数组中索引值为0的数据：" + list.get(0));
+                    list.remove(0);
+                    countDownLatch.countDown();
+                }
+                countDownLatch.await();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }, "C").start();
+    }
+
+
+    public void print() {
+        System.out.println("执行完了,最终数组的长度=" + list.size());
     }
 }

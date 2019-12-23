@@ -5,7 +5,10 @@ import com.ruan.yuanyuan.entity.ResultObject;
 import com.ruan.yuanyuan.hystrix.ProductHystrixCommand;
 import com.ruan.yuanyuan.service.IOrderService;
 import com.ruan.yuanyuan.service.IUserService;
+import org.apache.ibatis.executor.Executor;
+import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -25,7 +28,6 @@ public class OrderController {
     private IOrderService orderService;
     @Autowired
     private IUserService userService;
-
 
     @RequestMapping(value = "/createOrder", method = RequestMethod.POST)
     public ResultObject createOrder(@RequestBody List<ProductDto> productDtoList) {

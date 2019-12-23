@@ -7,18 +7,20 @@ package com.ruan.yuanyuan.enums;
  */
 public enum ResultObjectEnum {
 
-    SUCCESS("SUCCESS", 0),
-    FAIL("FAIL", 1),
-    NOT_TOKEN("NOT_TOKEN", 401),
+    SUCCESS("SUCCESS", 0,"成功"),
+    FAIL("FAIL", 1,"失败"),
+    NOT_TOKEN("NOT_TOKEN", 401,"Token不存在"),
     ;
 
-    ResultObjectEnum(String name, Integer code) {
+    ResultObjectEnum(String name, Integer code,String message) {
         this.name = name;
         this.code = code;
+        this.message=message;
     }
 
     private String name;
     private Integer code;
+    private String message;
 
     public String getName() {
         return name;
@@ -34,5 +36,13 @@ public enum ResultObjectEnum {
 
     public void setCode(Integer code) {
         this.code = code;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
     }
 }

@@ -10,7 +10,7 @@ eureka:
   client:
     service-url:
       defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
-    register-with-eureka: false
+    register-with-eureka: false #表示自己就是一个server自己不能注册自己
     fetch-registry: false
   server:
     enable-self-preservation: false #开启自我保护机制，主要是保证eureka server能够及时的剔除已下线的服务实例

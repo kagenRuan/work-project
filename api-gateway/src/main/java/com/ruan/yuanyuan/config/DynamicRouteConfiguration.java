@@ -10,7 +10,7 @@ import org.springframework.context.annotation.Configuration;
 /**
  * 动态路由配置
  */
-@Configuration
+//@Configuration
 public class DynamicRouteConfiguration {
 
     @Autowired

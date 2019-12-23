@@ -1,6 +1,7 @@
 package com.ruan.yuanyuan.controller;
 
-import com.alibaba.dubbo.config.annotation.Reference;
+//import com.alibaba.dubbo.config.annotation.Reference;
+
 import com.ruan.yuanyuan.dubbo.service.TestDubboService;
 import com.ruan.yuanyuan.entity.ResultObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,13 +18,13 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class DubboServiceController {
 
-    @Reference(version = "1.0.0")
+    //    @Reference(version = "1.0.0")
     TestDubboService testDubboService;
 
 
     @RequestMapping("/getString")
-    public ResultObject getString(){
-        System.out.println(testDubboService.dubboService());
+    public ResultObject getString() {
+        testDubboService.dubboService();
         return new ResultObject();
     }
 }

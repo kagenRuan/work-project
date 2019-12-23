@@ -1,17 +1,20 @@
 server:
-  port: 9090
+  port: 9080
 eureka:
   client:
     service-url:
-      defaultZone: http://127.0.0.1:8761/eureka/
-    registry-fetch-interval-seconds: 3000 #order-service该服务每3秒就到读缓存中拉取eureka server服务端中的注册信息并更新本地注册信息
+      defaultZone: http://localhost:8761/eureka/
+    registry-fetch-interval-seconds: 1 #order-service该服务每3秒就到读缓存中拉取eureka server服务端中的注册信息并更新本地注册信息
   instance:
     prefer-ip-address: true
     instance-id: ${spring.application.name}:${server.port}
-    lease-renewal-interval-in-seconds: 3000 #order-service该服务每3秒就发送心跳到eureka server服务端维护注册信息
+    lease-renewal-interval-in-seconds: 3 #order-service该服务每3秒就发送心跳到eureka server服务端维护注册信息
+feign:
+  hystrix:
+    enabled: true  #打开feign对hystrix的支持
 spring:
   application:
-    name: order-service
+    name: product-service
   datasource:
     url: jdbc:mysql://127.0.0.1:3306/cloudproject?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull
     username: ryy
@@ -41,6 +44,8 @@ spring:
     publisher-returns: true #开启返回模式(生产端配置)和mandatory这两个组合配合使用
     template:
       mandatory: true #生产端配置主要是用于在消息发送时路由不成功如果为false将会把消息删除true则会在ReturnCallback里面方法返回
+  zipkin:
+    base-url: http://localhost:8020
 #mybatis-plus插件配置
 mybatis-plus:
   mapper-locations: mapper/*.xml

@@ -1,7 +1,9 @@
 package com.ruan.yuayuan.service.impl;
 
-import com.alibaba.dubbo.config.annotation.Service;
+//import com.alibaba.dubbo.config.annotation.Service;
+
 import com.ruan.yuanyuan.dubbo.service.TestDubboService;
+
 /**
  * @ClassName: TestDubboServiceImpl
  * @author: ruanyuanyuan
@@ -9,11 +11,11 @@ import com.ruan.yuanyuan.dubbo.service.TestDubboService;
  * @version: 1.0
  * @description:
  **/
-@Service(version = "1.0.0")
+//@Service(version = "1.0.0")
 public class TestDubboServiceImpl implements TestDubboService {
 
     @Override
-    public String dubboService() {
-        return "hello dubbo";
+    public void dubboService() {
+        System.out.println("hello dubbo");
     }
 }

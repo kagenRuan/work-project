@@ -14,6 +14,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class TestDubboConsumerApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(TestDubboConsumerApplication.class,args);
+        SpringApplication.run(TestDubboConsumerApplication.class, args);
     }
 }

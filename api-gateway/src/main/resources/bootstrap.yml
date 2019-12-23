@@ -1,3 +1,5 @@
+server:
+  port: 8080
 spring:
   application:
     name: api-geteway
@@ -17,22 +19,6 @@ spring:
     test-while-idle: true
     test-on-borrow: false
     test-on-return: false
-
-  rabbitmq:
-    addresses: 127.0.0.1
-    port: 5672
-    username: admin
-    password: admin
-    virtual-host: /
-    connection-timeout: 15000
-    listener: #这个是消费端的配置
-      simple:
-        acknowledge-mode: manual #消息的签收模式(manual 手动签收) 或者在配置文件中手动ACK####见rabbitmqConfig
-        concurrency: 1  #消费者数量
-        max-concurrency: 5 #最大消费者数量
-        prefetch: 1 #消费者每次从队列获取的消息数
-  profiles:
-    active: @spring.profiles.active@
   #eureka
 eureka:
   client:
@@ -40,23 +26,24 @@ eureka:
       defaultZone: http://localhost:8761/eureka/
     registry-fetch-interval-seconds: 1
   instance:
-    #    prefer-ip-address: true
     instance-id: ${spring.application.name}:${server.port}
     hostname: localhost
     lease-renewal-interval-in-seconds: 3
-
 #网关
 zuul:
-  retryable: true #网关重试机制
+  routes:
+    order-service:
+      path: /order/**
+      serviceId: order-service
+    product-service:
+      path: /product/**
+      serviceId: product-service
 
 #负载均衡
-ribbon:
-  eager-load:
-    enabled: true
-  ConnectTimeout: 1000
-  ReadTimeout: 1000
-  OkToRetryOnAllOperations: true
-  MaxAutoRetries: 1
-  MaxAutoRetriesNextServer: 1
-server:
-  port: 8080
+#ribbon:
+#  eager-load:
+#  ConnectTimeout: 1000
+#  ReadTimeout: 1000
+#  OkToRetryOnAllOperations: true
+#  MaxAutoRetries: 1
+#  MaxAutoRetriesNextServer: 1

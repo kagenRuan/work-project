@@ -3,6 +3,7 @@ package com.ruan.yuanyuan.hystrix;
 import com.netflix.hystrix.HystrixCommand;
 import com.netflix.hystrix.HystrixCommandGroupKey;
 import com.ruan.yuanyuan.entity.Order;
+import org.springframework.cloud.netflix.hystrix.EnableHystrix;
 
 /**
  * @ClassName: OrderHystrixCommandInfo

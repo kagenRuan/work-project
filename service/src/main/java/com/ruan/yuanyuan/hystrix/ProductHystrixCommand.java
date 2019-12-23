@@ -6,6 +6,7 @@ import com.netflix.hystrix.HystrixCommandKey;
 import com.netflix.hystrix.HystrixThreadPoolKey;
 import com.ruan.yuanyuan.entity.Product;
 import com.ruan.yuanyuan.entity.ResultObject;
+import com.ruan.yuanyuan.enums.ResultObjectEnum;
 
 /**
  * @ClassName: ProductHystrixCommand
@@ -38,6 +39,6 @@ public class ProductHystrixCommand extends HystrixCommand<ResultObject> {
 
     @Override
     protected ResultObject getFallback() {
-        return new ResultObject(-9999, "请求失败");
+        return new ResultObject(-9999, ResultObjectEnum.FAIL.getName());
     }
 }

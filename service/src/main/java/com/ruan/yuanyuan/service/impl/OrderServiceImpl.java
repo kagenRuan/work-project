@@ -106,4 +106,9 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
         return orderList;
     }
 
+    @Override
+    public void getOrder() {
+        System.out.println("sss");
+    }
+
 }

@@ -1,5 +1,7 @@
 package com.ruan.yuanyuan.dubbo.service;
 
+//import com.alibaba.dubbo.common.extension.SPI;
+
 /**
  * @ClassName: TestProviderService
  * @author: ruanyuanyuan
@@ -7,7 +9,8 @@ package com.ruan.yuanyuan.dubbo.service;
  * @version: 1.0
  * @description:
  **/
+//@SPI
 public interface TestDubboService {
 
-    String dubboService();
+    void dubboService();
 }
