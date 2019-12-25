@@ -32,8 +32,6 @@
         <module>test-spring-mvc</module>
         <module>spring-mvc</module>
         <module>sleuth</module>
-        <module>test-dubbo-provider</module>
-        <module>test-dubbo-consumer</module>
     </modules>
 
     <properties>
@@ -61,6 +59,7 @@
         <shiro.redis.version>3.2.3</shiro.redis.version>
         <!--spring cloud 微服务-->
         <spring-cloud.version>Finchley.SR4</spring-cloud.version>
+        <disruptor.version>3.3.6</disruptor.version>
     </properties>
 
 
