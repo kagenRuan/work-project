@@ -29,8 +29,6 @@
         <module>test-project</module>
         <module>api-gateway</module>
         <module>product-service</module>
-        <module>test-spring-mvc</module>
-        <module>spring-mvc</module>
         <module>sleuth</module>
         <module>dubbo-project</module>
     </modules>

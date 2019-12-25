@@ -4,10 +4,8 @@ import com.ruan.yuanyuan.framework.annoation.RAutoWried;
 import com.ruan.yuanyuan.framework.annoation.RController;
 import com.ruan.yuanyuan.framework.annoation.RService;
 
-import java.io.File;
 import java.io.InputStream;
 import java.lang.reflect.Field;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;

@@ -4,8 +4,6 @@ import com.ruan.yuanyuan.mybatis.mapper.TestMapper;
 import com.ruan.yuanyuan.mybatis.session.MySqlSession;
 import com.ruan.yuanyuan.mybatis.session.impl.DefaultMySqlSession;
 
-import java.sql.ResultSet;
-
 /**
  * @ClassName: MyBatisTest
  * @author: ruanyuanyuan
