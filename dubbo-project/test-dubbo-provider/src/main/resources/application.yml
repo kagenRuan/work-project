@@ -1,0 +1,37 @@
+server:
+  port: 9090
+spring:
+  application:
+    name: order-service
+  datasource:
+    url: jdbc:mysql://localhost:3306/cloudproject?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull
+    username: ryy
+    password: 123456
+    driver-class-name: com.mysql.jdbc.Driver
+    type: com.alibaba.druid.pool.DruidDataSource
+    initial-size: 5
+    min-idle: 2
+    max-active: 10
+    max-wait: 60000
+    time-between-eviction-runsMillis: 60000
+    min-evictable-idle-timeMillis: 300000
+    validation-query: select 'x' FROM DUAL
+    test-while-idle: true
+    test-on-borrow: false
+    test-on-return: false
+  dubbo:
+    application:
+      name: service-provider
+    base-package: com.ruan.yuayuan   # dubbo服务发布者所在的包
+    registry:
+      address: localhost # zookeeper注册中心的地址
+      port: 2181       # zookeeper注册中心的端口
+      protocol: zookeeper
+      register: true
+    protocol:
+      name: dubbo
+      port: 20880
+      accesslog: true
+    provider:
+      retries: 1
+      delay: -1

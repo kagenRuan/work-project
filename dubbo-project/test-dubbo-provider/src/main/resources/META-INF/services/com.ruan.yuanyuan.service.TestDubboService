@@ -1,0 +1,3 @@
+spi1=com.ruan.yuanyuan.service.impl.spi.Spi1
+spi2=com.ruan.yuanyuan.service.impl.spi.Spi2
+com.ruan.yuanyuan.service.impl.spi.SpiWrapper
