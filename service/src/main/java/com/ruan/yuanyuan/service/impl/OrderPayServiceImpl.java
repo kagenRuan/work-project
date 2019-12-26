@@ -58,7 +58,8 @@ public class OrderPayServiceImpl extends ServiceImpl<OrderPayMapper, OrderPay> i
     /**
      * 支付成功后回调
      * @param payDto
-     * @return
+     * @return ResultObject
+     * TODO 这里需要使用TCC 分布式事务，当修改订单状态失败或者修改支付订单失败则需要对事务进行回滚
      */
     @Override
     @Transactional(rollbackFor = Exception.class)

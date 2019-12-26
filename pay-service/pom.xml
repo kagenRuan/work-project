@@ -88,22 +88,6 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-aop</artifactId>
         </dependency>
-        <!--TCC 分布式事务相关 start-->
-        <dependency>
-            <groupId>org.mengyun</groupId>
-            <artifactId>tcc-transaction-api</artifactId>
-            <version>${tcc-transaction.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.mengyun</groupId>
-            <artifactId>tcc-transaction-core</artifactId>
-            <version>${tcc-transaction.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.mengyun</groupId>
-            <artifactId>tcc-transaction-spring</artifactId>
-            <version>${tcc-transaction.version}</version>
-        </dependency>
     </dependencies>
 
     <dependencyManagement>
