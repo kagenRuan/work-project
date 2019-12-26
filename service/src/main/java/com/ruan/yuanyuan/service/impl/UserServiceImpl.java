@@ -3,13 +3,19 @@ package com.ruan.yuanyuan.service.impl;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.ruan.yuanyuan.dao.UserMapper;
 import com.ruan.yuanyuan.dto.UserDto;
+import com.ruan.yuanyuan.entity.ResultObject;
 import com.ruan.yuanyuan.entity.User;
+import com.ruan.yuanyuan.enums.ResultEnum;
+import com.ruan.yuanyuan.exception.BusinessAssert;
+import com.ruan.yuanyuan.exception.ExceptionUtil;
 import com.ruan.yuanyuan.service.IUserRoleService;
 import com.ruan.yuanyuan.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -77,5 +83,42 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
     @Transactional
     public void deleteUser(String id) {
         userMapper.deleteUser(id);
+    }
+
+    /**
+     * 修改用户账户金额
+     * @param userId 用户ID
+     * @return User
+     */
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public ResultObject updateMoneyById(String userId, BigDecimal money) {
+        ResultObject resultObject = new ResultObject();
+        //查询用户
+        User user = this.baseMapper.selectById(userId);
+        BusinessAssert.notNull(user, ExceptionUtil.BuyerExceptionEnum.BUYER_FIND_FAIL);
+        BigDecimal userMoney = user.getMoney().add(money);
+        user.setMoney(userMoney);
+        user.setUpdateTime(new Date());
+        //修改用户
+        boolean result = this.updateById(user);
+        resultObject.setCode(ResultEnum.getResultEnum(result).getCode());
+        resultObject.setMsg(ResultEnum.getResultEnum(result).getMsg());
+        return resultObject;
+    }
+
+    /**
+     * 添加用户
+     * @param user
+     * @return
+     */
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public ResultObject addUser(User user) {
+        ResultObject resultObject = new ResultObject();
+        boolean result = this.saveOrUpdate(user);
+        resultObject.setCode(ResultEnum.getResultEnum(result).getCode());
+        resultObject.setMsg(ResultEnum.getResultEnum(result).getMsg());
+        return resultObject;
     }
 }

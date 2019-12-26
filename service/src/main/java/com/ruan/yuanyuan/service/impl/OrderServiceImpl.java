@@ -6,7 +6,10 @@ import com.ruan.yuanyuan.dao.OrderMapper;
 import com.ruan.yuanyuan.dto.ProductDto;
 import com.ruan.yuanyuan.entity.Order;
 import com.ruan.yuanyuan.entity.OrderDetail;
+import com.ruan.yuanyuan.entity.ResultObject;
 import com.ruan.yuanyuan.enums.OrderStatusEnum;
+import com.ruan.yuanyuan.enums.ResultEnum;
+import com.ruan.yuanyuan.enums.Yum;
 import com.ruan.yuanyuan.exception.BusinessAssert;
 import com.ruan.yuanyuan.exception.ExceptionUtil;
 import com.ruan.yuanyuan.service.IOrderDetailService;
@@ -18,8 +21,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.ObjectUtils;
-
-import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -32,7 +33,7 @@ import java.util.stream.Collectors;
  * Description:订单服务实现
  */
 @Service
-public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements IOrderService {
+public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements IOrderService{
 
     private static final Logger logger = LoggerFactory.getLogger(OrderServiceImpl.class);
 
@@ -47,7 +48,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
      */
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public List<Order> createOrder(@NotNull(message = "请选择商品") List<ProductDto> productDtoList) {
+    public List<Order> createOrder(List<ProductDto> productDtoList) {
         logger.info("<<<<<<OrderServiceImpl#createOrder --创建订单 参数:productDtoList:{}", JSON.toJSONString(productDtoList));
 
         BusinessAssert.isFalse(ObjectUtils.isEmpty(productDtoList), ExceptionUtil.OrderExceptionEnum.ORDER_PRODUCT_NOT_NULL);
@@ -109,6 +110,29 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
     @Override
     public void getOrder() {
         System.out.println("sss");
+    }
+
+
+    /**
+     * 修改订单状态
+     * @param orderId 订单ID
+     * @return ResultObject
+     */
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public ResultObject updateOrder(String orderId) {
+        ResultObject resultObject = new ResultObject();
+        //查询订单
+        Order order = this.baseMapper.selectById(orderId);
+        BusinessAssert.notNull(order,ExceptionUtil.OrderExceptionEnum.ORDER_NOT_EXITS);
+        order.setStatus(OrderStatusEnum.COMPLETED.getCode());
+        order.setPayStatus(Yum.YES.getCode());
+        order.setUpdateTime(new Date());
+        //修改订单
+        boolean result = this.updateById(order);
+        resultObject.setCode(ResultEnum.getResultEnum(result).getCode());
+        resultObject.setMsg(ResultEnum.getResultEnum(result).getMsg());
+        return resultObject;
     }
 
 }

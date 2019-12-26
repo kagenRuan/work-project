@@ -1,5 +1,5 @@
 server:
-  port: 9092
+  port: 9091
 eureka:
   client:
     service-url:
@@ -11,7 +11,7 @@ eureka:
     lease-renewal-interval-in-seconds: 3 #order-service该服务每3秒就发送心跳到eureka server服务端维护注册信息
 spring:
   application:
-    name: order-service
+    name: pay-service
   datasource:
     url: jdbc:mysql://localhost:3306/cloudproject?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull
     username: ryy
@@ -28,23 +28,8 @@ spring:
     test-while-idle: true
     test-on-borrow: false
     test-on-return: false
-  zipkin:
-    base-url: http://localhost:9411/
-    sender:
-      type: web
-#  aop:
-#    proxy-target-class: true
-#  rabbitmq:
-#    addresses: 127.0.0.1
-#    port: 5672
-#    username: admin
-#    password: admin
-#    virtual-host: /
-#    connection-timeout: 15000
-#    publisher-confirms: true #开启确认模式(生产端配置)
-#    publisher-returns: true #开启返回模式(生产端配置)和mandatory这两个组合配合使用
-#    template:
-#      mandatory: true #生产端配置主要是用于在消息发送时路由不成功如果为false将会把消息删除true则会在ReturnCallback里面方法返回
+  aop:
+    proxy-target-class: true
 #mybatis-plus插件配置
 mybatis-plus:
   mapper-locations: mapper/*.xml

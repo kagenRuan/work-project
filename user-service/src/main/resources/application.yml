@@ -1,0 +1,49 @@
+server:
+  port: 9093
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+    registry-fetch-interval-seconds: 2 #order-service该服务每3秒就到读缓存中拉取eureka server服务端中的注册信息并更新本地注册信息
+  instance:
+    prefer-ip-address: true
+    instance-id: ${spring.application.name}:${server.port}
+    lease-renewal-interval-in-seconds: 2 #order-service该服务每3秒就发送心跳到eureka server服务端维护注册信息
+spring:
+  application:
+    name: user-service
+#  datasource:
+#    url: jdbc:mysql://localhost:3306/cloudproject?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull
+#    username: ryy
+#    password: 123456
+#    driver-class-name: com.mysql.jdbc.Driver
+#    type: com.alibaba.druid.pool.DruidDataSource
+#    initial-size: 5
+#    min-idle: 2
+#    max-active: 10
+#    max-wait: 60000
+#    time-between-eviction-runsMillis: 60000
+#    min-evictable-idle-timeMillis: 300000
+#    validation-query: select 'x' FROM DUAL
+#    test-while-idle: true
+#    test-on-borrow: false
+#    test-on-return: false
+#mybatis-plus插件配置
+#mybatis-plus:
+#  mapper-locations: mapper/*.xml
+#  type-aliases-package: com.ruan.yuanyuan.entity
+#  configuration:
+#    map-underscore-to-camel-case: true #驼峰命名
+#    call-setters-on-nulls: true #null忽略
+#  global-config:
+#    db-config:
+#      id-type: uuid
+#      update-strategy: not_null #可以修改某值为空
+  aop:
+    proxy-target-class: true
+logging:
+  level:
+    com.ruan.yuanyuan.dao: DEBUG
+feign:
+  hystrix:
+    enabled: true

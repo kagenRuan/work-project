@@ -3,6 +3,7 @@ package com.ruan.yuanyuan.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.ruan.yuanyuan.dto.ProductDto;
 import com.ruan.yuanyuan.entity.Order;
+import com.ruan.yuanyuan.entity.ResultObject;
 
 import java.util.List;
 
@@ -25,6 +26,13 @@ public interface IOrderService extends IService<Order> {
 
 
     void getOrder();
+
+    /**
+     * 修改订单状态
+     * @param orderId 订单ID
+     * @return ResultObject
+     */
+    ResultObject updateOrder(String orderId);
 
 
 }

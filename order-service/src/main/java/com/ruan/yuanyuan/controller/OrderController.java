@@ -23,8 +23,6 @@ public class OrderController {
 
     @Autowired
     private IOrderService orderService;
-    @Autowired
-    private IUserService userService;
 
     @RequestMapping(value = "/createOrder", method = RequestMethod.POST)
     public ResultObject createOrder(@RequestBody List<ProductDto> productDtoList) {
@@ -37,7 +35,16 @@ public class OrderController {
         ProductHystrixCommand productHystrixCommand = new ProductHystrixCommand("1");
         ResultObject resultObject = productHystrixCommand.execute();
         return resultObject;
+    }
 
+    /**
+     * 修改订单状态
+     * @param orderId 订单id
+     * @return ResultObject
+     */
+    @RequestMapping(value = "/update",method = RequestMethod.GET)
+    public ResultObject update(String orderId){
+       return orderService.updateOrder(orderId);
     }
 
 }

@@ -34,6 +34,20 @@
             <scope>test</scope>
         </dependency>
 
+        <!--ribbon 负载均衡 start-->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-netflix-ribbon</artifactId>
+        </dependency>
+        <!--ribbon end-->
+
+        <!--feign start-->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-openfeign</artifactId>
+        </dependency>
+        <!--feign end-->
+
 
         <!--shiro start-->
         <dependency>

@@ -1,5 +1,5 @@
 server:
-  port: 8080
+  port: 8081
 spring:
   application:
     name: api-geteway
@@ -32,22 +32,31 @@ eureka:
   instance:
     instance-id: ${spring.application.name}:${server.port}
     hostname: localhost
-    lease-renewal-interval-in-seconds: 3
+    lease-renewal-interval-in-seconds: 1
 #网关
 zuul:
   routes:
     order-service:
-      path: /order/**
+      path: /order-service/**
       serviceId: order-service
     product-service:
-      path: /product/**
+      path: /product-service/**
       serviceId: product-service
+    user-service:
+      path: /user-service/**
+      serviceId: user-service
+    pay-service:
+      path: /pay-service/**
+      serviceId: pay-service
+  host:
+    connect-timeout-millis: 15000
+    socket-timeout-millis: 6000
 
 #负载均衡
-#ribbon:
-#  eager-load:
-#  ConnectTimeout: 1000
-#  ReadTimeout: 1000
-#  OkToRetryOnAllOperations: true
-#  MaxAutoRetries: 1
-#  MaxAutoRetriesNextServer: 1
+ribbon:
+  ConnectTimeout:  10000
+  ReadTimeout:  10000
+  eager-load:
+    enabled: true
+  eureka:
+    enabled: true

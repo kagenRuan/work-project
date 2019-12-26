@@ -1,8 +1,10 @@
 package com.ruan.yuanyuan.service;
 
 import com.ruan.yuanyuan.dto.UserDto;
+import com.ruan.yuanyuan.entity.ResultObject;
 import com.ruan.yuanyuan.entity.User;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -41,4 +43,18 @@ public interface IUserService {
      * @param id
      */
     void deleteUser(String id);
+
+    /**
+     * 修改用户账户金额
+     * @param userId 用户ID
+     * @return User
+     */
+    ResultObject updateMoneyById(String userId, BigDecimal money);
+
+    /**
+     * 添加用户
+     * @param user
+     * @return
+     */
+    ResultObject addUser(User user);
 }

@@ -10,14 +10,10 @@
     </parent>
 
     <groupId>com.ruan.yuanyuan</groupId>
-    <artifactId>order-service</artifactId>
+    <artifactId>pay-service</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>订单服务</name>
-    <description>订单服务</description>
-
-    <properties>
-        <java.version>1.8</java.version>
-    </properties>
+    <name>支付服务</name>
+    <description>支付服务</description>
 
     <dependencies>
         <dependency>
@@ -33,12 +29,6 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.springframework.boot</groupId>
-                    <artifactId>spring-boot-starter-logging</artifactId>
-                </exclusion>
-            </exclusions>
         </dependency>
         <!--log4j2 日志 spring boot默认使用Logback所以这里在web里面去除logging包添加log4j2包 start-->
         <dependency>
@@ -54,16 +44,41 @@
         </dependency>
         <!--eureka end-->
 
+        <!--ribbon 负载均衡 start-->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-netflix-ribbon</artifactId>
+        </dependency>
+        <!--ribbon end-->
+
         <!--feign start-->
         <dependency>
         <groupId>org.springframework.cloud</groupId>
         <artifactId>spring-cloud-starter-openfeign</artifactId>
         </dependency>
         <!--feign end-->
+
+        <!--hystrix 熔断降级 start-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-netflix-hystrix</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-netflix-hystrix-dashboard</artifactId>
+        </dependency>
+        <!--hystrix end-->
+
+        <!--zipkin调用链 start-->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-sleuth-zipkin</artifactId>
         </dependency>
+        <!--zipkin调用链 end-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
@@ -73,19 +88,6 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-aop</artifactId>
         </dependency>
-        <!--日志相关 start-->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-log4j2</artifactId>
-        </dependency>
-        <!--log4j2是基于disruptor框架开发的，disruptor框架高并发无锁框架-->
-        <dependency>
-            <groupId>com.lmax</groupId>
-            <artifactId>disruptor</artifactId>
-            <version>${disruptor.version}</version>
-        </dependency>
-        <!--日志相关 end-->
-
         <!--TCC 分布式事务相关 start-->
         <dependency>
             <groupId>org.mengyun</groupId>
@@ -102,7 +104,6 @@
             <artifactId>tcc-transaction-spring</artifactId>
             <version>${tcc-transaction.version}</version>
         </dependency>
-        <!--TCC 分布式事务相关 end-->
     </dependencies>
 
     <dependencyManagement>
@@ -139,7 +140,7 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
-                    <mainClass>com.ruan.yuanyuan.OrderServiceApplication</mainClass>
+                    <mainClass>com.ruan.yuanyuan.PayServiceApplication</mainClass>
                 </configuration>
             </plugin>
         </plugins>

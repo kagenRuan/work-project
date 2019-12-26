@@ -96,8 +96,9 @@ public class ExceptionUtil {
 
     public enum OrderPayExceptionEnum implements ExceptionInterface {
         ORDER_PAY_CREATE_FAIL(ORDER_PAY + 1, "创建支付订单失败"),
-        ORDER_PAY_FAIL(ORDER_PAY + 2, "支付失败");
-
+        ORDER_PAY_FAIL(ORDER_PAY + 2, "支付失败"),
+        ORDER_PAY_NOT_FOUND(ORDER_PAY+3,"未查询到支付订单")
+        ;
         private int code;
         private String message;
 

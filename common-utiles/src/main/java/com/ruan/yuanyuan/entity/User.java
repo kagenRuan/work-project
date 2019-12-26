@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 
 /**
  * User: ruanyuanyuan
@@ -29,6 +30,19 @@ public class User extends BaseEntity implements Serializable {
      */
     @TableField("status")
     private String status;
+
+    /**
+     * 用户金额
+     */
+    private BigDecimal money;
+
+    public BigDecimal getMoney() {
+        return money;
+    }
+
+    public void setMoney(BigDecimal money) {
+        this.money = money;
+    }
 
     public String getUsername() {
         return username;
