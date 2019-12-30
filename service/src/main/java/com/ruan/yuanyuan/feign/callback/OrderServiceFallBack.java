@@ -20,7 +20,7 @@ public class OrderServiceFallBack implements OrderServiceFeign {
     private static Logger logger = LoggerFactory.getLogger(OrderServiceFallBack.class);
 
     @Override
-    public ResultObject update(String orderId) {
+    public ResultObject update(String orderId,String status) {
         logger.error("<<<<<<OrderServiceFallBack#update>>>>>>>>>订单服务调用失败，已进行降级");
         return new ResultObject(ResultObjectEnum.SYSTEM_HYSTRIX.getCode(),ResultObjectEnum.SYSTEM_HYSTRIX.getMessage());
     }

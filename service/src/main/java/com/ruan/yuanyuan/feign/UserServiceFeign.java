@@ -2,6 +2,7 @@ package com.ruan.yuanyuan.feign;
 
 import com.ruan.yuanyuan.entity.ResultObject;
 import com.ruan.yuanyuan.feign.callback.UserServiceFallBack;
+import org.mengyun.tcctransaction.api.TransactionContext;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -26,7 +27,7 @@ public interface UserServiceFeign {
      * @return  ResultObject
      */
     @RequestMapping(value = "/user/updateMoneyById",method = RequestMethod.GET)
-    ResultObject updateMoneyById(@RequestParam("userId") String userId, @RequestParam("money") BigDecimal money);
+    ResultObject updateMoneyById(@RequestParam("userId") String userId, @RequestParam("money") BigDecimal money,@RequestParam String paySn);
 
     /**
      * 测试方法

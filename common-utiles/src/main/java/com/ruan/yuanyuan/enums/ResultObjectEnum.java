@@ -13,14 +13,14 @@ public enum ResultObjectEnum {
     SYSTEM_HYSTRIX("SYSTEM_HYSTRIX",-99999,"接口不可用，进行接口降级")
     ;
 
-    ResultObjectEnum(String name, Integer code,String message) {
+    ResultObjectEnum(String name, int code,String message) {
         this.name = name;
         this.code = code;
         this.message=message;
     }
 
     private String name;
-    private Integer code;
+    private int code;
     private String message;
 
     public String getName() {
@@ -31,11 +31,11 @@ public enum ResultObjectEnum {
         this.name = name;
     }
 
-    public Integer getCode() {
+    public int getCode() {
         return code;
     }
 
-    public void setCode(Integer code) {
+    public void setCode(int code) {
         this.code = code;
     }
 

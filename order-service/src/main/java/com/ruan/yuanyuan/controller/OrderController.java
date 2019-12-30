@@ -44,7 +44,7 @@ public class OrderController {
      */
     @RequestMapping(value = "/update",method = RequestMethod.GET)
     public ResultObject update(String orderId){
-       return orderService.updateOrder(orderId);
+       return orderService.updateOrder(orderId,"");
     }
 
 }

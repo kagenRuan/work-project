@@ -3,6 +3,7 @@ package com.ruan.yuanyuan.feign.callback;
 import com.ruan.yuanyuan.entity.ResultObject;
 import com.ruan.yuanyuan.enums.ResultObjectEnum;
 import com.ruan.yuanyuan.feign.UserServiceFeign;
+import org.mengyun.tcctransaction.api.TransactionContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -22,7 +23,7 @@ public class UserServiceFallBack implements UserServiceFeign {
     private static Logger logger = LoggerFactory.getLogger(UserServiceFallBack.class);
 
     @Override
-    public ResultObject updateMoneyById(String userId, BigDecimal money) {
+    public ResultObject updateMoneyById(String userId, BigDecimal money,String paySn) {
         logger.error("<<<<<<UserServiceFallBack#updateMoneyById>>>>>>>>>用户服务调用失败，接口已降级");
         return new ResultObject(ResultObjectEnum.SYSTEM_HYSTRIX.getCode(),ResultObjectEnum.SYSTEM_HYSTRIX.getMessage());
     }

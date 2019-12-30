@@ -1,6 +1,0 @@
-2019-12-24 11:26:21.506  [main] INFO   - No active profile set, falling back to default profiles: default
-2019-12-24 11:26:32.688  [main] INFO   - Started OrderServiceApplication in 13.921 seconds (JVM running for 15.59)
-2019-12-24 11:27:20.122  [main] INFO   - No active profile set, falling back to default profiles: default
-2019-12-24 11:27:30.731  [main] INFO   - Started OrderServiceApplication in 13.498 seconds (JVM running for 15.003)
-2019-12-24 11:28:17.990  [main] INFO   - No active profile set, falling back to default profiles: default
-2019-12-24 11:28:28.389  [main] INFO   - Started OrderServiceApplication in 12.698 seconds (JVM running for 14.247)

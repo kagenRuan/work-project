@@ -120,12 +120,12 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
      */
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public ResultObject updateOrder(String orderId) {
+    public ResultObject updateOrder(String orderId,String status) {
         ResultObject resultObject = new ResultObject();
         //查询订单
         Order order = this.baseMapper.selectById(orderId);
         BusinessAssert.notNull(order,ExceptionUtil.OrderExceptionEnum.ORDER_NOT_EXITS);
-        order.setStatus(OrderStatusEnum.COMPLETED.getCode());
+        order.setStatus(status);
         order.setPayStatus(Yum.YES.getCode());
         order.setUpdateTime(new Date());
         //修改订单

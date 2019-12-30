@@ -3,6 +3,7 @@ package com.ruan.yuanyuan.service;
 import com.ruan.yuanyuan.dto.UserDto;
 import com.ruan.yuanyuan.entity.ResultObject;
 import com.ruan.yuanyuan.entity.User;
+import org.mengyun.tcctransaction.api.TransactionContext;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -49,7 +50,7 @@ public interface IUserService {
      * @param userId 用户ID
      * @return User
      */
-    ResultObject updateMoneyById(String userId, BigDecimal money);
+    ResultObject updateMoneyById(TransactionContext transactionContext, String userId, BigDecimal money,String paySn);
 
     /**
      * 添加用户

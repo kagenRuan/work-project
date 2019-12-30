@@ -1,22 +1,23 @@
 package com.ruan.yuanyuan.enums;
 
 /**
- * User: ruanyuanyuan
- * Date: 2019-08-25
- * Time: 10:45
- * version:1.0
- * Description:订单状态
- */
-public enum OrderStatusEnum {
-    STAY_PAY("1", "待付款"),
-    STAY_DELIVERY("2", "待发货"),
-    ALREADY_DELIVERY("3","已发货"),
-    COMPLETED("4", "已完成"),
-    CANCEL("5", "已取消");
+ * @ClassName: PayStatusEnum
+ * @author: ruanyuanyuan
+ * @date: 2019/12/27 14:51
+ * @version: 1.0
+ * @description: 支付状态
+ **/
+public enum PayStatusEnum {
+
+    STAY_PAY("1","待支付"),
+    WAIT_PAY("2","支付中"),
+    ALREADY_PAY("3","已支付")
+    ;
+
     private String code;
     private String message;
 
-    OrderStatusEnum(String code, String message) {
+    PayStatusEnum(String code, String message) {
         this.code = code;
         this.message = message;
     }

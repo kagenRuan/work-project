@@ -2,15 +2,6 @@
 <configuration status="debug">
     <appenders>
 
-        <Properties>
-            <!-- 格式化输出：%date表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度 %msg：日志消息，%n是换行符-->
-            <!-- %logger{36} 表示 Logger 名字最长36个字符 -->
-            <property name="LOG_PATTERN" value="%date{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n" />
-            <!-- 定义日志存储的路径，不要配置相对路径 -->
-            <property name="FILE_PATH" value="logs" />
-            <property name="FILE_NAME" value="order" />
-        </Properties>
-
         <!--这个输出控制台的配置-->
         <Console name="STDOUT" >
             <!--控制台只输出level及以上级别的信息（onMatch），其他的直接拒绝（onMismatch）-->
@@ -19,8 +10,8 @@
             <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %-5level  - %msg%n" charset="UTF-8"/>
         </Console>
 
-        <RollingRandomAccessFile name="FILE-INFO" fileName="${FILE_PATH}/${FILE_NAME}-info.log"
-                                 filePattern="${FILE_PATH}/${FILE_NAME}-info.%d{yyyy-MM-dd-HH}.log">
+        <RollingRandomAccessFile name="FILE-INFO" fileName="logs/order-info.log"
+                                 filePattern="logs/order-info.%d{yyyy-MM-dd-HH}.log">
             <ThresholdFilter level="info" onMatch="ACCEPT" onMismatch="DENY" />
             <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %-5level - %msg%n" charset="UTF-8" />
             <TimeBasedTriggeringPolicy  interval="1" />
@@ -33,8 +24,8 @@
         </RollingRandomAccessFile>
 
 
-        <RollingRandomAccessFile name="FILE-DEBUG" fileName="${FILE_PATH}/${FILE_NAME}-debug.log"
-                                 filePattern="${FILE_PATH}/${FILE_NAME}-debug.%d{yyyy-MM-dd-HH}.log">
+        <RollingRandomAccessFile name="FILE-DEBUG" fileName="logs/order-debug.log"
+                                 filePattern="logs/order-debug.%d{yyyy-MM-dd-HH}.log">
             <ThresholdFilter level="debug" onMatch="ACCEPT" onMismatch="DENY" />
             <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss.SSS}  [%t] %-5level  - %msg%n" charset="UTF-8" />
             <TimeBasedTriggeringPolicy  interval="1" />
@@ -46,8 +37,8 @@
             </DefaultRolloverStrategy>
         </RollingRandomAccessFile>
 
-        <RollingRandomAccessFile name="FILE-WARN" fileName="${FILE_PATH}/${FILE_NAME}-warn.log"
-                                 filePattern="${FILE_PATH}/${FILE_NAME}-warn.%d{yyyy-MM-dd-HH}.log">
+        <RollingRandomAccessFile name="FILE-WARN" fileName="logs/order-warn.log"
+                                 filePattern="logs/order-warn.%d{yyyy-MM-dd-HH}.log">
             <ThresholdFilter level="warn" onMatch="ACCEPT" onMismatch="DENY" />
             <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %-5level  - %msg%n" charset="UTF-8" />
             <TimeBasedTriggeringPolicy  interval="1" />
@@ -59,8 +50,8 @@
             </DefaultRolloverStrategy>
         </RollingRandomAccessFile>
 
-        <RollingRandomAccessFile name="FILE-ERROR" fileName="${FILE_PATH}/${FILE_NAME}-error.log"
-                                 filePattern="${FILE_PATH}/${FILE_NAME}-error.%d{yyyy-MM-dd-HH}.log">
+        <RollingRandomAccessFile name="FILE-ERROR" fileName="logs/order-error.log"
+                                 filePattern="logs/order-error.%d{yyyy-MM-dd-HH}.log">
             <ThresholdFilter level="error" onMatch="ACCEPT" onMismatch="DENY" />
             <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %-5level - %msg%n" charset="UTF-8" />
             <TimeBasedTriggeringPolicy  interval="1" />

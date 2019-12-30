@@ -20,9 +20,10 @@ public interface OrderServiceFeign {
     /**
      * 修改订单状态
      * @param orderId 订单ID
+     * @param status 订单状态
      * @return ResultObject
      */
     @RequestMapping(value = "/order/update",method = RequestMethod.GET)
-    ResultObject update(@RequestParam("orderId") String orderId);
+    ResultObject update(@RequestParam("orderId") String orderId,@RequestParam("status") String status);
 
 }

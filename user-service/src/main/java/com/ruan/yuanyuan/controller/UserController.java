@@ -3,6 +3,7 @@ package com.ruan.yuanyuan.controller;
 import com.ruan.yuanyuan.entity.ResultObject;
 import com.ruan.yuanyuan.entity.User;
 import com.ruan.yuanyuan.service.IUserService;
+import org.mengyun.tcctransaction.api.TransactionContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,8 +30,10 @@ public class UserController {
      * @return ResultObject
      */
     @RequestMapping(value = "/updateMoneyById",method = RequestMethod.GET)
-    public ResultObject updateMoneyById(String userId, BigDecimal money){
-        return userService.updateMoneyById(userId, money);
+    public ResultObject updateMoneyById(@RequestParam("userId") String userId,
+                                        @RequestParam("money") BigDecimal money,
+                                        @RequestParam("paySn") String paySn){
+        return userService.updateMoneyById(null,userId, money,paySn);
     }
 
     /**

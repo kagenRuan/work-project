@@ -100,5 +100,12 @@ public class BaseEntity implements Serializable {
         this.createTime = new Date();
         this.updateTime = new Date();
         this.isValid = Yum.YES.getCode();
+        this.createBy="system";
+        this.updateBy="system";
+    }
+
+    public void updateBean(){
+        this.updateTime = new Date();
+        this.updateBy="system";
     }
 }

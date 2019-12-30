@@ -30,9 +30,10 @@ public interface IOrderService extends IService<Order> {
     /**
      * 修改订单状态
      * @param orderId 订单ID
+     * @param status 订单状态
      * @return ResultObject
      */
-    ResultObject updateOrder(String orderId);
+    ResultObject updateOrder(String orderId,String status);
 
 
 }
