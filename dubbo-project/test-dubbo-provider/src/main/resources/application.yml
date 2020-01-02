@@ -24,7 +24,7 @@ spring:
       name: service-provider
     base-package: com.ruan.yuayuan   # dubbo服务发布者所在的包
     registry:
-      address: localhost # zookeeper注册中心的地址
+      address: 192.168.1.7 # zookeeper注册中心的地址
       port: 2181       # zookeeper注册中心的端口
       protocol: zookeeper
       register: true

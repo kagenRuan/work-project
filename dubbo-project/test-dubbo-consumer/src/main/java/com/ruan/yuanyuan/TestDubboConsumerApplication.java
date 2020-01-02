@@ -1,5 +1,7 @@
 package com.ruan.yuanyuan;
 
+import com.alibaba.dubbo.config.ServiceConfig;
+import com.alibaba.dubbo.config.spring.context.annotation.EnableDubbo;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -11,6 +13,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @description: dubbo 服务消费者
  **/
 @SpringBootApplication
+@EnableDubbo
 public class TestDubboConsumerApplication {
 
     public static void main(String[] args) {

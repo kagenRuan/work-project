@@ -1,7 +1,9 @@
 package com.ruan.yuanyuan;
 
+import com.alibaba.dubbo.config.spring.context.annotation.EnableDubbo;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.PropertySource;
 
 /**
  * @ClassName: TestDubboProviderAppliaction
@@ -11,6 +13,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @description:
  **/
 @SpringBootApplication
+@EnableDubbo
 public class TestDubboProviderApplication {
 
     public static void main(String[] args) {

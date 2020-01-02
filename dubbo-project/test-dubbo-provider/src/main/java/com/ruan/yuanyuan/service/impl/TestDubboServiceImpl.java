@@ -1,9 +1,9 @@
 package com.ruan.yuanyuan.service.impl;
 
-//import com.alibaba.dubbo.config.annotation.Service;
-
 import com.alibaba.dubbo.config.annotation.Service;
+
 import com.ruan.yuanyuan.service.TestDubboService;
+import org.springframework.stereotype.Component;
 
 /**
  * @ClassName: TestDubboServiceImpl
@@ -12,7 +12,8 @@ import com.ruan.yuanyuan.service.TestDubboService;
  * @version: 1.0
  * @description:
  **/
-@Service(version = "1.0.0")
+@Service
+@Component
 public class TestDubboServiceImpl implements TestDubboService {
 
     @Override
