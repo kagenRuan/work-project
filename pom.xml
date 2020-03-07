@@ -71,6 +71,7 @@
         <!--Tcc分布式事务日志-->
         <tcc-transaction.version>1.2.11</tcc-transaction.version>
         <netty-version>4.1.44.Final</netty-version>
+        <fastjson.version>1.2.62</fastjson.version>
     </properties>
 
 

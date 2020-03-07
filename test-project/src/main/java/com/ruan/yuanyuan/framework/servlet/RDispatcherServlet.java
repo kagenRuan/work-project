@@ -9,6 +9,7 @@ import com.ruan.yuanyuan.framework.handler.RHander;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -27,22 +28,29 @@ import java.util.concurrent.ConcurrentHashMap;
  * Description: 手下springmvc,这里说下Dispatcher的原理主要是继承了HttpServlet
  */
 public class RDispatcherServlet extends HttpServlet {
-
     /**
      * 用于获取到在web.xml配置文件中配置的文件路径值(也就是获取它classpath*:application-web.properties)
      */
-    private static final String LOCATION = "contextConfigLocation";
+    private String LOCATION = "contextConfigLocation";
+
+    public RDispatcherServlet(){
+    }
+
+    public RDispatcherServlet(String location){
+        this.LOCATION = location;
+    }
+
     /**
      * handerMapping
      */
 //    private List<RHander> handerMapping = new ArrayList<>();
-    private Map<String, RHander> handerMapping = new ConcurrentHashMap<>();
+    private static final Map<String, RHander> handlerMapping = new ConcurrentHashMap<>();
     /**
      * handlerAdapter
      */
-    private Map<RHander, RHandlerAdapter> handlerAdapters = new HashMap<>();
+    private static final Map<RHander, RHandlerAdapter> handlerAdapters = new HashMap<>();
 
-    private Map<String, Object> paramMapping = new HashMap<>();
+    private static final  Map<String, Object> paramMapping = new HashMap<>();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -56,9 +64,9 @@ public class RDispatcherServlet extends HttpServlet {
 
     //初始化springMvc逻辑
     @Override
-    public void init(ServletConfig config) throws ServletException {
+    public void init() throws ServletException {
 
-        RApplicationContext applicationContext = new RApplicationContext(config.getInitParameter(LOCATION));
+        RApplicationContext applicationContext = new RApplicationContext(LOCATION);
         Map<String, Object> map = applicationContext.getAll();
         System.err.println("DispatcherServlet 已启动并初始化完成");
 
@@ -144,7 +152,7 @@ public class RDispatcherServlet extends HttpServlet {
      * @return
      */
     private RHander getHandler(HttpServletRequest request) {
-        if (handerMapping.isEmpty()) {
+        if (handlerMapping.isEmpty()) {
             return null;
         }
 
@@ -157,8 +165,8 @@ public class RDispatcherServlet extends HttpServlet {
          * 将请求资源域名前面的部分替换为空，并且替换后的请求路径有多个//则替换为单个
          */
         url = url.replace(contextPath, "").replaceAll("/+", "/");
-        if (handerMapping.containsKey(url)) {
-            return handerMapping.get(url);
+        if (handlerMapping.containsKey(url)) {
+            return handlerMapping.get(url);
         }
         return null;
 
@@ -227,7 +235,7 @@ public class RDispatcherServlet extends HttpServlet {
             for (Method method : methods) {
                 if (method.isAnnotationPresent(RRequestMapping.class)) {
                     RRequestMapping rRequestMapping = method.getAnnotation(RRequestMapping.class);
-                    handerMapping.put(url + rRequestMapping.value(), new RHander(bean.getValue(), method));
+                    handlerMapping.put(url + rRequestMapping.value(), new RHander(bean.getValue(), method));
                 }
             }
         }
@@ -241,11 +249,11 @@ public class RDispatcherServlet extends HttpServlet {
     private void initHandlerAdapters(RApplicationContext applicationContext) {
         System.out.println("====适配，匹配url与方法 start======");
 
-        if (handerMapping.isEmpty()) {
+        if (handlerMapping.isEmpty()) {
             return;
         }
 
-        for (Map.Entry<String, RHander> bean : handerMapping.entrySet()) {
+        for (Map.Entry<String, RHander> bean : handlerMapping.entrySet()) {
             //获取方法中所以的参数，并且循环
             Class<?>[] classes = bean.getValue().method.getParameterTypes();
 

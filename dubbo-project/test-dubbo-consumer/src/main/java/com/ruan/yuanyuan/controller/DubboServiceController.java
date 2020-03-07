@@ -2,6 +2,9 @@ package com.ruan.yuanyuan.controller;
 
 
 import com.alibaba.dubbo.config.annotation.Reference;
+import com.alibaba.dubbo.remoting.transport.dispatcher.all.AllDispatcher;
+import com.alibaba.dubbo.remoting.transport.netty.NettyClient;
+import com.alibaba.dubbo.remoting.transport.netty.NettyServer;
 import com.ruan.yuanyuan.service.TestDubboService;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -16,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class DubboServiceController {
 
-    @Reference
+    @Reference(version = "1.0.0")
     TestDubboService testDubboService;
 
 

@@ -1,5 +1,6 @@
 package com.ruan.yuanyuan.service.impl;
 
+import com.alibaba.dubbo.common.extension.ExtensionLoader;
 import com.alibaba.dubbo.config.annotation.Service;
 
 import com.ruan.yuanyuan.service.TestDubboService;
@@ -12,7 +13,7 @@ import org.springframework.stereotype.Component;
  * @version: 1.0
  * @description:
  **/
-@Service
+@Service(version = "1.0.0")
 @Component
 public class TestDubboServiceImpl implements TestDubboService {
 

@@ -1,11 +1,15 @@
 package com.ruan.yuanyuan.framework.context;
 
+import com.ruan.yuanyuan.framework.AnnotatedGenericBeanDefinition;
 import com.ruan.yuanyuan.framework.annoation.RAutoWried;
 import com.ruan.yuanyuan.framework.annoation.RController;
 import com.ruan.yuanyuan.framework.annoation.RService;
+import com.ruan.yuanyuan.framework.beanDefinition.BeanDefinition;
 
+import java.io.File;
 import java.io.InputStream;
 import java.lang.reflect.Field;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -27,11 +31,23 @@ public class RApplicationContext {
      * 存放bean的map容器
      */
     Map<String, Object> beanDefilion = new ConcurrentHashMap<>();
+
+    /**
+     * Bean定义容器
+     */
+    Map<String, BeanDefinition> beanDefinition = new ConcurrentHashMap<>();
+    /**
+     * 实例化之后的Bean
+     */
+    private final Map<String, Object> singletonObjects = new ConcurrentHashMap<>(256);
+
     /**
      * 用于保存bean的信息
      */
-    List<String> beanCache = new ArrayList<>();
+    List<String> beanNames = new ArrayList<>();
 
+    public RApplicationContext() {
+    }
     /**
      * 这里不像springMvc那么复杂，直接从类路径classpath下查找配置文件
      * 也就是说这里默认初始化spring ioc【模拟，后期改造】
@@ -65,26 +81,32 @@ public class RApplicationContext {
      * 注册bean信息，按照配置文件中配置的扫描包路径
      */
     private void doRegister(String packageName) {
-//        //这里的packageName获取的包名：如com.ruan.yuanyuan
-//        //将上面的包名转换为文件夹转换后为：com/ruan/yuanyuan
-//        URL url = this.getClass().getClassLoader().getResource("/"+packageName.replaceAll("\\.","/"));
-//        File dir = new File(url.getFile());
-//        for(File file:dir.listFiles()){
-//            /**
-//             * 如果当前是文件夹则递归继续查询文件
-//             * 否则将查找的文件保存到list中
-//             */
-//            if(file.isDirectory()){
-//                doRegister(packageName+"."+file.getName());
-//            }else{
-//                beanCache.add(packageName+"."+file.getName().replace(".class",""));
-//            }
-//        }
+        //这里的packageName获取的包名：如com.ruan.yuanyuan
+        //将上面的包名转换为文件夹转换后为：com/ruan/yuanyuan
+        URL url = this.getClass().getResource("/"+packageName.replaceAll("\\.","/"));
+        File dir = new File(url.getFile());
+        for(File file:dir.listFiles()){
+            /**
+             * 如果当前是文件夹则递归继续查询文件
+             * 否则将查找的文件保存到list中
+             */
+            if(file.isDirectory()){
+                doRegister(packageName+"."+file.getName());
+            }else{
+
+                String beanClassName = file.getName();
+                String className = packageName+"."+beanClassName.replace(".class","");
+                //根据包扫描路径找到下面所有的class将其加入到BeanDefinition中
+                AnnotatedGenericBeanDefinition genericBeanDefinition = new AnnotatedGenericBeanDefinition(className);
+                beanNames.add(className);
+                beanDefinition.put(beanClassName,genericBeanDefinition);
+            }
+        }
     }
 
 
     private void doCreateBean() {
-        if (beanCache.size() == 0) {
+        if (beanNames.size() == 0) {
             return;
         }
 
@@ -94,7 +116,7 @@ public class RApplicationContext {
              * 同时还需要判断哪些bean需要初始化哪些不需要初始化
              * 需要初始化的bean为@Service,@Conponet,@Controller类似的注解都主要初始化
              */
-            for (String beanPackageName : beanCache) {
+            for (String beanPackageName : beanNames) {
                 Class<?> aClass = Class.forName(beanPackageName);
                 if (aClass.isAnnotationPresent(RController.class)) {
                     String id = loverFirstChar(aClass.getSimpleName());

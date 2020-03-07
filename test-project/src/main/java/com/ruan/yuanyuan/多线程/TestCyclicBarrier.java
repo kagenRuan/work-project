@@ -1,4 +1,4 @@
-package com.ruan.yuanyuan;
+package com.ruan.yuanyuan.多线程;
 
 import java.util.concurrent.BrokenBarrierException;
 import java.util.concurrent.CyclicBarrier;

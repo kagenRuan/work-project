@@ -1,4 +1,6 @@
-package com.ruan.yuanyuan;
+package com.ruan.yuanyuan.多线程;
+
+import com.ruan.yuanyuan.CityEnum;
 
 import java.util.List;
 import java.util.Vector;
