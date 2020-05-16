@@ -12,7 +12,7 @@ import java.util.concurrent.locks.ReentrantLock;
  */
 public class Production_Consumer1 {
 
-    private int num = 1;
+    volatile int num = 1;
     Lock lock = new ReentrantLock();
     Condition condition = lock.newCondition();
     Condition condition1 = lock.newCondition();

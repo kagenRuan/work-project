@@ -263,6 +263,8 @@ public class ShiroConfig {
     public SessionDAO sessionDAO() {
         RedisSessionDAO redisSessionDAO = new RedisSessionDAO();
         redisSessionDAO.setRedisManager(redisManager());
+        //sessionkey的前缀
+        redisSessionDAO.setKeyPrefix("spring_shiro_redis_serrsion");
         //session在redis中的保存时间,最好大于session会话超时时间
         redisSessionDAO.setExpire(12000);
         return redisSessionDAO;

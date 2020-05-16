@@ -16,7 +16,7 @@ public class TestSemapore {
 
     public static void main(String[] args) {
         //车位3个
-        Semaphore semaphore = new Semaphore(3);
+        Semaphore semaphore = new Semaphore(1);
         for (int i = 0; i < 6; i++) {
             String index = String.valueOf(i);
             new Thread(() -> {
