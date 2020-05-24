@@ -1,6 +1,5 @@
 package com.ruan.yuanyuan.mybatis.test;
 
-import com.ruan.yuanyuan.mybatis.mapper.TestMapper;
 import com.ruan.yuanyuan.mybatis.session.MySqlSession;
 import com.ruan.yuanyuan.mybatis.session.impl.DefaultMySqlSession;
 
@@ -13,14 +12,4 @@ import com.ruan.yuanyuan.mybatis.session.impl.DefaultMySqlSession;
  **/
 public class MyBatisTest {
 
-    public static void start() {
-        MySqlSession sqlSession = new DefaultMySqlSession();
-        TestMapper testMapper = sqlSession.getMapper(TestMapper.class);
-        Object result = testMapper.selectById("1");
-        System.out.println(result.toString());
-    }
-
-    public static void main(String[] args) {
-        start();
-    }
 }

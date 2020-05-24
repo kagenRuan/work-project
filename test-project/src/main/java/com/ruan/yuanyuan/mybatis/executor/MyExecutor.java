@@ -10,5 +10,5 @@ package com.ruan.yuanyuan.mybatis.executor;
 public interface MyExecutor {
 
 
-    <E> E excute(String statement, String parameter);
+    <E> E query(String sql, Object parameter);
 }

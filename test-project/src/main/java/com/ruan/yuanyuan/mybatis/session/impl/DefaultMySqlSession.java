@@ -17,23 +17,25 @@ import java.lang.reflect.Proxy;
  **/
 public class DefaultMySqlSession implements MySqlSession {
 
-    private MyConfiguration myConfiguration;
-    private MyExecutor myExecutor = new MySimpleExecutor();
+    private MyConfiguration myConfiguration;//配置类
+    private MyExecutor myExecutor;//执行器
 
-//    public DefaultMySqlSession(MyConfiguration myConfiguration, MyExecutor myExecutor) {
-//        this.myConfiguration = myConfiguration;
-//        this.myExecutor = myExecutor;
-//    }
-
-
+    /**
+     * 执行单条查询方法
+     * @param statementId
+     * @param parameter
+     * @param <T>
+     * @return
+     */
     @Override
-    public <T> T selectOne(String statement, String parameter) {
-        return myExecutor.excute(statement, parameter);
+    public <T> T selectOne(String statementId, Object parameter) {
+        String sql = "";
+        return myExecutor.query(sql, parameter);
     }
 
     @Override
-    public <T> T getMapper(Class<T> obj) {
-        return (T) Proxy.newProxyInstance(obj.getClassLoader(), new Class[]{obj}, new MapperProxy(this, obj));
+    public <T> T getMapper(Class<T> clazz,MySqlSession sqlSession) {
+        return (T) myConfiguration.getMapper(clazz,sqlSession);
     }
 
     @Override

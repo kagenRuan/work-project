@@ -12,10 +12,10 @@ import com.ruan.yuanyuan.mybatis.config.MyConfiguration;
 public interface MySqlSession {
 
     //查询方法
-    <T> T selectOne(String statement, String parameter);
+    <T> T selectOne(String statementId, Object parameter);
 
     //获取Mapper
-    <T> T getMapper(Class<T> var1);
+    <T> T getMapper(Class<T> clazz,MySqlSession sqlSession);
 
     MyConfiguration getConfiguration();
 
