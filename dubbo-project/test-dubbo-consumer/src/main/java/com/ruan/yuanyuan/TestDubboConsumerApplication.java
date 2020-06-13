@@ -1,8 +1,12 @@
 package com.ruan.yuanyuan;
 
+import com.alibaba.dubbo.common.compiler.Compiler;
+import com.alibaba.dubbo.common.extension.ExtensionLoader;
 import com.alibaba.dubbo.config.ServiceConfig;
 import com.alibaba.dubbo.config.spring.ReferenceBean;
 import com.alibaba.dubbo.config.spring.context.annotation.EnableDubbo;
+import com.alibaba.dubbo.rpc.Protocol;
+import org.springframework.beans.factory.xml.NamespaceHandlerSupport;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 

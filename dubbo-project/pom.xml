@@ -19,6 +19,7 @@
 		<module>test-dubbo-provider</module>
 		<module>dubbo-service</module>
 		<module>dubbo-dao</module>
+<!--		<module>dubbo-admin-develop</module>-->
 	</modules>
 
 	<build>

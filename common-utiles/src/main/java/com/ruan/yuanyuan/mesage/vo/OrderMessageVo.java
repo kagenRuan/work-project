@@ -1,7 +1,6 @@
 package com.ruan.yuanyuan.mesage.vo;
 
 
-import org.springframework.amqp.rabbit.support.CorrelationData;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -13,7 +12,7 @@ import java.math.BigDecimal;
  * version:
  * Description: Order发送消息VO
  */
-public class OrderMessageVo extends CorrelationData implements Serializable {
+public class OrderMessageVo implements Serializable {
 
     /**
      * 订单ID

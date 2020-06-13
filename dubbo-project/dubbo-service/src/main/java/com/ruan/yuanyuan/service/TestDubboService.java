@@ -9,7 +9,7 @@ import com.alibaba.dubbo.common.extension.SPI;
  * @version: 1.0
  * @description:
  **/
-@SPI
+//@SPI
 public interface TestDubboService {
 
     void dubboService();

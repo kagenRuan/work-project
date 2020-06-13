@@ -14,7 +14,7 @@ import java.sql.*;
 public class MySimpleExecutor implements MyExecutor {
 
     @Override
-    public <E> E excute(String statement, String parameter) {
+    public <E> E query(String statement, Object parameter) {
 
         try {
             Connection connection = getConnection();

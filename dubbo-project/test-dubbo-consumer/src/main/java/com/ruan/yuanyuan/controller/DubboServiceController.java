@@ -6,6 +6,8 @@ import com.alibaba.dubbo.remoting.transport.dispatcher.all.AllDispatcher;
 import com.alibaba.dubbo.remoting.transport.netty.NettyClient;
 import com.alibaba.dubbo.remoting.transport.netty.NettyServer;
 import com.ruan.yuanyuan.service.TestDubboService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -19,7 +21,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class DubboServiceController {
 
-    @Reference(version = "1.0.0")
+
+    @Reference(version = "1.0.0",mock = "com.ruan.yuanyuan.mock.TestDubboServiceMock")
     TestDubboService testDubboService;
 
 
