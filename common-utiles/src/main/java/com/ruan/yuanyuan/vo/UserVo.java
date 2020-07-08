@@ -23,9 +23,9 @@ public class UserVo {
      */
     private String password;
     /**
-     * 权限资源
+     * sessionId
      */
-    private List<PermissionsVo> permissionsVoList;
+    private String token;
 
     public String getId() {
         return id;
@@ -51,11 +51,11 @@ public class UserVo {
         this.password = password;
     }
 
-    public List<PermissionsVo> getPermissionsVoList() {
-        return permissionsVoList;
+    public String getToken() {
+        return token;
     }
 
-    public void setPermissionsVoList(List<PermissionsVo> permissionsVoList) {
-        this.permissionsVoList = permissionsVoList;
+    public void setToken(String token) {
+        this.token = token;
     }
 }

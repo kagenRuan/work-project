@@ -1,5 +1,6 @@
 package com.ruan.yuanyuan.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.ruan.yuanyuan.dao.UserMapper;
@@ -45,9 +46,14 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
     @Autowired
     private IUserAccountHistoryService userAccountHistoryService;
 
+    /**
+     * 根据用户名查询用户
+     * @param name 用户名称
+     * @return User
+     */
     @Override
     public User findUserByName(String name) {
-        User user = userMapper.findUserByName(name);
+        User user = baseMapper.selectOne(new QueryWrapper<User>().eq("username",name));
         return user;
     }
 
@@ -70,17 +76,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void addUser(UserDto userDto) {
-        UserDto userDto1 = null;
-        for (int i = 1; i < 2000000; i++) {
-            userDto1 = new UserDto();
-            userDto1.setUsername(i + "");
-            userDto1.setPassword(i + "");
-            userDto1.setStatus("0");
-            userMapper.addUser(userDto1);
-        }
-//        //添加用户与角色关系
-//        userMapper.addUser(userDto);
-//        userRoleService.add(userDto.getId(),userDto.getRoleId());
+
 
     }
 
@@ -160,8 +156,6 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
         ResultObject resultObject = new ResultObject();
         User user = this.baseMapper.selectById(userId);
         BusinessAssert.notNull(user, ExceptionUtil.BuyerExceptionEnum.BUYER_FIND_FAIL);
-        BigDecimal userMoney = user.getMoney().add(money);
-        user.setMoney(userMoney);
         user.updateBean();
         //修改用户
         boolean result = this.updateById(user);
@@ -209,11 +203,11 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
      */
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public ResultObject addUser(User user) {
+    public boolean addUser(User user) {
+        user.initBean();
         ResultObject resultObject = new ResultObject();
         boolean result = this.saveOrUpdate(user);
-        resultObject.setCode(ResultEnum.getResultEnum(result).getCode());
-        resultObject.setMsg(ResultEnum.getResultEnum(result).getMsg());
-        return resultObject;
+        userRoleService.addRole(user.getId(),"111");
+        return result;
     }
 }

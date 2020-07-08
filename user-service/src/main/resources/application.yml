@@ -28,6 +28,9 @@ spring:
 #    test-while-idle: true
 #    test-on-borrow: false
 #    test-on-return: false
+  cloud:
+    compatibility-verifier:
+      enabled: false
 #mybatis-plus插件配置
 #mybatis-plus:
 #  mapper-locations: mapper/*.xml
@@ -39,8 +42,8 @@ spring:
 #    db-config:
 #      id-type: uuid
 #      update-strategy: not_null #可以修改某值为空
-  aop:
-    proxy-target-class: true
+#  aop:
+#    proxy-target-class: true
 logging:
   level:
     com.ruan.yuanyuan.dao: DEBUG

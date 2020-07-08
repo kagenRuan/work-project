@@ -1,8 +1,8 @@
 package com.ruan.yuanyuan.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.ruan.yuanyuan.dao.PermissionsRoleMapper;
-import com.ruan.yuanyuan.entity.RealmRoleRef;
+import com.ruan.yuanyuan.dao.PermissionsRoleRefMapper;
+import com.ruan.yuanyuan.entity.PermissionsRoleRef;
 import com.ruan.yuanyuan.service.IPermissionsRoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,10 +16,10 @@ import org.springframework.transaction.annotation.Transactional;
  * Description: 资源与角色
  */
 @Service
-public class PermissionsRoleServiceImpl extends ServiceImpl<PermissionsRoleMapper, RealmRoleRef> implements IPermissionsRoleService {
+public class PermissionsRoleServiceImpl extends ServiceImpl<PermissionsRoleRefMapper, PermissionsRoleRef> implements IPermissionsRoleService {
 
     @Autowired
-    private PermissionsRoleMapper permissionsRoleMapper;
+    private PermissionsRoleRefMapper permissionsRoleMapper;
 
     /**
      * 删除资源与角色

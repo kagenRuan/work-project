@@ -20,55 +20,16 @@ import java.util.Set;
 public interface PermissionsMapper extends BaseMapper<Permissions> {
 
     /**
-     * 查询资源
-     *
-     * @param id
-     * @return
-     */
-    Permissions findById(String id);
-
-    /**
-     * 查询所有的资源
-     *
-     * @return
-     */
-    List<Permissions> findAll();
-
-    /**
-     * 删除资源
-     *
-     * @param id
-     */
-    void deletePermissionsById(String id);
-
-    /**
-     * 添加资源
-     *
-     * @param permissionsDto
-     */
-    void add(@Param("permissions") PermissionsDto permissionsDto);
-
-    /**
-     * 根据父id查询资源
-     *
-     * @param parentId 父id
-     * @return
-     */
-    List<Permissions> findAllPermissionsByParentId(String parentId);
-
-    /**
-     * 根据用户id查询用户的资源
-     *
-     * @param userId
-     * @return
-     */
-    List<PermissionsVo> findPermissionsByUserId(String userId);
-
-    /**
      * 根据角色查询权限
-     *
-     * @param roles
-     * @return
+     * @param roleIds 角色ID
+     * @return Set<PermissionsVo>
      */
-    Set<PermissionsVo> findPermissionsByRoleId(Set<Role> roles);
+    Set<PermissionsVo> findPermissionsByRoleId(@Param("roleIds") Set<String> roleIds);
+    /**
+     * 根据用户ID查询资源信息
+     * @param userId 用户ID
+     * @param isButton 是否是菜单 0为按钮 1为菜单
+     * @return List<PermissionsVo>
+     */
+    List<PermissionsVo> findPermissionsByUserId(@Param("userId") String userId, @Param("isButton") String isButton);
 }

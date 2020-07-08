@@ -18,11 +18,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
+    private Logger logger = LoggerFactory.getLogger(GlobalExceptionHandler.class);
+
 
     private static ResultObject resultObject = new ResultObject();
 
     @ExceptionHandler(value = Exception.class)
     public ResultObject defaultErrorHandler(Exception exception) {
+        exception.printStackTrace();
         if (exception instanceof BusinessException) {
             BusinessException businessException = (BusinessException) exception;
             resultObject.setCode(businessException.getCode());

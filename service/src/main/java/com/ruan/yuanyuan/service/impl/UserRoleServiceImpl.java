@@ -20,7 +20,6 @@ public class UserRoleServiceImpl extends ServiceImpl<UserRoleMapper, UserRoleRef
 
     @Autowired
     private UserRoleMapper userRoleMapper;
-
     /**
      * 删除用户角色关系
      *
@@ -39,8 +38,8 @@ public class UserRoleServiceImpl extends ServiceImpl<UserRoleMapper, UserRoleRef
      * @param roleId 角色id
      */
     @Override
-    @Transactional
-    public void add(String userId, String roleId) {
-        userRoleMapper.add(userId, roleId);
+    @Transactional(rollbackFor = Exception.class)
+    public void addRole(String userId, String roleId) {
+        userRoleMapper.addRole(userId, roleId);
     }
 }

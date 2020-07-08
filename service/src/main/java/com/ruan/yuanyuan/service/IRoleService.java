@@ -1,7 +1,9 @@
 package com.ruan.yuanyuan.service;
 
+import com.baomidou.mybatisplus.extension.service.IService;
 import com.ruan.yuanyuan.dto.RoleDto;
 import com.ruan.yuanyuan.entity.Role;
+import com.ruan.yuanyuan.vo.RoleVo;
 
 import java.util.List;
 import java.util.Set;
@@ -13,34 +15,13 @@ import java.util.Set;
  * version:
  * Description: 角色
  */
-public interface IRoleService {
+public interface IRoleService extends IService<Role> {
+
 
     /**
-     * 查询角色
-     *
-     * @param id
-     * @return
+     * 根据用户ID查询用户角色
+     * @param userId
+     * @return Set<Role>
      */
-    Set<Role> findRoleById(String id);
-
-    /**
-     * 查询所有的角色
-     *
-     * @return
-     */
-    List<Role> findAll();
-
-    /**
-     * 删除角色
-     *
-     * @param id
-     */
-    void deleteRoleById(String id);
-
-    /**
-     * 添加角色
-     *
-     * @param roleDto
-     */
-    void add(RoleDto roleDto);
+    List<RoleVo> findRoleByUserId(String userId);
 }

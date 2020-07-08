@@ -17,6 +17,7 @@ import com.ruan.yuanyuan.service.IOrderService;
 import com.ruan.yuanyuan.util.MessageIdCorrelationData;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.amqp.rabbit.connection.CorrelationData;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
@@ -74,7 +75,7 @@ public class OrderTask {
                 case ORDER_PAY:
                     OrderPay orderPay = JSON.parseObject(body, OrderPay.class);
                     if (!ObjectUtils.isEmpty(orderPay)) {
-                        MessageIdCorrelationData correlationData = new MessageIdCorrelationData();
+                        CorrelationData correlationData = new CorrelationData();
                         correlationData.setId(orderPay.getPaySn());
                         //如果当前消息已经重试投递次数大于等于5，则直接将其丢进对应的死信队列中，有死信队列根据业务逻辑处理
                         if (5 == obj.getRetryNum()) {

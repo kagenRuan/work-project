@@ -1,5 +1,6 @@
 package com.ruan.yuanyuan.service;
 
+import com.baomidou.mybatisplus.extension.service.IService;
 import com.ruan.yuanyuan.dto.UserDto;
 import com.ruan.yuanyuan.entity.ResultObject;
 import com.ruan.yuanyuan.entity.User;
@@ -15,7 +16,7 @@ import java.util.List;
  * version:
  * Description: 用户服务接口
  */
-public interface IUserService {
+public interface IUserService extends IService<User> {
     /**
      * 根据用户名查询用户信息
      *
@@ -57,5 +58,7 @@ public interface IUserService {
      * @param user
      * @return
      */
-    ResultObject addUser(User user);
+    boolean addUser(User user);
+
+
 }

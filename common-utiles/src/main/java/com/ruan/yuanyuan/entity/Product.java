@@ -27,11 +27,6 @@ public class Product extends BaseEntity {
     @TableField("inventory")
     private int inventory;
     /**
-     * 创建时间
-     */
-    @TableField("create_time")
-    private Date createTime;
-    /**
      * 商品价格
      */
     @TableField("price")
@@ -51,14 +46,6 @@ public class Product extends BaseEntity {
 
     public void setInventory(int inventory) {
         this.inventory = inventory;
-    }
-
-    public Date getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
     }
 
     public BigDecimal getPrice() {

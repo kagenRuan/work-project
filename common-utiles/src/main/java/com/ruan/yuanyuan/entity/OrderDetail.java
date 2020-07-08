@@ -45,12 +45,6 @@ public class OrderDetail extends BaseEntity {
      */
     @TableField("total_price")
     private BigDecimal totalPrice;
-    /**
-     * 创建时间
-     */
-    @TableField("create_time")
-    private Date createTime;
-
 
     public String getIdProduct() {
         return idProduct;
@@ -99,14 +93,5 @@ public class OrderDetail extends BaseEntity {
     public void setTotalPrice(BigDecimal totalPrice) {
         this.totalPrice = totalPrice;
     }
-
-    public Date getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
-
 
 }

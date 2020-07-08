@@ -30,19 +30,10 @@ public class User extends BaseEntity implements Serializable {
      */
     @TableField("status")
     private String status;
-
     /**
-     * 用户金额
+     * 用户类型
      */
-    private BigDecimal money;
-
-    public BigDecimal getMoney() {
-        return money;
-    }
-
-    public void setMoney(BigDecimal money) {
-        this.money = money;
-    }
+   private String type;
 
     public String getUsername() {
         return username;
@@ -68,4 +59,11 @@ public class User extends BaseEntity implements Serializable {
         this.status = status;
     }
 
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
 }

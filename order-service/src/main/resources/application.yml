@@ -12,7 +12,10 @@ eureka:
 spring:
   application:
     name: order-service
-#  datasource:  #在配置里以及把业务数据源和分布式数据源都配好了，那么这里就不需要在配置数据源了
+  cloud:
+    compatibility-verifier:
+      enabled: false
+  #  datasource:  #在配置里以及把业务数据源和分布式数据源都配好了，那么这里就不需要在配置数据源了
 #    url: jdbc:mysql://localhost:3306/cloudproject?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull
 #    username: root
 #    password: 123456
@@ -46,16 +49,16 @@ spring:
     template:
       mandatory: true #生产端配置主要是用于在消息发送时路由不成功如果为false将会把消息删除true则会在ReturnCallback里面方法返回
 #mybatis-plus插件配置
-mybatis-plus:
-  mapper-locations: mapper/*.xml
-  type-aliases-package: com.ruan.yuanyuan.entity
-  configuration:
-    map-underscore-to-camel-case: true #驼峰命名
-    call-setters-on-nulls: true #null忽略
-  global-config:
-    db-config:
-      id-type: uuid
-      update-strategy: not_null #可以修改某值为空
+#mybatis-plus:
+#  mapper-locations: mapper/*.xml
+#  type-aliases-package: com.ruan.yuanyuan.entity
+#  configuration:
+#    map-underscore-to-camel-case: true #驼峰命名
+#    call-setters-on-nulls: true #null忽略
+#  global-config:
+#    db-config:
+#      id-type: uuid
+#      update-strategy: not_null #可以修改某值为空
 logging:
   level:
     com.ruan.yuanyuan.dao: DEBUG

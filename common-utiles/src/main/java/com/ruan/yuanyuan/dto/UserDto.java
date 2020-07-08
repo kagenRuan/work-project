@@ -24,31 +24,14 @@ public class UserDto implements Serializable {
      */
     private String password;
     /**
-     * 角色id
-     */
-    private String roleId;
-    /**
-     * 主键
-     */
-    private String id;
-    /**
-     * 用户状态
-     */
-    private String status;
-    /**
      * 记住我
      */
-    private boolean rememberMe = true;
+    private String rememberMe;
+    /**
+     * 验证码
+     */
+    private String code;
 
-    private BigDecimal price = BigDecimal.ZERO;
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
 
     public String getUsername() {
         return username;
@@ -66,35 +49,19 @@ public class UserDto implements Serializable {
         this.password = password;
     }
 
-    public String getRoleId() {
-        return roleId;
+    public String getCode() {
+        return code;
     }
 
-    public void setRoleId(String roleId) {
-        this.roleId = roleId;
+    public void setCode(String code) {
+        this.code = code;
     }
 
-    public boolean isRememberMe() {
+    public String getRememberMe() {
         return rememberMe;
     }
 
-    public void setRememberMe(boolean rememberMe) {
+    public void setRememberMe(String rememberMe) {
         this.rememberMe = rememberMe;
-    }
-
-    public BigDecimal getPrice() {
-        return price;
-    }
-
-    public void setPrice(BigDecimal price) {
-        this.price = price;
-    }
-
-    public String getStatus() {
-        return StringUtils.isEmpty(status) ? "0" : status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
     }
 }

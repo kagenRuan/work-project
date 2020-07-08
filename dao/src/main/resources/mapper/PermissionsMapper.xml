@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+
+<mapper namespace="com.ruan.yuanyuan.dao.PermissionsMapper">
+
+    <select id="findPermissionsByRoleId" resultType="com.ruan.yuanyuan.vo.PermissionsVo">
+        SELECT
+            yps.name as title
+        FROM yy_permissions yps LEFT JOIN yy_permissions_role_ref yprr ON yps.id = yprr.permissions_id
+        WHERE 1=1 AND yps.is_valid='Y' AND yprr.role_id IN
+        <foreach collection="roleIds" index="index" item="item" open="(" close=")" separator=",">
+            #{item}
+        </foreach>
+    </select>
+
+    <select id="findPermissionsByUserId" resultType="com.ruan.yuanyuan.vo.PermissionsVo">
+        SELECT
+            yp.id,
+            yp.name as title,
+            yp.url as href,
+            yp.parent_id as parentId,
+            yp.is_button as isButton,
+            yp.target,
+            yp.image as icon
+        FROM yy_user_role_ref yurr INNER JOIN yy_permissions_role_ref yprr ON yurr.role_id=yprr.role_id
+        INNER JOIN yy_permissions yp ON yprr.permissions_id=yp.id
+        WHERE yurr.is_valid='Y' AND yprr.is_valid='Y' AND yp.is_valid='Y'
+        <if test="userId != null and userId != '' ">
+            AND yurr.user_id=#{userId}
+        </if>
+        <if test="isButton !=null and isButton != '' ">
+            AND yp.is_button=#{isButton}
+        </if>
+    </select>
+</mapper>

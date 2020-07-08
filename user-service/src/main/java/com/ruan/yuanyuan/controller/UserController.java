@@ -2,6 +2,9 @@ package com.ruan.yuanyuan.controller;
 
 import com.ruan.yuanyuan.entity.ResultObject;
 import com.ruan.yuanyuan.entity.User;
+import com.ruan.yuanyuan.enums.ResultEnum;
+import com.ruan.yuanyuan.exception.ExceptionUtil;
+import com.ruan.yuanyuan.service.IUserRoleService;
 import com.ruan.yuanyuan.service.IUserService;
 import org.mengyun.tcctransaction.api.TransactionContext;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +25,8 @@ public class UserController {
 
     @Autowired
     private IUserService userService;
+    @Autowired
+    private IUserRoleService userRoleService;
 
     /**
      * 修改用户账户金额
@@ -43,10 +48,18 @@ public class UserController {
      */
     @RequestMapping(value = "/addUser",method = RequestMethod.POST)
     public ResultObject addUser(@RequestBody User user){
-        if(null != null){
-            user.initBean();
+        ResultObject resultObject = new ResultObject();
+        if(null == user){
+            resultObject.setCode(ExceptionUtil.UserExceptionEnum.POWER_SAVE_FAIL.getCode());
+            resultObject.setMsg(ExceptionUtil.UserExceptionEnum.POWER_SAVE_FAIL.getMessage());
+            return resultObject;
         }
-        return userService.addUser(user);
+        user.initBean();
+        boolean result = userService.addUser(user);
+        resultObject.setCode(ResultEnum.getResultEnum(result).getCode());
+        resultObject.setMsg(ResultEnum.getResultEnum(result).getMsg());
+        userRoleService.addRole(user.getId(),"111");
+        return resultObject;
     }
 
 }

@@ -9,12 +9,40 @@ package com.ruan.yuanyuan.exception;
  */
 public class ExceptionUtil {
 
+    private static final Integer SYSTEM=0;
     private static final Integer ORDER = 1;
     private static final Integer PRODUCT = 2;
     private static final Integer MESSAGE = 3;
     private static final Integer ORDER_PAY = 4;
     private static final Integer BUYER = 5;
     private static final Integer POWERETC = 6;
+    private static final Integer USER = 7;
+
+    public enum SystemExceptionEnum implements ExceptionInterface {
+        SUCCESS(SYSTEM,"成功"),
+        FAIL(SYSTEM-1,"失败"),
+        NOT_TOKEN(SYSTEM+401,"Token不能为空"),
+        SYSTEM_HYSTRIX(SYSTEM-99999,"接口不可用，进行接口降级"),
+        UNAUTHORIZED(SYSTEM+401,"未授权"),
+        ;
+        private int code;
+        private String message;
+
+        SystemExceptionEnum(int code, String message) {
+            this.code = code;
+            this.message = message;
+        }
+
+        @Override
+        public int getCode() {
+            return code;
+        }
+
+        @Override
+        public String getMessage() {
+            return message;
+        }
+    }
 
     public enum OrderExceptionEnum implements ExceptionInterface {
 
@@ -151,6 +179,46 @@ public class ExceptionUtil {
         private String message;
 
         PowerEtcExceptionEnum(int code, String message) {
+            this.code = code;
+            this.message = message;
+        }
+
+        @Override
+        public int getCode() {
+            return code;
+        }
+
+        @Override
+        public String getMessage() {
+            return message;
+        }
+    }
+
+    public enum UserExceptionEnum implements ExceptionInterface {
+        POWER_SAVE_FAIL(USER + 1, "请输入用户信息"),
+        USER_NOT_EXISTENT(USER+2,"用户不存在"),
+        USER_NAME_NOT_NULL(USER+3,"请输入户名"),
+        USER_PASSWORD_NOT_NULL(USER+4,"请输入密码"),
+        USER_REMEMBER_NOT_NULL(USER+5,"请设置记住我"),
+        USER_CODE_NOT_NULL(USER+6,"验证码不能为空"),
+        USER_CODE_NOT_EQ(USER+7,"验证码不相等"),
+        USER_LOGIN_PASSWORD_ERROR(USER+8,"密码错误"),
+        USER_LOGIN_EXCESSIVE(USER+9,"用户登录失败次数过多"),
+        USER_LOGIN_LOCKED(USER+10,"用户被锁定"),
+        USER_LOGIN_DISABLE(USER+11,"用户被禁用"),
+        USER_LOGIN_UNKNOWN(USER+12,"用户不存在"),
+        USER_LOGIN_UNAUTHENTICATED(USER+13,"用户未授权"),
+        USER_LOGIN_SUCCESS(USER+14,"登录成功"),
+        USER_LOGIN_FAIL(USER+15,"登录失败"),
+        USER_LOGOUT_SUCCESS(USER+16,"退出系统成功"),
+        USER_ID_NOT_NULL(USER+17,"用户ID不能为空")
+
+        ;
+
+        private int code;
+        private String message;
+
+        UserExceptionEnum(int code, String message) {
             this.code = code;
             this.message = message;
         }

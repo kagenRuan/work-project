@@ -22,5 +22,6 @@ public interface IUserRoleService {
      * @param userId 用户ID
      * @param roleId 角色id
      */
-    void add(String userId, String roleId);
+    void addRole(String userId, String roleId);
+
 }

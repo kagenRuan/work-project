@@ -74,16 +74,16 @@
             <artifactId>spring-boot-starter-aop</artifactId>
         </dependency>
         <!--日志相关 start-->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-log4j2</artifactId>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>org.springframework.boot</groupId>-->
+<!--            <artifactId>spring-boot-starter-log4j2</artifactId>-->
+<!--        </dependency>-->
         <!--log4j2是基于disruptor框架开发的，disruptor框架高并发无锁框架-->
-        <dependency>
-            <groupId>com.lmax</groupId>
-            <artifactId>disruptor</artifactId>
-            <version>${disruptor.version}</version>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>com.lmax</groupId>-->
+<!--            <artifactId>disruptor</artifactId>-->
+<!--            <version>${disruptor.version}</version>-->
+<!--        </dependency>-->
         <!--日志相关 end-->
 
     </dependencies>

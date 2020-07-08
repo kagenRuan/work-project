@@ -1,6 +1,6 @@
 package com.ruan.yuanyuan;
 
-import com.ruan.yuanyuan.config.TestConfig;
+import com.ruan.yuanyuan.webconfig.TestConfig;
 import com.ruan.yuanyuan.framework.context.RApplicationContext;
 import com.ruan.yuanyuan.framework.servlet.RDispatcherServlet;
 import org.springframework.boot.SpringApplication;

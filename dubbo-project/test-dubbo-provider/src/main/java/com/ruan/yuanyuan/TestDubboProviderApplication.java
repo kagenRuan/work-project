@@ -3,8 +3,10 @@ package com.ruan.yuanyuan;
 import com.alibaba.dubbo.config.ServiceConfig;
 import com.alibaba.dubbo.config.spring.ServiceBean;
 import com.alibaba.dubbo.config.spring.context.annotation.EnableDubbo;
+import com.alibaba.dubbo.config.spring.schema.DubboNamespaceHandler;
 import com.alibaba.dubbo.registry.integration.RegistryProtocol;
 import com.alibaba.dubbo.remoting.http.HttpBinder;
+import com.alibaba.dubbo.remoting.transport.netty.NettyClient;
 import com.alibaba.dubbo.rpc.protocol.dubbo.DubboProtocol;
 import com.alibaba.dubbo.rpc.protocol.http.HttpProtocol;
 import org.springframework.boot.SpringApplication;
@@ -40,3 +42,27 @@ public class TestDubboProviderApplication {
         SpringApplication.run(TestDubboProviderApplication.class, args);
     }
 }
+
+
+
+
+
+
+//public Object invokeMethod(Object o, String n, Class[] p, Object[] v) throws java.lang.reflect.InvocationTargetException {
+//    com.ruan.yuanyuan.service.TestDubboService w;
+//    try {
+//        w = ((com.ruan.yuanyuan.service.TestDubboService) $1);
+//    } catch (Throwable e) {
+//        throw new IllegalArgumentException(e);
+//    }
+//    try {
+//        if ("dubboService".equals($2) && $3.length == 0) {
+//            w.dubboService();
+//            return null;
+//        }
+//    } catch (Throwable e) {
+//        throw new java.lang.reflect.InvocationTargetException(e);
+//    }
+//    throw new com.alibaba.dubbo.common.bytecode.NoSuchMethodException("Not found method \"" + $2 + "\" in class com.ruan.yuanyuan.service.TestDubboService.");
+//}
+

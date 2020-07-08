@@ -2,6 +2,8 @@ package com.ruan.yuanyuan.dao;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.ruan.yuanyuan.entity.UserRoleRef;
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 /**
  * User: ruanyuanyuan
@@ -25,5 +27,5 @@ public interface UserRoleMapper extends BaseMapper<UserRoleRef> {
      * @param userId
      * @param roleId
      */
-    void add(String userId, String roleId);
+    void addRole(@Param("userId") String userId, @Param("roleId") String roleId);
 }

@@ -2,6 +2,7 @@ package com.ruan.yuanyuan.entity;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.ruan.yuanyuan.enums.ResultObjectEnum;
+import com.ruan.yuanyuan.exception.ExceptionUtil;
 
 import java.io.Serializable;
 
@@ -20,8 +21,8 @@ public class ResultObject implements Serializable {
     private String msg;
 
     public ResultObject() {
-        this.code = ResultObjectEnum.SUCCESS.getCode();
-        this.msg = ResultObjectEnum.SUCCESS.getName();
+        this.code = ExceptionUtil.SystemExceptionEnum.SUCCESS.getCode();
+        this.msg = ExceptionUtil.SystemExceptionEnum.SUCCESS.getMessage();
     }
 
     public ResultObject(Object data) {
@@ -32,6 +33,11 @@ public class ResultObject implements Serializable {
     public ResultObject(Object data, Integer code) {
         this.data = data;
         this.code = code;
+    }
+
+    public ResultObject(String msg) {
+        this.msg = msg;
+        this.code = ExceptionUtil.SystemExceptionEnum.SUCCESS.getCode();
     }
 
     public ResultObject(Integer code, String msg) {

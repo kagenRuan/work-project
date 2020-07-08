@@ -1,17 +1,17 @@
 /*
  Navicat Premium Data Transfer
 
- Source Server         : 本地
+ Source Server         : 本地测试
  Source Server Type    : MySQL
- Source Server Version : 50728
- Source Host           : localhost:3306
+ Source Server Version : 50729
+ Source Host           : 127.0.0.1:3306
  Source Schema         : cloudproject
 
  Target Server Type    : MySQL
- Target Server Version : 50728
+ Target Server Version : 50729
  File Encoding         : 65001
 
- Date: 26/12/2019 20:20:37
+ Date: 06/07/2020 13:30:15
 */
 
 SET NAMES utf8mb4;

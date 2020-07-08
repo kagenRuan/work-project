@@ -12,59 +12,72 @@ import java.util.List;
  */
 public class PermissionsVo implements Serializable {
 
-
     private String id;
     /**
      * 资源名称
      */
-    private String name;
+    private String title;
+    /**
+     * 资源图片
+     */
+    private String image;
+    /**
+     * 图片
+     */
+    private String icon;
     /**
      * 资源url
      */
-    private String url;
+    private String href;
     /**
      * 父编号,本权限可能是该父编号权限的子权限
      */
     private String parentId;
     /**
-     * 父节点id
-     */
-    private String parentIds;
-    /**
-     * 资源类型
-     */
-    private String resourceType;
-    /**
      * 权限字符串
      */
     private String permission;
     /**
+     * 是否是按钮 0为按钮1位菜单
+     */
+    private String isButton;
+
+    private String target;
+    /**
      * 子项
      */
-    private List<PermissionsVo> childes;
+    private List<PermissionsVo> child;
 
-    public String getName() {
-        return name;
+    public String getTitle() {
+        return title;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
-    public String getUrl() {
-        return url;
+    public String getImage() {
+        return image;
     }
 
-    public void setUrl(String url) {
-        this.url = url;
+    public void setImage(String image) {
+        this.image = image;
     }
 
-    public List<PermissionsVo> getChildes() {
-        return childes;
+    public String getHref() {
+        return href;
     }
 
-    public void setChildes(List<PermissionsVo> childes) {
-        this.childes = childes;
+    public void setHref(String href) {
+        this.href = href;
+    }
+
+    public List<PermissionsVo> getChild() {
+        return child;
+    }
+
+    public void setChild(List<PermissionsVo> child) {
+        this.child = child;
     }
 
     public String getId() {
@@ -83,27 +96,35 @@ public class PermissionsVo implements Serializable {
         this.parentId = parentId;
     }
 
-    public String getParentIds() {
-        return parentIds;
-    }
-
-    public void setParentIds(String parentIds) {
-        this.parentIds = parentIds;
-    }
-
-    public String getResourceType() {
-        return resourceType;
-    }
-
-    public void setResourceType(String resourceType) {
-        this.resourceType = resourceType;
-    }
-
     public String getPermission() {
         return permission;
     }
 
     public void setPermission(String permission) {
         this.permission = permission;
+    }
+
+    public String getIsButton() {
+        return isButton;
+    }
+
+    public void setIsButton(String isButton) {
+        this.isButton = isButton;
+    }
+
+    public String getTarget() {
+        return target;
+    }
+
+    public void setTarget(String target) {
+        this.target = target;
+    }
+
+    public String getIcon() {
+        return icon;
+    }
+
+    public void setIcon(String icon) {
+        this.icon = icon;
     }
 }

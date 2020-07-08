@@ -21,19 +21,20 @@
         <module>common-utiles</module>
         <module>dao</module>
         <module>service</module>
-        <module>mall-management</module>
         <module>message-service</module>
         <module>eureka-server</module>
         <module>order-service</module>
         <module>pay-service</module>
         <module>user-service</module>
         <module>task</module>
-        <module>test-project</module>
+<!--        <module>test-project</module>-->
         <module>api-gateway</module>
         <module>product-service</module>
         <module>sleuth</module>
         <module>dubbo-project</module>
         <module>netty-project</module>
+        <module>test-spring</module>
+        <module>shiro-service</module>
     </modules>
 
     <properties>
@@ -68,10 +69,14 @@
         <maven.version>3.8.0</maven.version>
         <!--zookeeper 版本-->
         <zookeeper.version>3.4.10</zookeeper.version>
-        <!--Tcc分布式事务日志-->
+        <!--Tcc分布式事务-->
         <tcc-transaction.version>1.2.11</tcc-transaction.version>
+        <!-- netty-->
         <netty-version>4.1.44.Final</netty-version>
+        <!--fastjson-->
         <fastjson.version>1.2.62</fastjson.version>
+        <!--zookeeper-->
+        <zookeeper.version>3.5.8</zookeeper.version>
     </properties>
 
 

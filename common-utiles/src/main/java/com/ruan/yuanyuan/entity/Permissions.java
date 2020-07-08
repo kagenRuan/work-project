@@ -25,8 +25,17 @@ public class Permissions extends BaseEntity {
     /**
      * 父级ID
      */
-    @TableField("parent_Id")
+    @TableField("parent_id")
     private String parentId;
+    /**
+     * 是否是按钮 0按钮 1菜单
+     */
+    @TableField("is_button")
+    private String isButton;
+    /**
+     * 权限标识：主要用于增删查改这些动作
+     */
+    private String code;
 
     public String getName() {
         return name;
@@ -50,5 +59,21 @@ public class Permissions extends BaseEntity {
 
     public void setParentId(String parentId) {
         this.parentId = parentId;
+    }
+
+    public String getIsButton() {
+        return isButton;
+    }
+
+    public void setIsButton(String isButton) {
+        this.isButton = isButton;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
     }
 }
