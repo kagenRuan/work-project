@@ -6,12 +6,20 @@
 
     <select id="findPermissionsByRoleId" resultType="com.ruan.yuanyuan.vo.PermissionsVo">
         SELECT
-            yps.name as title
+            yps.code as permission
         FROM yy_permissions yps LEFT JOIN yy_permissions_role_ref yprr ON yps.id = yprr.permissions_id
-        WHERE 1=1 AND yps.is_valid='Y' AND yprr.role_id IN
-        <foreach collection="roleIds" index="index" item="item" open="(" close=")" separator=",">
-            #{item}
-        </foreach>
+        WHERE 1=1 AND yps.is_valid='Y' AND yprr.role_id
+        <if test="isButton != null and isButton != ''">
+            AND yps.is_button=#{isButton}
+        </if>
+        <if test="roleIds != null">
+            IN
+            <foreach collection="roleIds" index="index" item="item" open="(" close=")" separator=",">
+                #{item}
+            </foreach>
+        </if>
+
+
     </select>
 
     <select id="findPermissionsByUserId" resultType="com.ruan.yuanyuan.vo.PermissionsVo">
@@ -21,16 +29,36 @@
             yp.url as href,
             yp.parent_id as parentId,
             yp.is_button as isButton,
+            yp.code as permission,
             yp.target,
             yp.image as icon
+        FROM yy_permissions yp
+        INNER JOIN
+        (SELECT
+            DISTINCT yprr.permissions_id
         FROM yy_user_role_ref yurr INNER JOIN yy_permissions_role_ref yprr ON yurr.role_id=yprr.role_id
-        INNER JOIN yy_permissions yp ON yprr.permissions_id=yp.id
-        WHERE yurr.is_valid='Y' AND yprr.is_valid='Y' AND yp.is_valid='Y'
-        <if test="userId != null and userId != '' ">
+        WHERE yurr.is_valid='Y' AND yprr.is_valid='Y'
+        <if test="userId != null and userId != ''">
             AND yurr.user_id=#{userId}
         </if>
-        <if test="isButton !=null and isButton != '' ">
+        ) a  ON yp.id= a.permissions_id
+
+        WHERE yp.is_valid='Y'
+        <if test="isButton != null and isButton != ''">
             AND yp.is_button=#{isButton}
         </if>
+    </select>
+
+    <select id="findAll" resultType="com.ruan.yuanyuan.vo.PermissionsVo">
+        SELECT
+            yp.id,
+            yp.name as title,
+            yp.url as href,
+            yp.parent_id as parentId,
+            yp.is_button as isButton,
+            yp.code as permission,
+            yp.target,
+            yp.image as icon
+        FROM yy_permissions yp WHERE yp.is_valid='Y'
     </select>
 </mapper>

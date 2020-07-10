@@ -11,7 +11,7 @@
  Target Server Version : 50729
  File Encoding         : 65001
 
- Date: 06/07/2020 13:30:48
+ Date: 08/07/2020 22:04:21
 */
 
 SET NAMES utf8mb4;
@@ -32,5 +32,28 @@ CREATE TABLE `yy_permissions_role_ref` (
   `update_time` datetime NOT NULL COMMENT '修改时间',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+
+-- ----------------------------
+-- Records of yy_permissions_role_ref
+-- ----------------------------
+BEGIN;
+INSERT INTO `yy_permissions_role_ref` VALUES ('1', '4', '1', 'Y', 'admin', '2020-07-06 19:46:04', 'admin', '2020-07-06 19:46:11');
+INSERT INTO `yy_permissions_role_ref` VALUES ('10', '2', '1', 'Y', 'admin', '2020-07-07 22:18:31', 'admin', '2020-07-07 22:18:37');
+INSERT INTO `yy_permissions_role_ref` VALUES ('11', '3', '1', 'Y', 'admin', '2020-07-07 22:18:31', 'admin', '2020-07-07 22:18:37');
+INSERT INTO `yy_permissions_role_ref` VALUES ('12', '8', '2', 'Y', 'admin', '2020-07-07 22:18:31', 'admin', '2020-07-07 22:18:37');
+INSERT INTO `yy_permissions_role_ref` VALUES ('13', '14', '2', 'Y', 'admin', '2020-07-07 22:18:31', 'admin', '2020-07-07 22:18:37');
+INSERT INTO `yy_permissions_role_ref` VALUES ('14', '8', '3', 'Y', 'admin', '2020-07-07 22:18:31', 'admin', '2020-07-07 22:18:37');
+INSERT INTO `yy_permissions_role_ref` VALUES ('15', '14', '3', 'Y', 'admin', '2020-07-07 22:18:31', 'admin', '2020-07-07 22:18:37');
+INSERT INTO `yy_permissions_role_ref` VALUES ('16', '1', '2', 'Y', 'admin', '2020-07-08 16:56:09', 'admin', '2020-07-08 16:56:14');
+INSERT INTO `yy_permissions_role_ref` VALUES ('17', '1', '3', 'Y', 'admin', '2020-07-08 16:57:01', 'admin', '2020-07-08 16:57:07');
+INSERT INTO `yy_permissions_role_ref` VALUES ('2', '5', '1', 'Y', 'admin', '2020-07-06 19:51:51', 'admin', '2020-07-06 19:51:59');
+INSERT INTO `yy_permissions_role_ref` VALUES ('3', '6', '1', 'Y', 'admin', '2020-07-07 21:58:03', 'admin', '2020-07-07 21:58:09');
+INSERT INTO `yy_permissions_role_ref` VALUES ('4', '7', '1', 'Y', 'admin', '2020-07-07 21:58:03', 'admin', '2020-07-07 21:58:09');
+INSERT INTO `yy_permissions_role_ref` VALUES ('5', '10', '2', 'Y', 'admin', '2020-07-07 21:58:03', 'admin', '2020-07-07 21:58:09');
+INSERT INTO `yy_permissions_role_ref` VALUES ('6', '11', '2', 'Y', 'admin', '2020-07-07 21:58:03', 'admin', '2020-07-07 21:58:09');
+INSERT INTO `yy_permissions_role_ref` VALUES ('7', '12', '3', 'Y', 'admin', '2020-07-07 21:58:03', 'admin', '2020-07-07 21:58:09');
+INSERT INTO `yy_permissions_role_ref` VALUES ('8', '13', '3', 'Y', 'admin', '2020-07-07 21:58:03', 'admin', '2020-07-07 21:58:09');
+INSERT INTO `yy_permissions_role_ref` VALUES ('9', '1', '1', 'Y', 'admin', '2020-07-07 22:18:31', 'admin', '2020-07-07 22:18:37');
+COMMIT;
 
 SET FOREIGN_KEY_CHECKS = 1;

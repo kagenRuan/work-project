@@ -86,7 +86,7 @@ public class LoginController extends BaseController{
             if(subject.isAuthenticated()){
                 //然后sessionID发送给前端保存
                 UserVo userVo = new UserVo();
-                BeanUtils.copyProperties(subject,userVo);
+                BeanUtils.copyProperties(subject.getPrincipal(),userVo);
                 userVo.setToken(subject.getSession().getId().toString());
                 resultObject.setData(userVo);
                 resultObject.setCode(ExceptionUtil.SystemExceptionEnum.SUCCESS.getCode());

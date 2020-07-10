@@ -1,6 +1,7 @@
 package com.ruan.yuanyuan.shiro;
 
 import com.ruan.yuanyuan.entity.User;
+import com.ruan.yuanyuan.enums.MenuEnum;
 import com.ruan.yuanyuan.exception.BusinessAssert;
 import com.ruan.yuanyuan.exception.ExceptionUtil;
 import com.ruan.yuanyuan.service.IPermissionsService;
@@ -17,6 +18,7 @@ import org.apache.shiro.subject.SimplePrincipalCollection;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 
 import java.util.Base64;
@@ -38,10 +40,13 @@ public class ShiroRealm extends AuthorizingRealm {
     private static final Logger logger = LoggerFactory.getLogger(ShiroRealm.class);
 
     @Autowired
+    @Lazy
     private IUserService userService;
     @Autowired
+    @Lazy
     private IRoleService roleService;
     @Autowired
+    @Lazy
     private IPermissionsService permissionsService;
 
 
@@ -67,8 +72,8 @@ public class ShiroRealm extends AuthorizingRealm {
         Set<String> roleNames = roleSet.stream().map(obj -> obj.getName()).collect(Collectors.toSet());
         Set<String> roleIds = roleSet.stream().map(obj -> obj.getId()).collect(Collectors.toSet());
         //获取到资源
-        Set<PermissionsVo> permissionsVos = permissionsService.findPermissionsByRoleId(roleIds);
-        Set<String> permissionsNameVos = permissionsVos.stream().map(obj ->obj.getTitle()).collect(Collectors.toSet());
+        Set<PermissionsVo> permissionsVos = permissionsService.findPermissionsByRoleId(roleIds, MenuEnum.BUTTON.getCode());
+        Set<String> permissionsNameVos = permissionsVos.stream().map(obj ->obj.getPermission()).collect(Collectors.toSet());
         //然后将角色和权限放入到shiro中
         simpleAuthorizationInfo.setRoles(roleNames);
         simpleAuthorizationInfo.setStringPermissions(permissionsNameVos);

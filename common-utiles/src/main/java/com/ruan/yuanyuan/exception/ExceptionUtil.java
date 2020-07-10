@@ -10,13 +10,14 @@ package com.ruan.yuanyuan.exception;
 public class ExceptionUtil {
 
     private static final Integer SYSTEM=0;
-    private static final Integer ORDER = 1;
-    private static final Integer PRODUCT = 2;
-    private static final Integer MESSAGE = 3;
-    private static final Integer ORDER_PAY = 4;
-    private static final Integer BUYER = 5;
-    private static final Integer POWERETC = 6;
-    private static final Integer USER = 7;
+    private static final Integer ORDER = 10;
+    private static final Integer PRODUCT = 20;
+    private static final Integer MESSAGE = 30;
+    private static final Integer ORDER_PAY = 40;
+    private static final Integer BUYER = 50;
+    private static final Integer IDEMPOTENT=60;
+    private static final Integer USER = 70;
+    private static final Integer PERMISSION=80;
 
     public enum SystemExceptionEnum implements ExceptionInterface {
         SUCCESS(SYSTEM,"成功"),
@@ -43,6 +44,35 @@ public class ExceptionUtil {
             return message;
         }
     }
+
+    public enum PermissionExceptionEnum implements ExceptionInterface {
+        PERMISSION_ID_NOT_NULL(PERMISSION+1,"请选择资源"),
+        PERMISSION_NOT_NULL(PERMISSION+2,"资源不存在"),
+        PERMISSION_NAME_NOT_NULL(PERMISSION+2,"请输入资源名称"),
+        PERMISSION_PARENT_ID_NOT_NULL(PERMISSION+2,"请选择父级资源信息"),
+        PERMISSION_PARENT_NAME_EXISTENT(PERMISSION+2,"请选择父级资源信息"),
+
+        ;
+        private int code;
+        private String message;
+
+        PermissionExceptionEnum(int code, String message) {
+            this.code = code;
+            this.message = message;
+        }
+
+        @Override
+        public int getCode() {
+            return code;
+        }
+
+        @Override
+        public String getMessage() {
+            return message;
+        }
+    }
+
+
 
     public enum OrderExceptionEnum implements ExceptionInterface {
 
@@ -171,7 +201,7 @@ public class ExceptionUtil {
     }
 
     public enum PowerEtcExceptionEnum implements ExceptionInterface {
-        POWER_SAVE_FAIL(POWERETC + 1, "添加幂等消息失败"),
+        POWER_SAVE_FAIL(IDEMPOTENT + 1, "添加幂等消息失败"),
 
         ;
 

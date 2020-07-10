@@ -49,13 +49,13 @@ public class ShiroConfig {
     @Bean
     public ShiroRealm getRealm() {
         ShiroRealm shiroRealm = new ShiroRealm();
-//        shiroRealm.setCachingEnabled(true);
-//        //启用身份验证缓存，即缓存AuthenticationInfo信息，默认false
-//        shiroRealm.setAuthenticationCachingEnabled(true);
-//        shiroRealm.setAuthenticationCacheName("authenticationCache");
-//        //启用授权缓存，即缓存AuthorizationInfo信息，默认false
-//        shiroRealm.setAuthorizationCachingEnabled(true);
-//        shiroRealm.setAuthorizationCacheName("authorizationCache");
+        shiroRealm.setCachingEnabled(true);
+        //启用身份验证缓存，即缓存AuthenticationInfo信息，默认false
+        shiroRealm.setAuthenticationCachingEnabled(true);
+        shiroRealm.setAuthenticationCacheName("authenticationCache");
+        //启用授权缓存，即缓存AuthorizationInfo信息，默认false
+        shiroRealm.setAuthorizationCachingEnabled(true);
+        shiroRealm.setAuthorizationCacheName("authorizationCache");
         return shiroRealm;
     }
 
@@ -122,14 +122,13 @@ public class ShiroConfig {
     public SessionManager sessionManager() {
         MySessionManager sessionManager = new MySessionManager();
         //全局会话超时时间（单位毫秒），默认30分钟  暂时设置为10秒钟 用来测试
-        sessionManager.setGlobalSessionTimeout(3600000);
+        sessionManager.setGlobalSessionTimeout(6000000);
         //是否开启删除无效的session对象  默认为true
         sessionManager.setDeleteInvalidSessions(true);
         //是否开启定时调度器进行检测过期session 默认为true
         sessionManager.setSessionValidationSchedulerEnabled(true);
         //设置session失效的扫描时间, 清理用户直接关闭浏览器造成的孤立会话 默认为 1个小时
         //设置该属性 就不需要设置 ExecutorServiceSessionValidationScheduler 底层也是默认自动调用ExecutorServiceSessionValidationScheduler
-        //暂时设置为 5秒 用来测试
         sessionManager.setSessionValidationInterval(3600000);
         //取消url 后面的 JSESSIONID
         sessionManager.setSessionIdUrlRewritingEnabled(false);
@@ -212,7 +211,7 @@ public class ShiroConfig {
         cacheManager.setRedisManager(redisManager());
         cacheManager.setPrincipalIdFieldName("username");
         //用户权限信息缓存时间
-        cacheManager.setExpire(3600000);
+        cacheManager.setExpire(6000000);
         return cacheManager;
     }
     /**
@@ -239,7 +238,7 @@ public class ShiroConfig {
         //sessionkey的前缀
         redisSessionDAO.setKeyPrefix("shiro_");
         //session在redis中的保存时间,最好大于session会话超时时间
-        redisSessionDAO.setExpire(360000);
+        redisSessionDAO.setExpire(6000000);
         return redisSessionDAO;
     }
 

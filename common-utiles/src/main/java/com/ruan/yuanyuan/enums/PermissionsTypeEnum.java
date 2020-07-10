@@ -1,21 +1,20 @@
 package com.ruan.yuanyuan.enums;
 
 /**
- * User: ruanyuanyuan
- * Date: 2019-08-16
- * Time: 14:07
- * version:
- * Description: 用户类型枚举
- */
-public enum UserTypeEnum {
+ * @ClassName: PermissionsType
+ * @author: ruanyuanyuan
+ * @date: 2020/7/8 19:06
+ * @version: 1.0
+ * @description: 资源枚举
+ **/
+public enum  PermissionsTypeEnum {
 
-    ADMIN("1", "管理员"),
-    USER("2", "普通用户");
-
+    CATALOGUE("0", "目录"),
+    MENU("1", "菜单");
     private String code;
     private String message;
 
-    UserTypeEnum(String code, String message) {
+    PermissionsTypeEnum(String code, String message) {
         this.code = code;
         this.message = message;
     }

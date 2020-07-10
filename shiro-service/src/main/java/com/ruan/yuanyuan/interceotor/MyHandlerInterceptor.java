@@ -3,7 +3,7 @@ package com.ruan.yuanyuan.interceotor;
 import com.alibaba.fastjson.JSONObject;
 import com.ruan.yuanyuan.exception.BusinessAssert;
 import com.ruan.yuanyuan.exception.ExceptionUtil;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -11,7 +11,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.Enumeration;
 
 /**
  * @ClassName: MyHandlerInterceptor
@@ -28,19 +27,19 @@ public class MyHandlerInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        logger.info("<<<<<<<<<<<<<  接口开始时间  >>>>>>>>>>>> date:{}",preDate);
-//        String token = request.getHeader("authorization");
-//        BusinessAssert.isFalse(StringUtils.isBlank(token), ExceptionUtil.SystemExceptionEnum.NOT_TOKEN);
+        logger.info("<<<<<<<<<< 接口请求路径   >>>>>>>>> url:{} params：{} token:{}",request.getRequestURI(),JSONObject.toJSONString(request.getParameterMap()),request.getHeader("authorization"));
+        String token = request.getHeader("authorization");
+//        BusinessAssert.notBlank(token, ExceptionUtil.SystemExceptionEnum.NOT_TOKEN);
         return true;
     }
 
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
-        logger.info("<<<<<<<<<<<<< 接口请求路径   >>>>>>>>>>>>> url:{} params：{}",request.getRequestURI(),JSONObject.toJSONString(request.getParameterMap()));
+        logger.info("token:{}",request.getHeader("authorization"));
     }
 
     @Override
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
-        logger.info("<<<<<<<<<<<<< 接口总耗时时间  >>>>>>>>>>>> date:{}",System.currentTimeMillis() -  preDate);
+        logger.info("<<<<<<<<< 接口总耗时时间  >>>>>>>>> date:{}",System.currentTimeMillis() -  preDate);
     }
 }

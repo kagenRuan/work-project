@@ -60,12 +60,12 @@ public class WebMvcConfig implements WebMvcConfigurer {
      * 添加自定义拦截器
      * @param registry
      */
-//    @Override
-//    public void addInterceptors(InterceptorRegistry registry) {
-//        registry.addInterceptor(new MyHandlerInterceptor())
-//                .addPathPatterns("/**")
-//                //以下路径不被拦截
-//                .excludePathPatterns("/api/login/main","/api/login/logout","/api/login/genCaptcha")
-//                ;
-//    }
+    @Override
+    public void addInterceptors(InterceptorRegistry registry) {
+        registry.addInterceptor(new MyHandlerInterceptor())
+                .addPathPatterns("/**")
+                //以下路径不被拦截
+                .excludePathPatterns("/api/login/main","/api/login/logout","/api/login/genCaptcha","/api/menu/list")
+                ;
+    }
 }

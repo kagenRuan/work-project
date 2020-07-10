@@ -24,7 +24,7 @@ public interface PermissionsMapper extends BaseMapper<Permissions> {
      * @param roleIds 角色ID
      * @return Set<PermissionsVo>
      */
-    Set<PermissionsVo> findPermissionsByRoleId(@Param("roleIds") Set<String> roleIds);
+    Set<PermissionsVo> findPermissionsByRoleId(@Param("roleIds") Set<String> roleIds,@Param("isButton") String isButton);
     /**
      * 根据用户ID查询资源信息
      * @param userId 用户ID
@@ -32,4 +32,10 @@ public interface PermissionsMapper extends BaseMapper<Permissions> {
      * @return List<PermissionsVo>
      */
     List<PermissionsVo> findPermissionsByUserId(@Param("userId") String userId, @Param("isButton") String isButton);
+
+    /**
+     * 查询所有的资源信息
+     * @return
+     */
+    List<PermissionsVo> findAll();
 }

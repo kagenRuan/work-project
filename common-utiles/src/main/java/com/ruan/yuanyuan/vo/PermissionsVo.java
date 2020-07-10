@@ -44,6 +44,10 @@ public class PermissionsVo implements Serializable {
 
     private String target;
     /**
+     * 资源与角色中间表的ID
+     */
+    private String permissionsRoleId;
+    /**
      * 子项
      */
     private List<PermissionsVo> child;
@@ -126,5 +130,13 @@ public class PermissionsVo implements Serializable {
 
     public void setIcon(String icon) {
         this.icon = icon;
+    }
+
+    public String getPermissionsRoleId() {
+        return permissionsRoleId;
+    }
+
+    public void setPermissionsRoleId(String permissionsRoleId) {
+        this.permissionsRoleId = permissionsRoleId;
     }
 }
