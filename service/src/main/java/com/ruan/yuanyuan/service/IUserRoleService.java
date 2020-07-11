@@ -1,5 +1,8 @@
 package com.ruan.yuanyuan.service;
 
+import com.baomidou.mybatisplus.extension.service.IService;
+import com.ruan.yuanyuan.entity.UserRoleRef;
+
 /**
  * User: ruanyuanyuan
  * Date: 2019-05-23
@@ -7,7 +10,7 @@ package com.ruan.yuanyuan.service;
  * version:
  * Description: 用户角色
  */
-public interface IUserRoleService {
+public interface IUserRoleService extends IService<UserRoleRef> {
 
     /**
      * 删除用户与角色

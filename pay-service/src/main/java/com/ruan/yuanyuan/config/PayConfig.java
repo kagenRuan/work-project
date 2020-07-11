@@ -1,4 +1,4 @@
-package com.ruan.yuanyuan.webconfig;
+package com.ruan.yuanyuan.config;
 
 import com.alibaba.druid.pool.DruidDataSource;
 import com.baomidou.mybatisplus.annotation.FieldStrategy;
@@ -18,7 +18,6 @@ import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.transaction.PlatformTransactionManager;
 
 import java.io.IOException;
-import java.util.Properties;
 
 /**
  * @ClassName: OrderConfig
@@ -30,40 +29,34 @@ import java.util.Properties;
  **/
 @ImportResource(locations = "classpath:tcc-transaction.xml")
 @Configuration
-public class UserConfig {
+public class PayConfig {
 
-    @Value("${user.jdbc.driver}")
+    @Value("${pay.jdbc.driver}")
     private String driver;
     //TCC数据库url
-    @Value("${user.jdbc.tcc.url}")
+    @Value("${pay.jdbc.tcc.url}")
     private String tccUrl;
     //业务数据库
-    @Value("${user.jdbc.url}")
+    @Value("${pay.jdbc.url}")
     private String jdbcUrl;
     //数据库名称
-    @Value("${user.jdbc.username}")
+    @Value("${pay.jdbc.username}")
     private String userName;
     //数据库密码
-    @Value("${user.jdbc.password}")
+    @Value("${pay.jdbc.password}")
     private String passWord;
     //数据库初始化物理连接数
-    @Value("${user.jdbc.initialSize}")
+    @Value("${pay.jdbc.initialSize}")
     private int initialSize;
     //数据库最小连接数量
-    @Value("${user.jdbc.minDle}")
+    @Value("${pay.jdbc.minDle}")
     private int minDle;
     //数据库最大连接数量
-    @Value("${user.jdbc.maxActive}")
+    @Value("${pay.jdbc.maxActive}")
     private int maxActive;
     //数据库连接等待时间
-    @Value("${user.jdbc.maxWit}")
+    @Value("${pay.jdbc.maxWit}")
     private long maxWait;
-    //TCP连接时间
-    @Value("${user.jdbc.properties.connectionTimeout}")
-    private String connectionTimeout;
-    //发送请求后等待响应时间
-    @Value("${user.jdbc.properties.socketTimeout}")
-    private String socketTimeout;
 
     /**
      * 配置事务管理器
@@ -91,10 +84,6 @@ public class UserConfig {
         druidDataSource.setMinIdle(minDle);
         druidDataSource.setMaxActive(maxActive);
         druidDataSource.setMaxWait(maxWait);
-        Properties properties = new Properties();
-        properties.setProperty("connectionTimeout",connectionTimeout);
-        properties.setProperty("socketTimeout",socketTimeout);
-        druidDataSource.setConnectProperties(properties);
         return druidDataSource;
     }
 
@@ -164,7 +153,7 @@ public class UserConfig {
         config.setMaxRetryCount(30);
         //当一个事务在一定的时间内没有更新则认为这个事务发生异常需要恢复，恢复JOB将扫描超过这个时间间隔依旧没有更新的事务日志，并对这些事务日志进行恢复
         config.setRecoverDuration(120);
-        //触发恢复JOB的时间间隔设置
+        //出发恢复JOB的时间间隔设置
         config.setCronExpression("0 */1 * * * ?");
         return config;
     }
@@ -195,8 +184,8 @@ public class UserConfig {
     public SpringJdbcTransactionRepository transactionRepository(){
         SpringJdbcTransactionRepository springJdbcTransactionRepository = new SpringJdbcTransactionRepository();
         springJdbcTransactionRepository.setDataSource(tccDruidDataSource());
-        springJdbcTransactionRepository.setDomain("USER");
-        springJdbcTransactionRepository.setTbSuffix("_USER");
+        springJdbcTransactionRepository.setDomain("PAY");
+        springJdbcTransactionRepository.setTbSuffix("_PAY");
         return springJdbcTransactionRepository;
     }
 }

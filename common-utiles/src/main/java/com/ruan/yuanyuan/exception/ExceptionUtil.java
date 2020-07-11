@@ -18,6 +18,7 @@ public class ExceptionUtil {
     private static final Integer IDEMPOTENT=60;
     private static final Integer USER = 70;
     private static final Integer PERMISSION=80;
+    private static final Integer ROLE=90;
 
     public enum SystemExceptionEnum implements ExceptionInterface {
         SUCCESS(SYSTEM,"成功"),
@@ -45,12 +46,39 @@ public class ExceptionUtil {
         }
     }
 
+    public enum RoleExceptionEnum implements ExceptionInterface {
+        ROLE_NAME_NOT_NULL(ROLE+1,"请输入角色名称"),
+        ROLE_CODE_NOT_NULL(ROLE+2,"请输入角色CODE"),
+        ROLE_DELETE_ID_NOT_NULL(ROLE+2,"请选择要删除的角色"),
+        ROLE_UPDATE_ID_NOT_NULL(ROLE+2,"请选择要修改的角色"),
+
+        ;
+        private int code;
+        private String message;
+
+        RoleExceptionEnum(int code, String message) {
+            this.code = code;
+            this.message = message;
+        }
+
+        @Override
+        public int getCode() {
+            return code;
+        }
+
+        @Override
+        public String getMessage() {
+            return message;
+        }
+    }
+
     public enum PermissionExceptionEnum implements ExceptionInterface {
         PERMISSION_ID_NOT_NULL(PERMISSION+1,"请选择资源"),
         PERMISSION_NOT_NULL(PERMISSION+2,"资源不存在"),
-        PERMISSION_NAME_NOT_NULL(PERMISSION+2,"请输入资源名称"),
-        PERMISSION_PARENT_ID_NOT_NULL(PERMISSION+2,"请选择父级资源信息"),
-        PERMISSION_PARENT_NAME_EXISTENT(PERMISSION+2,"请选择父级资源信息"),
+        PERMISSION_NAME_NOT_NULL(PERMISSION+3,"请输入资源名称"),
+        PERMISSION_PARENT_ID_NOT_NULL(PERMISSION+4,"请选择父级资源信息"),
+        PERMISSION_PARENT_NAME_EXISTENT(PERMISSION+6,"请选择父级资源信息"),
+        PERMISSION_EXISTENT(PERMISSION+7,"资源已分配"),
 
         ;
         private int code;
@@ -225,10 +253,16 @@ public class ExceptionUtil {
     }
 
     public enum UserExceptionEnum implements ExceptionInterface {
-        POWER_SAVE_FAIL(USER + 1, "请输入用户信息"),
-        USER_NOT_EXISTENT(USER+2,"用户不存在"),
-        USER_NAME_NOT_NULL(USER+3,"请输入户名"),
-        USER_PASSWORD_NOT_NULL(USER+4,"请输入密码"),
+        POWER_SAVE_FAIL(USER + 1, "请输入用户名称"),
+        USER_PASSWORD_NOT_NULL(USER+2,"请输入用户密码"),
+        USER_STATUS_NOT_NULL(USER+3,"请选择用户状态"),
+        USER_TYPE_NOT_NULL(USER+4,"请选择用户类型"),
+        USER_DELETE_ID_NOT_NULL(USER+5,"请选择要删除的用户"),
+        USER_NOT_EXISTENT(USER+6,"用户不存在"),
+        USER_UPDATE_ID_NOT_NULL(USER+7,"请选择要修改的用户"),
+        USER_NAME_NOT_NULL(USER+8,"用户名不能为空"),
+
+
         USER_REMEMBER_NOT_NULL(USER+5,"请设置记住我"),
         USER_CODE_NOT_NULL(USER+6,"验证码不能为空"),
         USER_CODE_NOT_EQ(USER+7,"验证码不相等"),

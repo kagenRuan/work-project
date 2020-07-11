@@ -20,6 +20,8 @@ public class ResultObject implements Serializable {
 
     private String msg;
 
+    private long count;
+
     public ResultObject() {
         this.code = ExceptionUtil.SystemExceptionEnum.SUCCESS.getCode();
         this.msg = ExceptionUtil.SystemExceptionEnum.SUCCESS.getMessage();
@@ -67,5 +69,13 @@ public class ResultObject implements Serializable {
 
     public void setMsg(String msg) {
         this.msg = msg;
+    }
+
+    public long getCount() {
+        return count;
+    }
+
+    public void setCount(long count) {
+        this.count = count;
     }
 }

@@ -1,4 +1,4 @@
-package com.ruan.yuanyuan.webconfig;
+package com.ruan.yuanyuan.config;
 
 import org.springframework.web.bind.annotation.RestController;
 

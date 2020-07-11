@@ -1,9 +1,11 @@
 package com.ruan.yuanyuan.service;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.ruan.yuanyuan.dto.UserDto;
 import com.ruan.yuanyuan.entity.ResultObject;
 import com.ruan.yuanyuan.entity.User;
+import com.ruan.yuanyuan.vo.UserVo;
 import org.mengyun.tcctransaction.api.TransactionContext;
 
 import java.math.BigDecimal;
@@ -17,48 +19,27 @@ import java.util.List;
  * Description: 用户服务接口
  */
 public interface IUserService extends IService<User> {
-    /**
-     * 根据用户名查询用户信息
-     *
-     * @param name 用户名称
-     * @return com.ruam.yuanyuan.entity.User
-     */
-    User findUserByName(String name);
 
     /**
-     * 查询所有的用户信息
-     *
-     * @return
+     * 查询所有的用户
+     * @return List<UserVo>
      */
-    List<User> findAllUser();
-
-    /**
-     * 添加用户信息
-     *
-     * @param userDto
-     */
-    void addUser(UserDto userDto);
-
-    /**
-     * 删除用户
-     *
-     * @param id
-     */
-    void deleteUser(String id);
-
-    /**
-     * 修改用户账户金额
-     * @param userId 用户ID
-     * @return User
-     */
-    ResultObject updateMoneyById(TransactionContext transactionContext, String userId, BigDecimal money,String paySn);
+    List<UserVo> findAll(Page<UserVo> page);
 
     /**
      * 添加用户
-     * @param user
-     * @return
+     * @param userDto 用户参数
      */
-    boolean addUser(User user);
+    void add(UserDto userDto);
 
-
+    /**
+     * 删除用户
+     * @param userId 用户ID
+     */
+    void delete(List<String> userId);
+    /**
+     * 修改用户
+     * @param userDto 参数
+     */
+    void update(UserDto userDto);
 }

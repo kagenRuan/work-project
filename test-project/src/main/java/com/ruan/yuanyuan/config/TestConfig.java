@@ -1,4 +1,4 @@
-package com.ruan.yuanyuan.webconfig;
+package com.ruan.yuanyuan.config;
 
 import com.ruan.yuanyuan.framework.controller.UserController;
 import org.springframework.context.annotation.Bean;

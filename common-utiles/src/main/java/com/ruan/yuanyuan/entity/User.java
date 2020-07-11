@@ -15,6 +15,7 @@ import java.math.BigDecimal;
  */
 @TableName("yy_user")
 public class User extends BaseEntity implements Serializable {
+
     /**
      * 用户名
      */

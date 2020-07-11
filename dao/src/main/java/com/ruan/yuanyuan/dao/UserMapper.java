@@ -1,10 +1,9 @@
 package com.ruan.yuanyuan.dao;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.ruan.yuanyuan.dto.UserDto;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.ruan.yuanyuan.entity.User;
-import org.apache.ibatis.annotations.Param;
-
+import com.ruan.yuanyuan.vo.UserVo;
 import java.util.List;
 
 /**
@@ -16,31 +15,8 @@ import java.util.List;
  */
 public interface UserMapper extends BaseMapper<User> {
     /**
-     * 根据用户名查询用户信息
-     *
-     * @param name
+     * 查询所有用户名
      * @return
      */
-    User findUserByName(String name);
-
-    /**
-     * 查询所有的用户信息
-     *
-     * @return
-     */
-    List<User> findAllUser();
-
-    /**
-     * 添加用户
-     *
-     * @param userDto
-     */
-    void addUser(@Param("user") UserDto userDto);
-
-    /**
-     * 删除用户
-     *
-     * @param id
-     */
-    void deleteUser(String id);
+    List<UserVo> findAll(Page<UserVo> page);
 }

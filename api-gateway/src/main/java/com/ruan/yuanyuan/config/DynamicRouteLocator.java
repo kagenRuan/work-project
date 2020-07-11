@@ -1,4 +1,4 @@
-package com.ruan.yuanyuan.webconfig;
+package com.ruan.yuanyuan.config;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.ruan.yuanyuan.entity.ZuulApiRoute;

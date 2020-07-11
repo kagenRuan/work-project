@@ -28,8 +28,6 @@ public class MyHandlerInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         logger.info("<<<<<<<<<< 接口请求路径   >>>>>>>>> url:{} params：{} token:{}",request.getRequestURI(),JSONObject.toJSONString(request.getParameterMap()),request.getHeader("authorization"));
-        String token = request.getHeader("authorization");
-//        BusinessAssert.notBlank(token, ExceptionUtil.SystemExceptionEnum.NOT_TOKEN);
         return true;
     }
 

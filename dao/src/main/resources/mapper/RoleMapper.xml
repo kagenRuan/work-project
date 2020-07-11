@@ -5,12 +5,46 @@
 <mapper namespace="com.ruan.yuanyuan.dao.RoleMapper">
 
     <select id="findRoleByUserId" resultType="com.ruan.yuanyuan.vo.RoleVo">
-        select
+        SELECT
+            r.id,
+            r.name,
+            r.code,
+            r.create_by as createBy,
+            r.create_time as createTime
+        FROM  yy_user_role_ref rr INNER JOIN yy_role r ON rr.role_id=r.id
+        WHERE rr.user_id=#{userId} AND rr.is_valid='Y' AND r.is_valid='Y'
+    </select>
+
+    <select id="findRoleByUserIdPage" resultType="com.ruan.yuanyuan.vo.RoleVo">
+        SELECT
             r.id,
             r.name,
             r.code
-        from  yy_user_role_ref rr left join yy_role r on rr.role_id=r.id
-        where rr.user_id=#{userId}
+        FROM  yy_user_role_ref rr INNER JOIN yy_role r ON rr.role_id=r.id
+        WHERE rr.user_id=#{userId} AND rr.is_valid='Y' AND r.is_valid='Y'
+    </select>
+
+
+    <select id="findAllRolePage" resultType="com.ruan.yuanyuan.vo.RoleVo">
+        SELECT
+            r.id,
+            r.name,
+            r.code,
+            r.create_by as createBy,
+            r.create_time as createTime
+        FROM  yy_role r
+        WHERE r.is_valid='Y'
+    </select>
+
+    <select id="findAllRoleList" resultType="com.ruan.yuanyuan.vo.RoleVo">
+        SELECT
+            r.id,
+            r.name,
+            r.code,
+            r.create_by as createBy,
+            r.create_time as createTime
+        FROM  yy_role r
+        WHERE r.is_valid='Y'
     </select>
 
 </mapper>

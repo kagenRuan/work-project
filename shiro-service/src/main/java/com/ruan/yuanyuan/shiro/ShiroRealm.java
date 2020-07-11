@@ -1,5 +1,6 @@
 package com.ruan.yuanyuan.shiro;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.ruan.yuanyuan.entity.User;
 import com.ruan.yuanyuan.enums.MenuEnum;
 import com.ruan.yuanyuan.exception.BusinessAssert;
@@ -64,7 +65,7 @@ public class ShiroRealm extends AuthorizingRealm {
         //获取登录用户
         User shiroUser = (User) principalCollection.getPrimaryPrincipal();
         //通过登录用户名称到数据库中查询用户
-        User user = userService.findUserByName(shiroUser.getUsername());
+        User user = userService.getOne(new QueryWrapper<User>().eq("username",shiroUser.getUsername()));
         SimpleAuthorizationInfo simpleAuthorizationInfo = new SimpleAuthorizationInfo();
         //根据用户ID查询用户角色
         List<RoleVo> roleSet = roleService.findRoleByUserId(user.getId());
@@ -92,7 +93,7 @@ public class ShiroRealm extends AuthorizingRealm {
         logger.info("《《《《《《《《执行认证逻辑》》》》》》");
         UsernamePasswordToken token = (UsernamePasswordToken) authenticationToken;
         String username = token.getUsername();
-        User user = userService.findUserByName(username);
+        User user = userService.getOne(new QueryWrapper<User>().eq("username",username));
         BusinessAssert.notNull(user, ExceptionUtil.UserExceptionEnum.USER_NOT_EXISTENT);
         /**
          * 2.判断密码，直接返回其子类

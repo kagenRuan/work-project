@@ -1,4 +1,4 @@
-package com.ruan.yuanyuan.webconfig;
+package com.ruan.yuanyuan.config;
 
 import com.alibaba.druid.pool.DruidDataSource;
 import com.baomidou.mybatisplus.annotation.FieldStrategy;

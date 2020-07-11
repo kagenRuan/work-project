@@ -1,4 +1,4 @@
-package com.ruan.yuanyuan.webconfig;
+package com.ruan.yuanyuan.config;
 
 import com.ruan.yuanyuan.service.IZuulApiRouteService;
 import org.springframework.beans.factory.annotation.Autowired;

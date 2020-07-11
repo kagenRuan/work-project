@@ -67,6 +67,12 @@ public abstract class BusinessAssert {
         }
     }
 
+    public static void notEmpty(@Nullable Object[] array, ExceptionInterface exception, String... args) {
+        if (ObjectUtils.isEmpty(array)) {
+            throw new BusinessException(exception.getCode(), exception.getMessage(),args);
+        }
+    }
+
     public static void isEmpty(@Nullable Object[] array, ExceptionInterface exception) {
         if (!ObjectUtils.isEmpty(array)) {
             throw new BusinessException(exception.getCode(), exception.getMessage());

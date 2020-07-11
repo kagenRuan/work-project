@@ -1,11 +1,9 @@
-package com.ruan.yuanyuan.webconfig;
+package com.ruan.yuanyuan.config;
 
 import com.baomidou.mybatisplus.extension.plugins.PaginationInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.PerformanceInterceptor;
-import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 /**
  * User: ruanyuanyuan
@@ -15,8 +13,6 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
  * Description:mybatis plus插件配置
  */
 @Configuration
-@EnableTransactionManagement
-@MapperScan("com.ruan.yuanyuan.dao")
 public class MybatisPlusConfig {
 
     /**
