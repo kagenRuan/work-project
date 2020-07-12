@@ -36,7 +36,7 @@ public interface IPermissionsService extends IService<Permissions> {
      * 查询索引的资源信息
      * @return List<PermissionsVo>
      */
-    List<PermissionsVo> findAll();
+    List<PermissionsVo> findAll(String isButton);
 
     /**
      * 根据资源ID删除资源信息

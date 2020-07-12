@@ -1,4 +1,4 @@
-package com.ruan.yuanyuan.shiro;
+package com.ruan.yuanyuan.config.shiro;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.ruan.yuanyuan.entity.User;
@@ -22,8 +22,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 
-import java.util.Base64;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;

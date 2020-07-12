@@ -1,6 +1,7 @@
 package com.ruan.yuanyuan.exception;
 
 import com.ruan.yuanyuan.entity.ResultObject;
+import org.apache.shiro.authz.UnauthorizedException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -30,6 +31,10 @@ public class GlobalExceptionHandler {
             BusinessException businessException = (BusinessException) exception;
             resultObject.setCode(businessException.getCode());
             resultObject.setMsg(businessException.getMessage());
+            return resultObject;
+        }else if(exception instanceof UnauthorizedException){
+            resultObject.setCode(ExceptionUtil.SystemExceptionEnum.UNAUTHORIZED.getCode());
+            resultObject.setMsg(ExceptionUtil.SystemExceptionEnum.UNAUTHORIZED.getMessage());
             return resultObject;
         }
         resultObject.setCode(-99999);

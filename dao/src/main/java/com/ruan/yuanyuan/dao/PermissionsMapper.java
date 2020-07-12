@@ -37,5 +37,5 @@ public interface PermissionsMapper extends BaseMapper<Permissions> {
      * 查询所有的资源信息
      * @return
      */
-    List<PermissionsVo> findAll();
+    List<PermissionsVo> findAll(@Param("isButton") String isButton);
 }

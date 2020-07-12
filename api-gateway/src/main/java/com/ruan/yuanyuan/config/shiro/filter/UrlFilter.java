@@ -1,11 +1,10 @@
-package com.ruan.yuanyuan.filter;
+package com.ruan.yuanyuan.config.shiro.filter;
 
 import com.alibaba.fastjson.JSON;
 import com.netflix.zuul.ZuulFilter;
 import com.netflix.zuul.context.RequestContext;
 import com.netflix.zuul.exception.ZuulException;
 import com.ruan.yuanyuan.vo.ResponseVo;
-import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

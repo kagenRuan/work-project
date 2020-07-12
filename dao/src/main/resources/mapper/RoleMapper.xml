@@ -33,7 +33,7 @@
             r.create_by as createBy,
             r.create_time as createTime
         FROM  yy_role r
-        WHERE r.is_valid='Y'
+        WHERE r.is_valid='Y' ORDER BY r.create_time
     </select>
 
     <select id="findAllRoleList" resultType="com.ruan.yuanyuan.vo.RoleVo">
@@ -44,7 +44,7 @@
             r.create_by as createBy,
             r.create_time as createTime
         FROM  yy_role r
-        WHERE r.is_valid='Y'
+        WHERE r.is_valid='Y' ORDER BY r.create_time
     </select>
 
 </mapper>

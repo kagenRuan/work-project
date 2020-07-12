@@ -62,8 +62,8 @@ public class PermissionsServiceImpl extends ServiceImpl<PermissionsMapper, Permi
      * @return
      */
     @Override
-    public List<PermissionsVo> findAll() {
-        return permissionsMapper.findAll();
+    public List<PermissionsVo> findAll(String isButton) {
+        return permissionsMapper.findAll(isButton);
     }
 
     /**
@@ -79,7 +79,7 @@ public class PermissionsServiceImpl extends ServiceImpl<PermissionsMapper, Permi
         //查询到索引的资源信息
         List<PermissionsVo> permissionsVos = permissionsMapper.findPermissionsByUserId(null, null);
 
-        Map<String,List<PermissionsVo>> map = permissionsVos.stream().collect(Collectors.groupingBy(PermissionsVo::getParentId));
+        Map<String,List<PermissionsVo>> map = permissionsVos.stream().collect(Collectors.groupingBy(PermissionsVo::getPid));
         //得到第一个子节点
         List<PermissionsVo> clild = Optional.ofNullable(map.get(id)).orElse(new ArrayList<>());
         //得到所有的子节点
@@ -128,7 +128,7 @@ public class PermissionsServiceImpl extends ServiceImpl<PermissionsMapper, Permi
         permissions.initBean();
         permissions.setName(permissionsVo.getTitle());
         permissions.setCode(permissionsVo.getPermission());
-        permissions.setParentId(permissionsVo.getParentId());
+        permissions.setParentId(permissionsVo.getPid());
         permissions.setUrl(permissionsVo.getHref());
         permissions.setIsButton(permissionsVo.getIsButton());
         baseMapper.insert(permissions);

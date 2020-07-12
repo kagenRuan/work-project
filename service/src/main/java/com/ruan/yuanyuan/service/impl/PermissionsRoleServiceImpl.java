@@ -10,6 +10,7 @@ import com.ruan.yuanyuan.service.IPermissionsRoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.ObjectUtils;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -52,13 +53,58 @@ public class PermissionsRoleServiceImpl extends ServiceImpl<PermissionsRoleRefMa
     }
 
 
+    /**
+     * 添加资源与角色信息
+     * @param permissionIds 资源信息集合
+     * @param roleId 角色ID
+     */
     @Override
-    public void addPermissionRoleList(List<PermissionsRoleRef> permissionsRoleRefList) {
-        List<String> list = permissionsRoleRefList.stream().map(obj -> obj.getPermissionsId()).collect(Collectors.toList());
-        String roleId = permissionsRoleRefList.get(0).getRoleId();
-        //已经分配的数据
-        List<PermissionsRoleRef> permissionsRoleRefs = baseMapper.selectList(new QueryWrapper<PermissionsRoleRef>().in("permissions_id",list).eq("role_id",roleId));
-        permissionsRoleRefList = permissionsRoleRefList.stream().filter(obj -> permissionsRoleRefs.stream().noneMatch(obj1 -> obj.getPermissionsId().equals(obj1.getPermissionsId()))).collect(Collectors.toList());
-        super.saveOrUpdateBatch(permissionsRoleRefList);
+    @Transactional(rollbackFor = Exception.class)
+    public void add(List<String> permissionIds,String roleId) {
+
+        //
+        List<PermissionsRoleRef> permissionsRoleRefs = permissionIds.stream().map(obj ->{
+            PermissionsRoleRef permissionsRoleRef = new PermissionsRoleRef();
+            permissionsRoleRef.initBean();
+            permissionsRoleRef.setPermissionsId(obj);
+            permissionsRoleRef.setRoleId(roleId);
+            return permissionsRoleRef;
+        }).collect(Collectors.toList());
+        //已分配的权限数据
+        List<PermissionsRoleRef> permissionsRoleRefList = baseMapper.selectList(new QueryWrapper<PermissionsRoleRef>().eq("role_id",roleId));
+        //根据需要添加的数据和已有的数据进行过滤，过滤掉两个集合中相同的数据
+        List<PermissionsRoleRef> finalPermissionsRoleRefList = permissionsRoleRefList;
+        List<PermissionsRoleRef> result = permissionsRoleRefs.stream().filter(obj1 -> !obj1.getPermissionsId().equals("0")).filter(obj -> finalPermissionsRoleRefList.stream().noneMatch(obj1 -> obj.getPermissionsId().equals(obj1.getPermissionsId()))).collect(Collectors.toList());
+        if(!ObjectUtils.isEmpty(result)){
+            saveBatch(result);
+        }
+        //
+        permissionsRoleRefList = permissionsRoleRefList.stream().filter(obj -> permissionsRoleRefs.stream().filter(obj1 -> !obj1.getPermissionsId().equals("0")).noneMatch(obj1 -> obj.getPermissionsId().equals(obj1.getPermissionsId()))).collect(Collectors.toList());
+        if(!ObjectUtils.isEmpty(permissionsRoleRefList)){
+            baseMapper.deleteBatchIds(permissionsRoleRefList.stream().map(obj -> obj.getId()).collect(Collectors.toList()));
+        }
+
+
+    }
+
+    /**
+     * 根据角色ID查询资源ID
+     * @param id 角色ID
+     * @return
+     */
+    @Override
+    public List<PermissionsRoleRef> findPermissionByRoleId(String roleId) {
+        List<PermissionsRoleRef> permissionsRoleRefList = baseMapper.selectList(new QueryWrapper<PermissionsRoleRef>().eq("role_id",roleId));
+        return permissionsRoleRefList;
+    }
+
+    /**
+     * 根据角色ID删除角色与资源信息关联表
+     * @param roleId 角色ID
+     */
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void deleteByRoleId(String roleId) {
+        baseMapper.delete(new QueryWrapper<PermissionsRoleRef>().eq("role_id",roleId));
     }
 }

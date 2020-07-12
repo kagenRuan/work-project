@@ -32,7 +32,7 @@ public class PermissionsVo implements Serializable {
     /**
      * 父编号,本权限可能是该父编号权限的子权限
      */
-    private String parentId;
+    private String pid;
     /**
      * 权限字符串
      */
@@ -92,12 +92,12 @@ public class PermissionsVo implements Serializable {
         this.id = id;
     }
 
-    public String getParentId() {
-        return parentId;
+    public String getPid() {
+        return pid;
     }
 
-    public void setParentId(String parentId) {
-        this.parentId = parentId;
+    public void setPid(String pid) {
+        this.pid = pid;
     }
 
     public String getPermission() {

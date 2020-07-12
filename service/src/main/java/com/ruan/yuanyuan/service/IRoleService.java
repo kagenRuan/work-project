@@ -18,7 +18,6 @@ import java.util.Set;
  */
 public interface IRoleService extends IService<Role> {
 
-
     /**
      * 根据用户ID查询用户角色
      * @param userId

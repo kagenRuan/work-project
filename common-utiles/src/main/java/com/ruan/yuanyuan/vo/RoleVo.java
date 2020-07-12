@@ -1,5 +1,7 @@
 package com.ruan.yuanyuan.vo;
 
+import java.util.List;
+
 /**
  * @ClassName: RoleVo
  * @author: ruanyuanyuan
@@ -32,6 +34,10 @@ public class RoleVo {
      * 资源id
      */
     private String permissionId;
+    /**
+     * 资源集合
+     */
+    private List<String> permissionList;
 
     public String getId() {
         return id;
@@ -79,5 +85,13 @@ public class RoleVo {
 
     public void setPermissionId(String permissionId) {
         this.permissionId = permissionId;
+    }
+
+    public List<String> getPermissionList() {
+        return permissionList;
+    }
+
+    public void setPermissionList(List<String> permissionList) {
+        this.permissionList = permissionList;
     }
 }

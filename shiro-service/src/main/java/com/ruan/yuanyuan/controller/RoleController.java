@@ -4,12 +4,15 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.ruan.yuanyuan.entity.ResultObject;
 import com.ruan.yuanyuan.exception.BusinessAssert;
 import com.ruan.yuanyuan.exception.ExceptionUtil;
+import com.ruan.yuanyuan.service.IPermissionsRoleService;
 import com.ruan.yuanyuan.service.IRoleService;
 import com.ruan.yuanyuan.vo.RoleVo;
+import org.apache.commons.lang.StringUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Arrays;
@@ -31,6 +34,8 @@ public class RoleController extends BaseController {
 
     @Autowired
     private IRoleService roleService;
+    @Autowired
+    private IPermissionsRoleService permissionsRoleService;
 
     /**
      * 查询角色列表
@@ -42,7 +47,13 @@ public class RoleController extends BaseController {
     public ResultObject listPage(@RequestParam("page") int page,@RequestParam("limit") int limit) {
         Page<RoleVo> roleVoPage = new Page<>(page,limit);
         ResultObject resultObject = new ResultObject();
-        List<RoleVo> roleVoList = roleService.findAllRolePage(roleVoPage);;
+        List<RoleVo> roleVoList = roleService.findAllRolePage(roleVoPage);
+        if(!ObjectUtils.isEmpty(roleVoList)){
+            roleVoList.stream().forEach(obj ->{
+                List<String> list = permissionsRoleService.findPermissionByRoleId(obj.getId()).stream().map(permissionsRoleRef -> permissionsRoleRef.getPermissionsId()).collect(Collectors.toList());
+                obj.setPermissionList(list);
+            });
+        }
         resultObject.setData(roleVoList);
         resultObject.setCount(roleVoPage.getTotal());
         return resultObject;
@@ -92,8 +103,6 @@ public class RoleController extends BaseController {
     @RequestMapping(value = "/update",method = RequestMethod.POST)
     @RequiresPermissions("role:update")
     public ResultObject update(@RequestBody RoleVo roleVo){
-        BusinessAssert.notBlank(roleVo.getName(), ExceptionUtil.RoleExceptionEnum.ROLE_NAME_NOT_NULL);
-        BusinessAssert.notBlank(roleVo.getCode(), ExceptionUtil.RoleExceptionEnum.ROLE_CODE_NOT_NULL);
         BusinessAssert.notBlank(roleVo.getId(), ExceptionUtil.RoleExceptionEnum.ROLE_UPDATE_ID_NOT_NULL);
         roleService.update(roleVo);
         return new ResultObject();

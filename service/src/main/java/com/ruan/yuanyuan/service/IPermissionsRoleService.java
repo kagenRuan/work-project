@@ -31,7 +31,21 @@ public interface IPermissionsRoleService  extends IService<PermissionsRoleRef> {
 
     /**
      * 批量保存资源与角色关系数据
-     * @param permissionsRoleRefList
+     * @param permissionIds 资源信息集合
+     * @param roleId 角色ID
      */
-    void addPermissionRoleList(List<PermissionsRoleRef> permissionsRoleRefList);
+    void add(List<String> permissionIds,String roleId);
+
+    /**
+     * 根据角色ID查询资源ID
+     * @param roleId 角色ID
+     * @return
+     */
+    List<PermissionsRoleRef> findPermissionByRoleId(String roleId);
+
+    /**
+     * 根据角色ID删除角色与资源信息关联表
+     * @param roleId 角色ID
+     */
+    void deleteByRoleId(String roleId);
 }

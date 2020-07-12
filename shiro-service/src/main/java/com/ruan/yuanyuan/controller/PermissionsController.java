@@ -9,9 +9,11 @@ import com.ruan.yuanyuan.exception.BusinessAssert;
 import com.ruan.yuanyuan.exception.ExceptionUtil;
 import com.ruan.yuanyuan.service.IPermissionsService;
 import com.ruan.yuanyuan.vo.PermissionsVo;
+import org.apache.commons.lang.StringUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
@@ -40,7 +42,7 @@ public class PermissionsController extends BaseController{
         List<PermissionsVo>  permissionsVos = null;
         //管理员用户查询所有的资源信息
         if(UserTypeEnum.ADMIN.getCode().equals(user.getType())){
-            permissionsVos = permissionsService.findAll();
+            permissionsVos = permissionsService.findAll(null);
         }else{
             //普通用户查询自己的资源
             permissionsVos = permissionsService.findPermissionsByUserId(user.getId(),null);
@@ -71,10 +73,16 @@ public class PermissionsController extends BaseController{
     @RequiresPermissions("perm:add")
     public ResultObject add(@RequestBody PermissionsVo permissionsVo){
         BusinessAssert.notBlank(permissionsVo.getTitle(), ExceptionUtil.PermissionExceptionEnum.PERMISSION_NAME_NOT_NULL);
-        BusinessAssert.notBlank(permissionsVo.getTitle(), ExceptionUtil.PermissionExceptionEnum.PERMISSION_PARENT_ID_NOT_NULL);
+        QueryWrapper<Permissions> queryWrapper = new QueryWrapper();
+        if(!StringUtils.isBlank(permissionsVo.getTitle())){
+            queryWrapper.eq("name",permissionsVo.getTitle());
+        }
+        if(!StringUtils.isBlank(permissionsVo.getPermission())){
+            queryWrapper.eq("code",permissionsVo.getPermission());
+        }
         //验证添加的名称和权限资源是否已存在
-        Permissions permissions = permissionsService.getOne(new QueryWrapper<Permissions>().eq("name",permissionsVo.getTitle()).or().eq("code",permissionsVo.getPermission()));
-        BusinessAssert.isNull(permissions,ExceptionUtil.PermissionExceptionEnum.PERMISSION_PARENT_NAME_EXISTENT);
+        List<Permissions> permissions = permissionsService.list(queryWrapper);
+        BusinessAssert.isTrue( ObjectUtils.isEmpty(permissions),ExceptionUtil.PermissionExceptionEnum.PERMISSION_PARENT_NAME_EXISTENT);
         permissionsService.add(permissionsVo);
         return new ResultObject();
     }

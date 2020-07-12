@@ -27,7 +27,7 @@
             yp.id,
             yp.name as title,
             yp.url as href,
-            yp.parent_id as parentId,
+            yp.parent_id as pid,
             yp.is_button as isButton,
             yp.code as permission,
             yp.target,
@@ -42,11 +42,11 @@
             AND yurr.user_id=#{userId}
         </if>
         ) a  ON yp.id= a.permissions_id
-
         WHERE yp.is_valid='Y'
         <if test="isButton != null and isButton != ''">
             AND yp.is_button=#{isButton}
         </if>
+        ORDER BY yp.create_time
     </select>
 
     <select id="findAll" resultType="com.ruan.yuanyuan.vo.PermissionsVo">
@@ -54,11 +54,15 @@
             yp.id,
             yp.name as title,
             yp.url as href,
-            yp.parent_id as parentId,
+            yp.parent_id as pid,
             yp.is_button as isButton,
             yp.code as permission,
             yp.target,
             yp.image as icon
         FROM yy_permissions yp WHERE yp.is_valid='Y'
+        <if test="isButton != null and isButton !='' ">
+            AND yp.is_button=#{isButton}
+        </if>
+        ORDER BY yp.create_time
     </select>
 </mapper>

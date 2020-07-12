@@ -25,7 +25,7 @@ public class ExceptionUtil {
         FAIL(SYSTEM-1,"失败"),
         NOT_TOKEN(SYSTEM+401,"Token不能为空"),
         SYSTEM_HYSTRIX(SYSTEM-99999,"接口不可用，进行接口降级"),
-        UNAUTHORIZED(SYSTEM+401,"未授权"),
+        UNAUTHORIZED(SYSTEM+401,"你没有权限操作此项"),
         ;
         private int code;
         private String message;

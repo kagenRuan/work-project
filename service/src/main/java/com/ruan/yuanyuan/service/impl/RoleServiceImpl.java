@@ -11,6 +11,7 @@ import com.ruan.yuanyuan.service.IPermissionsService;
 import com.ruan.yuanyuan.service.IRoleService;
 import com.ruan.yuanyuan.vo.PermissionsVo;
 import com.ruan.yuanyuan.vo.RoleVo;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -88,6 +89,10 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements IR
         BeanUtils.copyProperties(roleVo,role);
         role.initBean();
         baseMapper.insert(role);
+        if(!ObjectUtils.isEmpty(roleVo.getPermissionId())){
+            List<String> addPermissionIds = Arrays.stream(roleVo.getPermissionId().split(",")).collect(Collectors.toList());
+            permissionsRoleService.add(addPermissionIds,role.getId());
+        }
     }
 
     /**
@@ -112,51 +117,12 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements IR
         role.initBean();
         baseMapper.updateById(role);
         if(!ObjectUtils.isEmpty(roleVo.getPermissionId())){
-            List<PermissionsRoleRef> permissionList = getParentPermisssionId(roleVo.getPermissionId(),roleVo.getId());
-            permissionsRoleService.addPermissionRoleList(permissionList);
+            List<String> addPermissionIds = Arrays.stream(roleVo.getPermissionId().split(",")).collect(Collectors.toList());
+            permissionsRoleService.add(addPermissionIds,role.getId());
+        }else{
+            permissionsRoleService.deleteByRoleId(role.getId());
         }
+
     }
 
-    /**
-     * 获取父级资源信息
-     * @param permissionId 资源ID
-     */
-    public List<PermissionsRoleRef> getParentPermisssionId(String permissionId,String roleId){
-        Permissions permissions = permissionsService.getById(permissionId);
-        //查询资源信息
-        List<PermissionsVo> permissionsVos = permissionsService.findAll();
-        //以parentID进行分组
-        Map<String,List<PermissionsVo>> map = permissionsVos.stream().collect(Collectors.groupingBy(PermissionsVo::getId));
-        //获取需要分配资源的父级资源
-        List<PermissionsVo> parentPermission = map.get(permissions.getId());
-        List<PermissionsVo> parentPermissionList = new ArrayList<>();
-        getPermissionList(parentPermission,map,parentPermissionList);
-        parentPermission.addAll(parentPermissionList);
-        //获取所有的父级资源ID
-        List<PermissionsRoleRef> persmissionIds = Optional.ofNullable(parentPermission.stream().map(obj -> {
-            PermissionsRoleRef roleRef = new PermissionsRoleRef();
-            roleRef.setRoleId(roleId);
-            roleRef.setPermissionsId(obj.getId());
-            roleRef.initBean();
-            return roleRef;
-        }).collect(Collectors.toList())).orElse(new ArrayList<>());
-        //对资源进行保存
-        return persmissionIds;
-    }
-
-    public void getPermissionList(List<PermissionsVo> permissionsVoList,Map<String,List<PermissionsVo>> map,List<PermissionsVo> resultParentPermissionList){
-        List<PermissionsVo> foreachPermissionsVoList = new ArrayList<>();
-        permissionsVoList.stream().forEach(obj ->{
-            String parentId = obj.getParentId();
-            //父级菜单不等于0说明还有父级菜单，否则就是顶级菜单就不要循环
-            List<PermissionsVo> permissionsVos = map.get(parentId);
-            if(!ObjectUtils.isEmpty(permissionsVos)){
-                foreachPermissionsVoList.addAll(permissionsVos);
-                resultParentPermissionList.addAll(permissionsVos);
-            }
-        });
-        if(!ObjectUtils.isEmpty(foreachPermissionsVoList)){
-            getPermissionList(foreachPermissionsVoList,map,resultParentPermissionList);
-        }
-    }
 }

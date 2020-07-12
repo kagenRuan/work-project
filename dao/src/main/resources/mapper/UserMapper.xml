@@ -17,8 +17,9 @@
             yu.create_by AS createBy,
             yurr.role_id AS roleId,
             yr.name AS roleName
-        FROM yy_user yu INNER JOIN yy_user_role_ref yurr ON yu.id=yurr.user_id
-        INNER JOIN yy_role yr ON yr.id = yurr.role_id
+        FROM yy_user yu
+        LEFT JOIN yy_user_role_ref yurr ON yu.id=yurr.user_id
+        LEFT JOIN yy_role yr ON yr.id = yurr.role_id
         WHERE yu.is_valid='Y' AND yu.is_valid='Y' ORDER BY yu.create_time
     </select>
 

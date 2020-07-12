@@ -3,6 +3,7 @@ package com.ruan.yuanyuan.controller;
 import com.ruan.yuanyuan.entity.ResultObject;
 import com.ruan.yuanyuan.entity.User;
 import com.ruan.yuanyuan.enums.MenuEnum;
+import com.ruan.yuanyuan.enums.UserTypeEnum;
 import com.ruan.yuanyuan.exception.ExceptionUtil;
 import com.ruan.yuanyuan.service.IPermissionsService;
 import com.ruan.yuanyuan.vo.PermissionsVo;
@@ -40,13 +41,19 @@ public class MenuController extends BaseController {
         User user = getLoginUser();
         ResultObject resultObject = new ResultObject();
         //查询资源信息
-        List<PermissionsVo> permissionsVos = permissionsService.findPermissionsByUserId(user.getId(), MenuEnum.MENU.getCode());
+        List<PermissionsVo> permissionsVos = null;
+        if(UserTypeEnum.ADMIN.getCode().equals(user.getType())){
+            permissionsVos =  permissionsService.findAll(MenuEnum.MENU.getCode());
+        }else{
+            permissionsVos = permissionsService.findPermissionsByUserId(user.getId(), MenuEnum.MENU.getCode());
+        }
+
         //获取所有的顶级父级菜单
-        List<PermissionsVo>  parentPermissionsVos = permissionsVos.stream().filter(obj -> obj.getParentId().equals("0")).collect(Collectors.toList());
+        List<PermissionsVo>  parentPermissionsVos = permissionsVos.stream().filter(obj -> obj.getPid().equals("0")).collect(Collectors.toList());
         //将list转为map,并且如果key有相同的话选择最前面的key
         //Map<String,PermissionsVo> map = permissionsVos.stream().collect(Collectors.toMap(PermissionsVo::getParentId, Function.identity(),(key1,key2) -> key1));
         //通过根据ParentId进行分组的方式，将ParentId相同的放在一个list中
-        Map<String,List<PermissionsVo>> map = permissionsVos.stream().collect(Collectors.groupingBy(PermissionsVo::getParentId));
+        Map<String,List<PermissionsVo>> map = permissionsVos.stream().collect(Collectors.groupingBy(PermissionsVo::getPid));
         //递归组装数据
         doEachPermissionsVos(parentPermissionsVos,map);
         //组装返回数据并返回前端
@@ -76,6 +83,7 @@ public class MenuController extends BaseController {
                 }
             }
         });
+        //递归查询
         if(!ObjectUtils.isEmpty(list)){
             doEachPermissionsVos(list,map);
         }
