@@ -29,7 +29,7 @@ import java.io.IOException;
  **/
 @ImportResource(locations = "classpath:tcc-transaction.xml")
 @Configuration
-public class OrderConfig {
+public class DataSourcesConfig {
 
     @Value("${order.jdbc.driver}")
     private String driver;

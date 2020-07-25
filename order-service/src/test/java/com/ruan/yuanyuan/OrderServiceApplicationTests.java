@@ -12,8 +12,10 @@ import com.ruan.yuanyuan.mesage.enums.RabbitMqRoutingKeyEnum;
 import com.ruan.yuanyuan.rabbitmq.RabbitMessageProvider;
 import com.ruan.yuanyuan.service.*;
 import com.ruan.yuanyuan.util.CollectorsUtil;
+import com.ruan.yuanyuan.util.MessageIdCorrelationData;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.amqp.rabbit.connection.CorrelationData;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.BeanFactory;
@@ -31,6 +33,7 @@ import java.util.stream.Collectors;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
+@MapperScan("com.ruan.yuanyuan.dao")
 public class OrderServiceApplicationTests {
 
     @Autowired
@@ -98,8 +101,8 @@ public class OrderServiceApplicationTests {
     public void testDeadQueue() {
         OrderPay orderPay = new OrderPay();
         orderPay.setPaySn("1");
-        CorrelationData correlationData = new CorrelationData();
-        correlationData.setId("1");
+        MessageIdCorrelationData correlationData = new MessageIdCorrelationData();
+        correlationData.setId("3");
         rabbitMessageProvider.sendMessage(RabbitMqExchangeEnum.TDL_ORDER_PAY_DEAD_LETTER_PROVIDER_EXCHANGE, RabbitMqRoutingKeyEnum.TDL_ORDER_PAY_DEAD_LETTER_PROVIDER_ROUTING_KEY, orderPay, correlationData);
     }
 

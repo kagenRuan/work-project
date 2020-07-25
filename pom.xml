@@ -77,6 +77,7 @@
         <fastjson.version>1.2.62</fastjson.version>
         <!--zookeeper-->
         <zookeeper.version>3.5.8</zookeeper.version>
+        <sharding-sphere.version>4.1.0</sharding-sphere.version>
     </properties>
 
 

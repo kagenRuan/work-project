@@ -31,6 +31,9 @@ spring:
     time-between-eviction-runsMillis: 6000
     test-while-idle: true
     pool-prepared-statements: false #是否缓存preparedStatement##oracle建议开启mysql建议关闭
+  cloud:
+    compatibility-verifier:
+      enabled: false
 mybatis-plus:
   mapper-locations: classpath*:/mapper/*.xml
   type-aliases-package: com.ruan.yuanyuan.entity

@@ -7,6 +7,7 @@ import com.ruan.yuanyuan.mesage.enums.RabbitMqExchangeEnum;
 import com.ruan.yuanyuan.mesage.enums.RabbitMqRoutingKeyEnum;
 import com.ruan.yuanyuan.mesage.vo.OrderMessageVo;
 import com.ruan.yuanyuan.service.IMessageService;
+import com.ruan.yuanyuan.vo.RabbitMessageVo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.amqp.AmqpException;
@@ -67,17 +68,17 @@ public class RabbitMessageProvider implements RabbitTemplate.ReturnCallback, Rab
     @Override
     public void confirm(CorrelationData correlationData, boolean hasAck, String canes) throws RuntimeException {
         logger.info("<<<<<<<OrderRabbitMessageProvider#confirm>>>>>>>消息送达唯一ID:{} 是否ACK:{} 错误原因:{}", correlationData.getId(), hasAck, canes);
-        RabbitMessage message = messageService.findByMessageId(correlationData.getId());
+        RabbitMessageVo message = new RabbitMessageVo();
         if (!hasAck) {
             logger.error("消息投递异常 参数 message:{} errorMsg:{}", JSON.toJSONString(message), canes);
             message.setErrorMsg(canes);
             message.setStatus(MessageStatusEnum.MESSAGE_DELIVERY_FAIL.code);
-            messageService.updateById(message);
+            messageService.updateByMessageId(message);
         } else {
             message.setStatus(MessageStatusEnum.CAN_DELIVERY.code);
         }
         message.setUpdateTime(new Date());
-        boolean result = messageService.updateById(message);
+        boolean result = messageService.updateByMessageId(message);
         if (!result) {
             logger.error("RabbitMessageProvider#confirm 消息投递确认修改消息状态失败 参数 message:{}", JSON.toJSONString(message));
         }
@@ -99,10 +100,14 @@ public class RabbitMessageProvider implements RabbitTemplate.ReturnCallback, Rab
     public void returnedMessage(Message message, int i, String msg, String exchange, String routingKey) throws RuntimeException {
         OrderMessageVo orderMessageVo = (OrderMessageVo) rabbitTemplate.getMessageConverter().fromMessage(message);
         logger.info("<<<<<<OrderRabbitMessageProvider#returnedMessage>>>>>>>消息路由不成功 body:{} msg:{} exchange:{} routingKey:{}", JSON.toJSONString(orderMessageVo), msg, exchange, routingKey);
-        RabbitMessage rabbitMessage = messageService.findByMessageId(orderMessageVo.getMessageId());
-        rabbitMessage.setErrorMsg("NO_ROUTE:Message rout key not success");
-        rabbitMessage.setStatus(MessageStatusEnum.MESSAGE_DELIVERY_FAIL.code);
-        messageService.updateById(rabbitMessage);
+        RabbitMessageVo rabbitMessageVo = new RabbitMessageVo();
+        rabbitMessageVo.setMessageId(orderMessageVo.getMessageId());
+        rabbitMessageVo.setErrorMsg("NO_ROUTE:Message rout key not success");
+        rabbitMessageVo.setStatus(MessageStatusEnum.MESSAGE_DELIVERY_FAIL.code);
+        boolean result = messageService.updateByMessageId(rabbitMessageVo);
+        if (!result) {
+            logger.error("RabbitMessageProvider#returnedMessage 消息路由失败");
+        }
     }
 
     /**

@@ -71,28 +71,31 @@ public class OrderPayMessageConsumer {
          *  4、发货
          *  5、通知商户
          */
-        QueryWrapper<RabbitMessage> query = new QueryWrapper();
-        String messageId = headers.get("messageId").toString();
-        query.eq("message_id", messageId);
-        RabbitMessage rabbitMessage = messageService.getOne(query);
+        //获取消息ID
+        String messageId = headers.get("spring_returned_message_correlation").toString();
+        //验证消息幂等数据
+        PowerEtc powerEtc = powerEtcService.findByMessageId(messageId);
+        if (!ObjectUtils.isEmpty(powerEtc)) {
+            logger.info("该业务已经被处理<<<<<OrderPayMessageConsumer#onOrderMessage>>>>>messageId:{}",messageId);
+            return;
+        }
 
         try {
-            /**
-             * TODO 消息幂等以及业务逻辑处理方法
-             */
-            this.business(rabbitMessage, orderPay);
+            //业务逻辑处理方法
+            this.business(orderPay);
+            //业务处理完后会将保存一个消息幂等数据
+            PowerEtc savePowerEtc = new PowerEtc();
+            savePowerEtc.setMessageId(messageId);
+            boolean resultPowerEtc = powerEtcService.save(savePowerEtc);
+            if (!resultPowerEtc) {
+                logger.error("OrderPayMessageConsumer#onOrderMessage save powerEtc fail powerEtc:{}", JSON.toJSONString(savePowerEtc));
+            }
             /**
              * 手动ACK
              * deliveryTag:该消息的index
              * multiple：是否批量.true:将一次性拒绝所有小于deliveryTag的消息。
              */
-            channel.basicAck(deliveryTag, false);
-            if (!ObjectUtils.isEmpty(rabbitMessage)) {
-                boolean deleteMessage = messageService.removeById(rabbitMessage.getId());
-                if (!deleteMessage) {
-                    logger.error("OrderPayMessageConsumer#onOrderMessage delete message fail  parameter:{}", rabbitMessage.getId());
-                }
-            }
+            channel.basicAck(deliveryTag, false);//接受确认消息
         } catch (Exception e) {
             /**
              * 出现异常将消息重新放回mq中，不要将消息重新放在队列的头部，一定要放在尾部防止出现死循环
@@ -102,22 +105,14 @@ public class OrderPayMessageConsumer {
              */
 
             //channel.basicReject(deliveryTag,false);//这个方法主要是拒绝一条消息
-            channel.basicNack(deliveryTag, false, false);//这个方法可以拒绝多条消息
+            channel.basicNack(deliveryTag, false, false);
         }
 
     }
 
 
     @Transactional(rollbackFor = Exception.class)
-    void business(RabbitMessage rabbitMessage, OrderPay orderPay) {
-        QueryWrapper<PowerEtc> powerQuery = new QueryWrapper();
-        powerQuery.eq("message_id", rabbitMessage.getId());
-        powerQuery.eq("is_valid", Yum.YES.getCode());
-        //根据消息ID查询幂等表
-        PowerEtc powerEtc = powerEtcService.getOne(powerQuery);
-        if (!ObjectUtils.isEmpty(powerEtc)) {
-            return;
-        }
+    public void business(OrderPay orderPay) {
         Buyer buyer = buyerService.getById(orderPay.getBuyerId());
         if (ObjectUtils.isEmpty(buyer)) {
             logger.error("OrderPayMessageConsumer#onOrderMessage query buyer error parameter:{}", JSON.toJSONString(buyer));
@@ -136,13 +131,7 @@ public class OrderPayMessageConsumer {
          * TODO 如果没有查询到幂等表中的数据，则可以执行逻辑
          */
         System.out.println("业务逻辑处理");
-        PowerEtc savePowerEtc = new PowerEtc();
-        savePowerEtc.setMessageId(rabbitMessage.getMessageId());
-        boolean resultPowerEtc = powerEtcService.save(savePowerEtc);
-        if (!resultPowerEtc) {
-            logger.error("OrderPayMessageConsumer#onOrderMessage save powerEtc fail powerEtc:{}", JSON.toJSONString(savePowerEtc));
-            BusinessAssert.isTrue(resultPowerEtc, ExceptionUtil.PowerEtcExceptionEnum.POWER_SAVE_FAIL);
-        }
+
     }
 
 

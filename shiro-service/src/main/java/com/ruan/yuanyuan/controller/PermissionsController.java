@@ -92,7 +92,6 @@ public class PermissionsController extends BaseController{
      * @param id 资源ID
      * @return
      */
-    @RequiresRoles("战士")
     @RequiresPermissions("perm:delete")
     @RequestMapping(value = "/delete",method = RequestMethod.GET)
     public ResultObject delete(@RequestParam("id") String id){

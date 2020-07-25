@@ -40,7 +40,6 @@ public class OrderPayDeadLetterMessageConsumer {
     @RabbitHandler
     public void deadMessage(@Payload OrderPay orderPay, Channel channel, @Headers Map<String, Object> headers) throws IOException {
         logger.info("<<<<<OrderPayDeadLetterMessageConsumer#deadMessage>>>>> 支付订单死信队列 参数 orderPay:{}", JSON.toJSONString(orderPay));
-        logger.info("消息发送时间:{} 消息消费时间:{}", orderPay.getCreateTime(), new Date());
         Long deliveryTag = (Long) headers.get(AmqpHeaders.DELIVERY_TAG);
         channel.basicAck(deliveryTag, false);
     }

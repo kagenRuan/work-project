@@ -23,7 +23,7 @@ import java.util.Map;
  * version:
  * Description: 订单消息消费中心
  */
-//@Component
+@Component
 public class OrderMessageConsumer {
 
     private static final Logger logger = LoggerFactory.getLogger(OrderMessageConsumer.class);

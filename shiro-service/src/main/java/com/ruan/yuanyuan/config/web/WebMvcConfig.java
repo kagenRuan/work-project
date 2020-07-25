@@ -1,32 +1,14 @@
 package com.ruan.yuanyuan.config.web;
 
-import com.ruan.yuanyuan.interceotor.MyHandlerInterceptor;
-import com.thetransactioncompany.cors.CORSConfiguration;
-import com.thetransactioncompany.cors.CORSFilter;
-import com.thetransactioncompany.cors.autoreconf.AutoReconfigurableCORSFilter;
-import org.springframework.boot.web.servlet.FilterRegistrationBean;
+import com.ruan.yuanyuan.config.web.interceotor.MyHandlerInterceptor;
 import org.springframework.boot.web.servlet.MultipartConfigFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.converter.HttpMessageConverter;
-import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.util.unit.DataSize;
-import org.springframework.web.cors.CorsConfiguration;
-import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-import org.springframework.web.filter.CorsFilter;
-import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 import javax.servlet.*;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.nio.charset.Charset;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * @ClassName: WebMvcConfig
@@ -65,7 +47,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
         registry.addInterceptor(new MyHandlerInterceptor())
                 .addPathPatterns("/**")
                 //以下路径不被拦截
-                .excludePathPatterns("/api/login/main","/api/login/logout","/api/login/genCaptcha","/api/menu/list")
+                .excludePathPatterns("/api/login/main","/api/login/logout","/api/login/genCaptcha")
                 ;
     }
 }

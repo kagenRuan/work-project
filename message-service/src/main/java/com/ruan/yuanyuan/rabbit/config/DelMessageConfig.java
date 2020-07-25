@@ -31,9 +31,6 @@ public class DelMessageConfig {
     //死信队列路由key
     @Value("${order.pay.dead.letter.consumer.routing.key}")
     private String TDL_ORDER_PAY_DEAD_LETTER_CONSUMER_ROUTING_KEY;
-    //死信队列
-    @Value("${order.pay.dead.letter.consumer.queue}")
-    private String TDL_ORDER_PAY_DEAD_LETTER_CONSUMER_QUEUE;
 
     //死信队列生产端
     //交换机

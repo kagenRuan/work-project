@@ -1,14 +1,14 @@
 package com.ruan.yuanyuan.config.shiro.filter;
 
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.subject.Subject;
 import org.apache.shiro.web.filter.authc.FormAuthenticationFilter;
 import org.apache.shiro.web.util.WebUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
-
 
 /**
  * @ClassName: CaptchaFormAuthenticationFilter
@@ -26,9 +26,14 @@ public class CaptchaFormAuthenticationFilter extends FormAuthenticationFilter {
         HttpServletRequest httpServletRequest = WebUtils.toHttp(servletRequest);
         if ("OPTIONS".equals(httpServletRequest.getMethod())) {
             return true;
+        }else if(null == SecurityUtils.getSubject().getPrincipal()){
+            return false;
         }
+        String token = httpServletRequest.getHeader("authorization");
+        logger.debug("请求token:{}",token);
         return super.isAccessAllowed(servletRequest, servletResponse, o);
     }
+
 }
 
 

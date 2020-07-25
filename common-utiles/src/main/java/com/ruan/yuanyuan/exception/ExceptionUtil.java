@@ -26,6 +26,7 @@ public class ExceptionUtil {
         NOT_TOKEN(SYSTEM+401,"Token不能为空"),
         SYSTEM_HYSTRIX(SYSTEM-99999,"接口不可用，进行接口降级"),
         UNAUTHORIZED(SYSTEM+401,"你没有权限操作此项"),
+        SESSION_DATE_EXPIRED(SYSTEM+403,"session过期，请重新登录")
         ;
         private int code;
         private String message;

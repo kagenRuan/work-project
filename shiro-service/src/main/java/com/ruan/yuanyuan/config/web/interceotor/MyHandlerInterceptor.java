@@ -1,9 +1,10 @@
-package com.ruan.yuanyuan.interceotor;
+package com.ruan.yuanyuan.config.web.interceotor;
 
 import com.alibaba.fastjson.JSONObject;
 import com.ruan.yuanyuan.exception.BusinessAssert;
 import com.ruan.yuanyuan.exception.ExceptionUtil;
-import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang.StringUtils;
+import org.apache.shiro.web.util.WebUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -27,13 +28,13 @@ public class MyHandlerInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        logger.info("<<<<<<<<<< 接口请求路径   >>>>>>>>> url:{} params：{} token:{}",request.getRequestURI(),JSONObject.toJSONString(request.getParameterMap()),request.getHeader("authorization"));
+        logger.info("<<<<<<<<<< 接口请求路径   >>>>>>>>> url:{} params：{} ",request.getRequestURI(),JSONObject.toJSONString(request.getParameterMap()));
         return true;
     }
 
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
-        logger.info("token:{}",request.getHeader("authorization"));
+
     }
 
     @Override

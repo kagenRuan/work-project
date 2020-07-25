@@ -2,6 +2,7 @@ package com.ruan.yuanyuan.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.ruan.yuanyuan.entity.RabbitMessage;
+import com.ruan.yuanyuan.vo.RabbitMessageVo;
 
 import java.util.List;
 
@@ -17,17 +18,17 @@ public interface IMessageService extends IService<RabbitMessage> {
     /**
      * 根据消息ID查询消息
      *
-     * @param messageId 消息ID
+     * @param rabbitMessageVo 消息ID
      * @return
      */
-    RabbitMessage findByMessageId(String messageId);
+    boolean updateByMessageId(RabbitMessageVo rabbitMessageVo);
 
     /**
      * 插入消息
      *
-     * @param rabbitMessage 消息实体
+     * @param rabbitMessageVo 消息实体
      */
-    boolean insert(RabbitMessage rabbitMessage);
+    boolean saveAndUpdate(RabbitMessageVo rabbitMessageVo);
 
     /**
      * 根据消息ID修改消息

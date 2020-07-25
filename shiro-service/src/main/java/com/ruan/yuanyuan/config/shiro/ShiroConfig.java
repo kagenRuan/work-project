@@ -77,7 +77,6 @@ public class ShiroConfig {
     public ShiroFilterFactoryBean shiroFilterFactoryBean(SecurityManager securityManager) {
         ShiroFilterFactoryBean shiroFilterFactoryBean = new ShiroFilterFactoryBean();
         shiroFilterFactoryBean.setSecurityManager(securityManager);
-        shiroFilterFactoryBean.setUnauthorizedUrl("/unauthorized/return401");
 
         /**
          * 自定义Filter
@@ -85,7 +84,6 @@ public class ShiroConfig {
         Map<String, Filter> filter = new LinkedHashMap<>();
         filter.put("authc",new CaptchaFormAuthenticationFilter());
         shiroFilterFactoryBean.setFilters(filter);
-
 
         /**
          * 配置访问权限
@@ -98,7 +96,6 @@ public class ShiroConfig {
         //登录接口不需要拦截,可以直接访问
         map.put("/api/login/main","anon");
         map.put("/api/login/logout","anon");
-        map.put("/api/menu/list","anon");
         //验证码接口不需要拦截，可以直接访问
         map.put("/api/login/genCaptcha","anon");
         //其他接口都需要进行验证授权

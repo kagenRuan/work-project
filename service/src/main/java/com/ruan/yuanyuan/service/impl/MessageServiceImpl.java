@@ -1,6 +1,7 @@
 package com.ruan.yuanyuan.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.ruan.yuanyuan.dao.MessageMapper;
 import com.ruan.yuanyuan.entity.RabbitMessage;
@@ -8,6 +9,8 @@ import com.ruan.yuanyuan.enums.Yum;
 import com.ruan.yuanyuan.exception.BusinessAssert;
 import com.ruan.yuanyuan.exception.ExceptionUtil;
 import com.ruan.yuanyuan.service.IMessageService;
+import com.ruan.yuanyuan.vo.RabbitMessageVo;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -30,27 +33,27 @@ public class MessageServiceImpl extends ServiceImpl<MessageMapper, RabbitMessage
 
     /**
      * 查询消息
-     *
-     * @param messageId 消息ID
      * @return
      */
     @Override
-    public RabbitMessage findByMessageId(String messageId) {
-        BusinessAssert.notBlank(messageId, ExceptionUtil.MessageExceptionEnum.MESSAGE_ID_NOT_NULL);
-        RabbitMessage rabbitMessage = messageMapper.selectOne(new QueryWrapper<RabbitMessage>().eq("message_id", messageId));
-        return rabbitMessage;
+    public boolean updateByMessageId(RabbitMessageVo rabbitMessageVo) {
+        UpdateWrapper wrapper = new UpdateWrapper<RabbitMessage>();
+        wrapper.eq("message_id",rabbitMessageVo.getMessageId());
+        wrapper.set("error_msg",rabbitMessageVo.getErrorMsg());
+        wrapper.set("status",rabbitMessageVo.getStatus());
+        return super.update(wrapper);
     }
 
     /**
      * 添加消息
-     *
-     * @param rabbitMessage 消息实体
+     * @param rabbitMessageVo 消息实体
      */
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public boolean insert(RabbitMessage rabbitMessage) {
-        int result = messageMapper.insert(rabbitMessage);
-        return result > 0 ? true : false;
+    public boolean saveAndUpdate(RabbitMessageVo rabbitMessageVo) {
+        RabbitMessage rabbitMessage = new RabbitMessage();
+        BeanUtils.copyProperties(rabbitMessageVo,rabbitMessage);
+        return super.saveOrUpdate(rabbitMessage);
     }
 
     /**
