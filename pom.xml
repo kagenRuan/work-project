@@ -27,7 +27,7 @@
         <module>pay-service</module>
         <module>user-service</module>
         <module>task</module>
-<!--        <module>test-project</module>-->
+        <module>demo</module>
         <module>api-gateway</module>
         <module>product-service</module>
         <module>sleuth</module>

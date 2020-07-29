@@ -1,14 +1,17 @@
 package com.ruan.yuanyuan.config.web;
 
 import com.ruan.yuanyuan.config.web.interceotor.MyHandlerInterceptor;
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.boot.web.servlet.MultipartConfigFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.Ordered;
 import org.springframework.util.unit.DataSize;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import javax.servlet.*;
+import java.util.Collections;
 
 /**
  * @ClassName: WebMvcConfig
@@ -19,6 +22,8 @@ import javax.servlet.*;
  **/
 @Configuration
 public class WebMvcConfig implements WebMvcConfigurer {
+
+    private static String PROJECT_NAME="mall-manager";
 
     /**
      * 设置上传文件大小配置
@@ -49,5 +54,13 @@ public class WebMvcConfig implements WebMvcConfigurer {
                 //以下路径不被拦截
                 .excludePathPatterns("/api/login/main","/api/login/logout","/api/login/genCaptcha")
                 ;
+    }
+
+    @Bean
+    public FilterRegistrationBean filterRegistrationBean() {
+        FilterRegistrationBean bean = new FilterRegistrationBean();
+        bean.setOrder(Ordered.LOWEST_PRECEDENCE);
+        bean.setUrlPatterns(Collections.singletonList(PROJECT_NAME + "/*"));
+        return bean;
     }
 }

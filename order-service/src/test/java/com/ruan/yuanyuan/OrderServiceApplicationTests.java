@@ -103,7 +103,7 @@ public class OrderServiceApplicationTests {
         orderPay.setPaySn("1");
         MessageIdCorrelationData correlationData = new MessageIdCorrelationData();
         correlationData.setId("3");
-        rabbitMessageProvider.sendMessage(RabbitMqExchangeEnum.TDL_ORDER_PAY_DEAD_LETTER_PROVIDER_EXCHANGE, RabbitMqRoutingKeyEnum.TDL_ORDER_PAY_DEAD_LETTER_PROVIDER_ROUTING_KEY, orderPay, correlationData);
+        rabbitMessageProvider.sendMessage(RabbitMqExchangeEnum.ORDER_PAY_EXCHANGE, RabbitMqRoutingKeyEnum.ORDER_PAY_ROUTING_KEY, orderPay, correlationData);
     }
 
     @Test

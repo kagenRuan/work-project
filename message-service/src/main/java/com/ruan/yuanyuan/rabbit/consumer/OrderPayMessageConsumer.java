@@ -71,16 +71,14 @@ public class OrderPayMessageConsumer {
          *  4、发货
          *  5、通知商户
          */
-        //获取消息ID
-        String messageId = headers.get("spring_returned_message_correlation").toString();
-        //验证消息幂等数据
-        PowerEtc powerEtc = powerEtcService.findByMessageId(messageId);
-        if (!ObjectUtils.isEmpty(powerEtc)) {
-            logger.info("该业务已经被处理<<<<<OrderPayMessageConsumer#onOrderMessage>>>>>messageId:{}",messageId);
-            return;
-        }
-
         try {
+            //获取消息ID
+            String messageId = headers.get("spring_returned_message_correlation").toString();
+            //验证消息幂等数据
+            PowerEtc powerEtc = powerEtcService.findByMessageId(messageId);
+            if (!ObjectUtils.isEmpty(powerEtc)) {
+                logger.info("该业务已经被处理<<<<<OrderPayMessageConsumer#onOrderMessage>>>>>messageId:{}",messageId);
+            }
             //业务逻辑处理方法
             this.business(orderPay);
             //业务处理完后会将保存一个消息幂等数据
@@ -93,7 +91,7 @@ public class OrderPayMessageConsumer {
             /**
              * 手动ACK
              * deliveryTag:该消息的index
-             * multiple：是否批量.true:将一次性拒绝所有小于deliveryTag的消息。
+             * b：是否批量.true:将一次性拒绝所有小于deliveryTag的消息。
              */
             channel.basicAck(deliveryTag, false);//接受确认消息
         } catch (Exception e) {
@@ -103,8 +101,6 @@ public class OrderPayMessageConsumer {
              * b:是否批量. true：将一次性拒绝所有小于deliveryTag的消息
              * b1:是否重回队列。true将消息放入队列false废弃
              */
-
-            //channel.basicReject(deliveryTag,false);//这个方法主要是拒绝一条消息
             channel.basicNack(deliveryTag, false, false);
         }
 
