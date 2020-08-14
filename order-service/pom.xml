@@ -73,11 +73,6 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-aop</artifactId>
         </dependency>
-        <dependency>
-            <groupId>org.apache.shardingsphere</groupId>
-            <artifactId>sharding-jdbc-core</artifactId>
-            <version>${sharding-sphere.version}</version>
-        </dependency>
         <!--日志相关 start-->
 <!--        <dependency>-->
 <!--            <groupId>org.springframework.boot</groupId>-->

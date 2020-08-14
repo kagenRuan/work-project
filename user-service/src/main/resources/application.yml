@@ -45,8 +45,8 @@ spring:
 #  aop:
 #    proxy-target-class: true
 logging:
-  level:
-    com.ruan.yuanyuan.dao: DEBUG
+    level:
+      com.ruan.yuanyuan.dao: DEBUG
 feign:
   hystrix:
     enabled: true
