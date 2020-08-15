@@ -10,11 +10,12 @@ import com.ruan.yuanyuan.vo.UserVo;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.UnauthenticatedException;
-import org.apache.shiro.authz.annotation.RequiresPermissions;
+import org.apache.shiro.session.mgt.SessionManager;
 import org.apache.shiro.subject.Subject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
@@ -35,6 +36,8 @@ public class LoginController extends BaseController{
 
     private Logger logger = LoggerFactory.getLogger(LoginController.class);
 
+    @Autowired
+    private SessionManager sessionManager;
     /**
      * 获取验证码方法
      * @param request
@@ -116,7 +119,10 @@ public class LoginController extends BaseController{
                 BusinessException businessException = (BusinessException)e.getCause();
                 resultObject.setCode(businessException.getCode());
                 resultObject.setMsg(businessException.getMessage());
+                return resultObject;
             }
+            resultObject.setCode(ExceptionUtil.UserExceptionEnum.USER_LOGIN_FAIL.getCode());
+            resultObject.setMsg(ExceptionUtil.UserExceptionEnum.USER_LOGIN_FAIL.getMessage());
         }catch (BusinessException e){//用户没有被授权异常
             resultObject.setCode(e.getCode());
             resultObject.setMsg(e.getMessage());
@@ -132,9 +138,10 @@ public class LoginController extends BaseController{
      * 退出功能
      */
     @RequestMapping(value = "/logout",method = RequestMethod.GET)
-    public ResultObject logout(){
+    public ResultObject logout(HttpServletRequest request){
         logger.info("/api/login/logout 退出系统");
-        SecurityUtils.getSubject().logout();;
+        String sessionId = request.getHeader("authorization");
+        SecurityUtils.getSubject().logout();
         return new ResultObject(ExceptionUtil.UserExceptionEnum.USER_LOGOUT_SUCCESS.getMessage());
     }
 

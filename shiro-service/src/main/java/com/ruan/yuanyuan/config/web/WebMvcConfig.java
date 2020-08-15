@@ -56,11 +56,11 @@ public class WebMvcConfig implements WebMvcConfigurer {
                 ;
     }
 
-    @Bean
-    public FilterRegistrationBean filterRegistrationBean() {
-        FilterRegistrationBean bean = new FilterRegistrationBean();
-        bean.setOrder(Ordered.LOWEST_PRECEDENCE);
-        bean.setUrlPatterns(Collections.singletonList(PROJECT_NAME + "/*"));
-        return bean;
-    }
+//    @Bean
+//    public FilterRegistrationBean filterRegistrationBean() {
+//        FilterRegistrationBean bean = new FilterRegistrationBean();
+//        bean.setOrder(Ordered.LOWEST_PRECEDENCE);
+//        bean.setUrlPatterns(Collections.singletonList(PROJECT_NAME + "/*"));
+//        return bean;
+//    }
 }

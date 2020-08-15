@@ -1,5 +1,5 @@
 server:
-    port: 8761
+  port: 8763
 spring:
   application:
     name: eureka-server
@@ -20,6 +20,4 @@ eureka:
     enable-self-preservation: false #开启自我保护机制，主要是保证eureka server能够及时的剔除已下线的服务实例
     eviction-interval-timer-in-ms: 5000 #每5秒开始清理无效节点
     response-cache-update-interval-ms: 2000 #3秒内将写缓存中的数据更新到读缓存中
-#logging:
-#  config: classpath:logback-eureka-server.xml
 

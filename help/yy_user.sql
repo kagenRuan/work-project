@@ -26,6 +26,7 @@ CREATE TABLE `yy_user` (
   `username` varchar(32) COLLATE utf8mb4_bin NOT NULL COMMENT '用户名',
   `password` varchar(255) COLLATE utf8mb4_bin NOT NULL COMMENT '用户密码',
   `status` varchar(1) COLLATE utf8mb4_bin NOT NULL COMMENT '用户状态',
+  `type` varchar(1) COLLATE utf8mb4_bin NOT NULL COMMENT '用户类型',
   `salt` varchar(12) COLLATE utf8mb4_bin NOT NULL COMMENT '用户账户金额',
   `is_valid` varchar(1) COLLATE utf8mb4_bin NOT NULL COMMENT '是否有效',
   `create_by` varchar(32) COLLATE utf8mb4_bin NOT NULL COMMENT '创建人',

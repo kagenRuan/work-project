@@ -1,4 +1,6 @@
 spring:
+  profiles:
+    active: dev
   datasource:
     url: jdbc:mysql://127.0.0.1:3306/cloudproject?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull
     username: ryy
@@ -31,6 +33,8 @@ spring:
   cloud:
     compatibility-verifier:
       enabled: false
+  application:
+    name: shiro-service
 #mybatis-plus插件配置
 mybatis-plus:
   mapper-locations: mapper/*.xml
@@ -43,7 +47,9 @@ mybatis-plus:
       id-type: uuid
       update-strategy: not_null #可以修改某值为空
 allowed:
-  origins: http://127.0.0.1
+  origins: http://127.0.0.1 #用于shiro跨域使用
+#logging:
+#  level:
+#    com.ruan.yuanyuan.dao: DEBUG
 logging:
-  level:
-    com.ruan.yuanyuan.dao: DEBUG
+  config: classpath:logback-mallmanager-service.xml

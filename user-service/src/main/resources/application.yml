@@ -10,6 +10,8 @@ eureka:
     instance-id: ${spring.application.name}:${server.port}
     lease-renewal-interval-in-seconds: 2 #order-service该服务每3秒就发送心跳到eureka server服务端维护注册信息
 spring:
+  profiles:
+    active: test
   application:
     name: user-service
 #  datasource:
