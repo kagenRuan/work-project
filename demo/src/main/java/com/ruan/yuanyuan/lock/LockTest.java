@@ -1,4 +1,4 @@
-package com.ruan.yuanyuan.demo.lock;
+package com.ruan.yuanyuan.lock;
 
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.LockSupport;

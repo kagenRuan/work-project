@@ -57,6 +57,7 @@
         <fastjson.version>1.2.62</fastjson.version>
         <!--zookeeper-->
         <zookeeper.version>3.5.8</zookeeper.version>
+        <mysql.connector.java.version>8.0.15</mysql.connector.java.version>
     </properties>
 
     <modules>

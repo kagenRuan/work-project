@@ -19,6 +19,21 @@
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
 		<dependency>
+			<groupId>org.mybatis</groupId>
+			<artifactId>mybatis</artifactId>
+			<version>3.5.1</version>
+		</dependency>
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>8.0.15</version>
+		</dependency>
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<version>1.2.17</version>
+		</dependency>
+		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
@@ -33,5 +48,24 @@
 			</plugin>
 		</plugins>
 	</build>
+
+<!--	<build>-->
+<!--		<resources>-->
+<!--			&lt;!&ndash; maven项目中src源代码下的xml等资源文件编译进classes文件夹，-->
+<!--              注意：如果没有这个，它会自动搜索resources下是否有mapper.xml文件，-->
+<!--              如果没有就会报org.apache.ibatis.binding.BindingException: Invalid bound statement (not found): com.pet.mapper.PetMapper.selectByPrimaryKey&ndash;&gt;-->
+<!--			<resource>-->
+<!--				<directory>src/main/java</directory>-->
+<!--				<includes>-->
+<!--					<include>**/*.xml</include>-->
+<!--				</includes>-->
+<!--			</resource>-->
+
+<!--			&lt;!&ndash;将resources目录下的配置文件编译进classes文件  &ndash;&gt;-->
+<!--			<resource>-->
+<!--				<directory>src/main/resources</directory>-->
+<!--			</resource>-->
+<!--		</resources>-->
+<!--	</build>-->
 
 </project>

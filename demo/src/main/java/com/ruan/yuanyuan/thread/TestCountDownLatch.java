@@ -1,4 +1,4 @@
-package com.ruan.yuanyuan.demo.thread;
+package com.ruan.yuanyuan.thread;
 
 import java.util.concurrent.CountDownLatch;
 

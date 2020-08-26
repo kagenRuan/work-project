@@ -1,6 +1,6 @@
-package com.ruan.yuanyuan.demo;
+package com.ruan.yuanyuan;
 
-import com.ruan.yuanyuan.demo.lock.LockTest;
+import com.ruan.yuanyuan.lock.LockTest;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;

@@ -1,9 +1,4 @@
-package com.ruan.yuanyuan.demo.testfinal;
-
-import java.util.concurrent.Callable;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
+package com.ruan.yuanyuan.testfinal;
 
 /**
  * @ClassName TestFinal

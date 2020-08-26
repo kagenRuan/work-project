@@ -35,18 +35,10 @@ public class UserServiceApplicationTests {
 
     @Autowired
     private IUserService userService;
-    @Autowired
-    private IUserRoleService userRoleService;
 
     @Test
     public void get(){
-//        User user = new User();
-//        user.setUsername("yyy");
-//        user.setPassword("123456");
-//        user.setMoney(new BigDecimal(0.2));
-//        user.setStatus("1");
-//        userService.addUser(user);
-        userRoleService.addRole("11","111");
+        userService.getById("1");
     }
 
 

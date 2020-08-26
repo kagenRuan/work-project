@@ -1,4 +1,4 @@
-package com.ruan.yuanyuan.demo.thread;
+package com.ruan.yuanyuan.thread;
 
 /**
  * @ClassName TestRunable

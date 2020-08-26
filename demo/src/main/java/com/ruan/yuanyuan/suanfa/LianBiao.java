@@ -1,4 +1,4 @@
-package com.ruan.yuanyuan.demo.suanfa;
+package com.ruan.yuanyuan.suanfa;
 
 /**
  * @ClassName Dan_LianBiao
