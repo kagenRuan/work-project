@@ -38,6 +38,8 @@ public class UserServiceApplicationTests {
 
     @Test
     public void get(){
+        AnnotationConfigApplicationContext annotationConfigApplicationContext = new AnnotationConfigApplicationContext();
+
         userService.getById("1");
     }
 

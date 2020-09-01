@@ -13,17 +13,48 @@ public class TestCountDownLatch {
 
     public static void main(String[] args) {
         CountDownLatch countDownLatch = new CountDownLatch(3);
-        for (int i = 0; i <3 ; i++) {
-            new Thread(() ->{
+
+        new Thread(() ->{
+            try {
+                System.out.println(Thread.currentThread().getName()+"开始");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }finally {
+                countDownLatch.countDown();
+
+            }
+        },"1").start();;
+
+        new Thread(() ->{
+            try {
+                System.out.println(Thread.currentThread().getName()+"开始");
                 try {
-                    System.out.println(Thread.currentThread().getName()+"开始");
-                } catch (Exception e) {
+                    Thread.sleep(10000);
+                } catch (InterruptedException e) {
                     e.printStackTrace();
-                }finally {
-                    countDownLatch.countDown();
                 }
-            },i+"").start();
-        }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }finally {
+                countDownLatch.countDown();
+            }
+        },"2").start();;
+
+        new Thread(() ->{
+            try {
+                System.out.println(Thread.currentThread().getName()+"开始");
+                try {
+                    Thread.sleep(50000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }finally {
+                countDownLatch.countDown();
+            }
+        },"3").start();;
+
 
         try {
             countDownLatch.await();
