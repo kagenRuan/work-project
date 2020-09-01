@@ -30,8 +30,7 @@ public class TestController {
     private TestFactoryBean testFactoryBean;
 
     @RequestMapping("/say")
-    public void say() throws Exception {
-        TestSayFactoryBean testSayFactoryBean = (TestSayFactoryBean) testFactoryBean.getObject();
-        System.out.println(testSayFactoryBean.getId());
+    public void say(){
+        System.out.println("say");
     }
 }
