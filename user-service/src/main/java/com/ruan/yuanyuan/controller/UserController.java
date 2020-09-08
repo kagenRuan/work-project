@@ -28,6 +28,12 @@ public class UserController {
     @Autowired
     private IUserRoleService userRoleService;
 
+
+    @RequestMapping(value = "/test",method = RequestMethod.GET)
+    public ResultObject test(){
+        return new ResultObject();
+    }
+
     /**
      * 修改用户账户金额
      * @param userId 用户ID
