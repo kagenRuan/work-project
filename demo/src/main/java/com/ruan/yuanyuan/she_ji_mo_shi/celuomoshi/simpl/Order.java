@@ -1,7 +1,8 @@
-package com.ruan.yuanyuan.she_ji_mo_shi.celuomoshi.pay;
+package com.ruan.yuanyuan.she_ji_mo_shi.celuomoshi.simpl;
 
-import com.ruan.yuanyuan.she_ji_mo_shi.celuomoshi.pay.payenum.PayTypeEnum;
-import com.ruan.yuanyuan.she_ji_mo_shi.celuomoshi.pay.paytype.Payment;
+import com.ruan.yuanyuan.she_ji_mo_shi.celuomoshi.simpl.payenum.PayTypeEnum;
+import com.ruan.yuanyuan.she_ji_mo_shi.celuomoshi.simpl.paytype.Payment;
+
 import java.math.BigDecimal;
 
 /**
@@ -28,7 +29,7 @@ public class Order implements PayService {
      * @Date: 2020/9/8 14:14
      * @Description: 使用策略模式封装支付
      * @param payTypeEnum: 支付类型
-     * @return: com.ruan.yuanyuan.she_ji_mo_shi.celuomoshi.pay.ResultMessage
+     * @return: com.ruan.yuanyuan.she_ji_mo_shi.celuomoshi.simpl.pay.ResultMessage
      **/
     @Override
     public ResultMessage pay(PayTypeEnum payTypeEnum) {

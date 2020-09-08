@@ -1,6 +1,6 @@
-package com.ruan.yuanyuan.she_ji_mo_shi.celuomoshi.pay.paytype;
+package com.ruan.yuanyuan.she_ji_mo_shi.celuomoshi.simpl.paytype;
 
-import com.ruan.yuanyuan.she_ji_mo_shi.celuomoshi.pay.ResultMessage;
+import com.ruan.yuanyuan.she_ji_mo_shi.celuomoshi.simpl.ResultMessage;
 
 import java.math.BigDecimal;
 
@@ -16,7 +16,7 @@ public abstract class Payment {
   public abstract String getName();
   public abstract BigDecimal getAmount(String uid);
 
-  public  ResultMessage doPay(String uid, BigDecimal amount){
+  public ResultMessage doPay(String uid, BigDecimal amount){
         if(getAmount(uid).compareTo(amount) < 0){
             return new ResultMessage("支付失败","500",amount);
         }

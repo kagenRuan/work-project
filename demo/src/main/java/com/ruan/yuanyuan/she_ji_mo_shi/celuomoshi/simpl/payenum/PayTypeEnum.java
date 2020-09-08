@@ -1,4 +1,4 @@
-package com.ruan.yuanyuan.she_ji_mo_shi.celuomoshi.pay.payenum;
+package com.ruan.yuanyuan.she_ji_mo_shi.celuomoshi.simpl.payenum;
 
 /**
  * @ClassName PayTypeEnum

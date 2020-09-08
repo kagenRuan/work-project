@@ -1,10 +1,10 @@
-package com.ruan.yuanyuan.she_ji_mo_shi.celuomoshi.pay;
+package com.ruan.yuanyuan.she_ji_mo_shi.celuomoshi.simpl;
 
-import com.ruan.yuanyuan.she_ji_mo_shi.celuomoshi.pay.payenum.PayTypeEnum;
-import com.ruan.yuanyuan.she_ji_mo_shi.celuomoshi.pay.paytype.AliPay;
-import com.ruan.yuanyuan.she_ji_mo_shi.celuomoshi.pay.paytype.Payment;
-import com.ruan.yuanyuan.she_ji_mo_shi.celuomoshi.pay.paytype.UnionPay;
-import com.ruan.yuanyuan.she_ji_mo_shi.celuomoshi.pay.paytype.WeChatPay;
+import com.ruan.yuanyuan.she_ji_mo_shi.celuomoshi.simpl.payenum.PayTypeEnum;
+import com.ruan.yuanyuan.she_ji_mo_shi.celuomoshi.simpl.paytype.AliPay;
+import com.ruan.yuanyuan.she_ji_mo_shi.celuomoshi.simpl.paytype.Payment;
+import com.ruan.yuanyuan.she_ji_mo_shi.celuomoshi.simpl.paytype.UnionPay;
+import com.ruan.yuanyuan.she_ji_mo_shi.celuomoshi.simpl.paytype.WeChatPay;
 
 import java.util.HashMap;
 import java.util.Map;

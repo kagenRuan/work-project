@@ -1,6 +1,6 @@
-package com.ruan.yuanyuan.she_ji_mo_shi.celuomoshi.pay;
+package com.ruan.yuanyuan.she_ji_mo_shi.celuomoshi.simpl;
 
-import com.ruan.yuanyuan.she_ji_mo_shi.celuomoshi.pay.payenum.PayTypeEnum;
+import com.ruan.yuanyuan.she_ji_mo_shi.celuomoshi.simpl.payenum.PayTypeEnum;
 
 import java.math.BigDecimal;
 
@@ -9,7 +9,7 @@ import java.math.BigDecimal;
  * @Author ruanyuanyuan
  * @Date 2020/9/8-13:45
  * @Version 1.0
- * @Description TODO
+ * @Description TODO 以多种支付方式实现策略模式
  **/
 public class Test {
 

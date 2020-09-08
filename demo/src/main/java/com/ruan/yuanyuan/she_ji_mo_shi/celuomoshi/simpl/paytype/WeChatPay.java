@@ -1,4 +1,4 @@
-package com.ruan.yuanyuan.she_ji_mo_shi.celuomoshi.pay.paytype;
+package com.ruan.yuanyuan.she_ji_mo_shi.celuomoshi.simpl.paytype;
 
 import java.math.BigDecimal;
 
