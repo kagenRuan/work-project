@@ -20,38 +20,80 @@ public class KuaiSuSort {
 
     }
 
+
     private static void sort(int[] array,int left,int right){
-        if(left >= right)return;
-        int mind = protiton(array,left,right);
-        sort(array,left,mind-1);
-        sort(array,mind+1,right);
+            if(left >= right) return;
+            int mid = merge(array,left,right);
+            sort(array,left,mid-1);
+            sort(array,mid+1,right);
+
     }
 
-    private static int protiton(int[] array,int left,int right){
+    private static int merge(int[] array,int left,int right){
 
+        int mid = array[right];
         int i = left;
         int j = right-1;
-        int provit = array[right];//中间值
 
         while (i <= j){
 
-            //首先循环判断左边的数字小于中间值
-            while (i <= j && array[i] <= provit){
+            while (i <= j && array[i] <= mid){
                 i++;
             }
-            //再循环判断右边的数字大于中间值
-            while (i <= j && array[j] > provit){
+
+            while (i <= j && array[j] >= mid){
                 j--;
             }
 
             if(i < j){
-                swap(array,i,j);
+                sort(array,i,j);
             }
-
         }
         swap(array,i,right);
+//        System.out.println(Arrays.toString(array));
         return i;
     }
+
+
+
+
+
+
+
+
+
+//    private static void sort(int[] array,int left,int right){
+//        if(left >= right)return;
+//        int mind = protiton(array,left,right);
+//        sort(array,left,mind-1);
+//        sort(array,mind+1,right);
+//    }
+//
+//    private static int protiton(int[] array,int left,int right){
+//
+//        int i = left;
+//        int j = right-1;
+//        int provit = array[right];//中间值
+//
+//        while (i <= j){
+//
+//            //首先循环判断左边的数字小于中间值
+//            while (i <= j && array[i] <= provit){
+//                i++;
+//            }
+//            //再循环判断右边的数字大于中间值
+//            while (i <= j && array[j] > provit){
+//                j--;
+//            }
+//
+//            if(i < j){
+//                swap(array,i,j);
+//            }
+//
+//        }
+//        swap(array,i,right);
+//        return i;
+//    }
 
     private static void swap(int[] array,int leftBound,int rightBound){
             int temp = array[leftBound];
