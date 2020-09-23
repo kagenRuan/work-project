@@ -20,6 +20,6 @@ public class CglibProxy implements MethodInterceptor {
     public Object intercept(Object o, Method method, Object[] objects, MethodProxy methodProxy) throws Throwable {
         System.out.println("cglib say hello");
         methodProxy.invokeSuper(o,objects);
-        return null;
+        return o;
     }
 }

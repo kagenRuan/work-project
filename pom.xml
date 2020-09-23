@@ -19,6 +19,7 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.compile.sourceEncoding>UTF-8</project.compile.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <!--jdk版本号-->
         <java.version>1.8</java.version>
@@ -57,7 +58,10 @@
         <fastjson.version>1.2.62</fastjson.version>
         <!--zookeeper-->
         <zookeeper.version>3.5.8</zookeeper.version>
+        <!--数据库驱动-->
         <mysql.connector.java.version>8.0.15</mysql.connector.java.version>
+        <jpa.version>2.2.5.RELEASE</jpa.version>
+        <sharding-jdbc.version>4.1.0</sharding-jdbc.version>
     </properties>
 
     <modules>
@@ -76,6 +80,21 @@
         <module>sleuth</module>
         <module>dubbo-project</module>
         <module>shiro-service</module>
+        <module>uid-generator-master</module>
     </modules>
+
+<!--    <build>-->
+<!--        <plugins>-->
+<!--            <plugin>-->
+<!--                <groupId>org.apache.maven.plugins</groupId>-->
+<!--                <artifactId>maven-compiler-plugin</artifactId>-->
+<!--                <version>3.8.0</version>-->
+<!--                <configuration>-->
+<!--                    <source>8</source>-->
+<!--                    <target>8</target>-->
+<!--                </configuration>-->
+<!--            </plugin>-->
+<!--        </plugins>-->
+<!--    </build>-->
 </project>
 

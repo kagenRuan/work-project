@@ -16,17 +16,17 @@ public class DemoApplicationTests {
 
 	@Test
 	public void contextLoads() throws InterruptedException {
-		Lock lock = new ReentrantLock();
-		Condition condition = lock.newCondition();
-		condition.await();
-		Thread a = new Thread(() ->{
-			new LockTest().lock1(lock);
-		},"ThreadA");
-		a.start();
-		new Thread(() ->{new LockTest().lock1(lock);},"ThreadB").start();
-		new Thread(() ->{new LockTest().lock1(lock);},"ThreadC").start();
-		new Thread(() ->{new LockTest().lock1(lock);},"ThreadD").start();
-		new Thread(() ->{new LockTest().lock1(lock);},"ThreadE").start();
+//		Lock lock = new ReentrantLock();
+//		Condition condition = lock.newCondition();
+//		condition.await();
+////		Thread a = new Thread(() ->{
+////			new LockTest().lock1(lock);
+////		},"ThreadA");
+////		a.start();
+//		new Thread(() ->{new LockTest().lock1(lock);},"ThreadB").start();
+//		new Thread(() ->{new LockTest().lock1(lock);},"ThreadC").start();
+//		new Thread(() ->{new LockTest().lock1(lock);},"ThreadD").start();
+//		new Thread(() ->{new LockTest().lock1(lock);},"ThreadE").start();
 	}
 
 }

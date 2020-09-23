@@ -18,7 +18,6 @@ public class TestMain {
 
     public static void main(String[] args) {
         AnnotationConfigApplicationContext annotationConfigApplicationContext = new AnnotationConfigApplicationContext(TestConfig.class);
-        annotationConfigApplicationContext.refresh();
         TestSayServiceImpl testSayService = annotationConfigApplicationContext.getBean(TestSayServiceImpl.class);
         testSayService.sayHello();
         //Spring事件

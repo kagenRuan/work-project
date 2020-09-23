@@ -1,5 +1,7 @@
 package com.ruan.yuanyuan.io;
 
+import java.net.ServerSocket;
+
 /**
  * @ClassName Bio
  * @Author ruanyuanyuan
@@ -8,4 +10,16 @@ package com.ruan.yuanyuan.io;
  * @Description TODO
  **/
 public class Bio {
+
+    public static void main(String[] args) {
+
+    }
+}
+
+class BioClient{
+
+}
+
+class BioServer{
+
 }

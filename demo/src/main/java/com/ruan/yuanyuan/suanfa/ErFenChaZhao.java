@@ -12,16 +12,17 @@ public class ErFenChaZhao {
 
 
     public static void main(String[] args) {
-        int[] array = new int[100];
-        for (int i = 0; i < 100; i++) {
-            array[i] = i;
-        }
+//        int[] array = new int[100];
+//        for (int i = 0; i < 100; i++) {
+//            array[i] = i;
+//        }
+        int[] array = {1,3,5,7,9};
         //二分查找未优化
         int index = getIndex(array,0,array.length-1,1);
         System.out.println(index);
         //二分查找优化之后
-//        int index1 = getIndex1(array,0,array.length-1,1);
-//        System.out.println(index1);
+        int index1 = getIndex1(array,0,array.length-1,1);
+        System.out.println(index1);
     }
 
     /**
@@ -42,9 +43,9 @@ public class ErFenChaZhao {
         int mid = (left + right) >> 1;
 
         if(findVal < array[mid]){
-           return getIndex(array,left,mid+1,findVal);
+           return getIndex(array,left,mid-1,findVal);
         }else if(findVal > array[mid]){
-            return getIndex(array,mid-1,right,findVal);
+            return getIndex(array,mid+1,right,findVal);
         }else {
             return mid;
         }
