@@ -46,7 +46,7 @@ public class KuaiSuSort {
             }
 
             if(i < j){
-                sort(array,i,j);
+                swap(array,i,j);
             }
         }
         swap(array,i,right);

@@ -11,10 +11,10 @@ public class LianBiao {
 
     public static void main(String[] args) {
         Node node = LianBiao.dan_lianBiao();
-//        LianBiao.dan_LianBiao_FanZhuan(node);
-//        System.out.println("反转后的Node单链表："+node.toString());
-        Node node1 = LianBiao.fanZhuan_danLianBiao(node,2);
-        System.out.println(node1);
+        LianBiao.dan_LianBiao_FanZhuan(node);
+        System.out.println("反转后的Node单链表："+node.toString());
+//        Node node1 = LianBiao.fanZhuan_danLianBiao(node,2);
+//        System.out.println(node1);
     }
 
 
@@ -60,25 +60,27 @@ public class LianBiao {
      * @return: void
      **/
     public static void dan_LianBiao_FanZhuan(Node node){
-        Node head = new Node();
-        Node temp = null;//记录当前节点
-        Node cou = null;//记录当前节点的下一个节点
-        Node next = node.next;
-        while (next != null){
-            cou = next.next;//记录下一个节点，一遍下次循环
-            if(temp != null){//如果temp不为空，则说明值为上一个节点的值
-                head.next = next; //将当前节点赋值给头节点的next
-                next.next=temp;//当前节点的next为上一个节点
-                temp = next;//同时将当前节点赋值给temp，作为下一次使用
-            }else{ //否则temp为第一次循环
-                temp = next;
-                temp.next=null;//设置当前节点的next为null
-                head.next=temp;//将其复制给头节点的next
+
+            Node head = new Node();
+            Node temp = null;//用于记录当前node
+            Node cou = null;//记录下一个node
+
+            Node next = node.next;
+            while (next != null){
+                cou = next.next;
+                if(temp !=null){
+                    head.next = next;
+                    next.next = temp;
+                    temp = next;
+                }else{
+                    temp = next;
+                    temp.next =null;
+                    head.next=temp;
+                }
+                next = cou;
             }
-            temp = next;
-            next = cou;
-        }
-        node.next=temp;
+            System.out.println(head);
+            node.next=temp;
     }
 
     /**
