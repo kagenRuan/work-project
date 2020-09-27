@@ -80,7 +80,7 @@
         <module>sleuth</module>
         <module>dubbo-project</module>
         <module>shiro-service</module>
-        <module>uid-generator-master</module>
+        <module>uid-generator</module>
     </modules>
 
 <!--    <build>-->
