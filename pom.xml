@@ -53,7 +53,7 @@
         <!--Tcc分布式事务-->
         <tcc-transaction.version>1.2.12</tcc-transaction.version>
         <!-- netty-->
-        <netty-version>4.1.44.Final</netty-version>
+        <netty.version>4.1.20.Final</netty.version>
         <!--fastjson-->
         <fastjson.version>1.2.62</fastjson.version>
         <!--zookeeper-->
@@ -83,18 +83,18 @@
         <module>uid-generator</module>
     </modules>
 
-<!--    <build>-->
-<!--        <plugins>-->
-<!--            <plugin>-->
-<!--                <groupId>org.apache.maven.plugins</groupId>-->
-<!--                <artifactId>maven-compiler-plugin</artifactId>-->
-<!--                <version>3.8.0</version>-->
-<!--                <configuration>-->
-<!--                    <source>8</source>-->
-<!--                    <target>8</target>-->
-<!--                </configuration>-->
-<!--            </plugin>-->
-<!--        </plugins>-->
-<!--    </build>-->
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.8.0</version>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 </project>
 
