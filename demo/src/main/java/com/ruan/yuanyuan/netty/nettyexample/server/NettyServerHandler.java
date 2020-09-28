@@ -47,7 +47,7 @@ public class NettyServerHandler extends ChannelInboundHandlerAdapter {
         });
 
         //对所有的Channel推送消息
-        pushMessage(ctx,byteBuf);
+        pushMessage(byteBuf);
 
     }
 
@@ -70,7 +70,7 @@ public class NettyServerHandler extends ChannelInboundHandlerAdapter {
     }
 
     //对所有的Channel都进行推送消息
-    public void pushMessage(ChannelHandlerContext ctx,ByteBuf byteBuf){
+    public void pushMessage(ByteBuf byteBuf){
         allChannel.forEach((k,v) ->v.eventLoop().execute(new Runnable() {
             @Override
             public void run() {
