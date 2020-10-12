@@ -1,4 +1,4 @@
-package com.ruan.yuanyuan.hashmap;
+package com.ruan.yuanyuan.collection.map;
 
 import java.util.concurrent.ConcurrentHashMap;
 

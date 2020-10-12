@@ -1,4 +1,4 @@
-package com.ruan.yuanyuan.thread;
+package com.ruan.yuanyuan.thread.future;
 
 import java.util.Collections;
 import java.util.HashSet;

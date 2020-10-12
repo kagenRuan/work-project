@@ -12,9 +12,11 @@ public class TestFinal {
 
     public static void main(String[] args) {
 
-        final TestFinal testFinal = new TestFinal(1,"YY");
-        //testFinal.age=2; final修饰所以不能修改，编译报错
-        testFinal.name="yy1";
+//        final TestFinal testFinal = new TestFinal(1,"YY");
+//        //testFinal.age=2; final修饰所以不能修改，编译报错
+//        testFinal.name="yy1";
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("333");
 
     }
 

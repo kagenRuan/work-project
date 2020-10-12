@@ -8,7 +8,6 @@ import io.netty.channel.ChannelInboundHandlerAdapter;
 import io.netty.util.CharsetUtil;
 
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
 
 /**
@@ -32,7 +31,6 @@ public class NettyServerHandler extends ChannelInboundHandlerAdapter {
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
 
-
         System.out.println("ChannelHandlerContext: "+ctx);
         ByteBuf byteBuf = (ByteBuf) msg;
         System.out.println("服务端接受到客户端【"+ctx.channel().remoteAddress()+"】消息："+byteBuf.toString(CharsetUtil.UTF_8));
@@ -47,7 +45,7 @@ public class NettyServerHandler extends ChannelInboundHandlerAdapter {
         });
 
         //对所有的Channel推送消息
-        pushMessage(byteBuf);
+//        pushMessage(byteBuf);
 
     }
 

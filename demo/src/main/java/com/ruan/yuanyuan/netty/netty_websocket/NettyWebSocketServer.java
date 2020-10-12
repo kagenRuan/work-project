@@ -1,20 +1,24 @@
-package com.ruan.yuanyuan.netty.nettyexample.server;
+package com.ruan.yuanyuan.netty.netty_websocket;
 
+import com.ruan.yuanyuan.netty.nettyexample.server.NettyServerChannelInit;
 import io.netty.bootstrap.ServerBootstrap;
-import io.netty.channel.*;
+import io.netty.channel.Channel;
+import io.netty.channel.ChannelFuture;
+import io.netty.channel.ChannelOption;
+import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.handler.logging.LogLevel;
 import io.netty.handler.logging.LoggingHandler;
 
 /**
- * @ClassName NettyServer
+ * @ClassName NettyWebSocketServer
  * @Author ruanyuanyuan
- * @Date 2020/9/28-08:53
+ * @Date 2020/9/28-23:46
  * @Version 1.0
  * @Description TODO
  **/
-public class NettyServer {
+public class NettyWebSocketServer {
 
     public static void main(String[] args) {
         //仅处理连接请求
@@ -34,9 +38,9 @@ public class NettyServer {
                     //这里添加的Handler主要是针对boos线程的,为Boos线程增加日志Handler
                     .handler(new LoggingHandler(LogLevel.INFO))
                     //这里添加的Handler主要是针对work线程的
-                    .childHandler(new NettyServerChannelInit());//设置work中的EventLoop对应的管道处理业务逻辑
+                    .childHandler(new NettyWebSocketServerChannelInit());//设置work中的EventLoop对应的管道处理业务逻辑
             //绑定一个端口并同步
-            ChannelFuture future = bootstrap.bind(8888).sync();;
+            ChannelFuture future = bootstrap.bind("localhost",8888).sync();;
             Channel channel = future.channel();
             System.out.println("-------服务端【"+channel.localAddress()+"】------started");
             //对关闭通道进行监听(当有关闭通道这个事件才会对其进行关闭，并不是马上进行关闭)
@@ -48,8 +52,5 @@ public class NettyServer {
             boss.shutdownGracefully();
             work.shutdownGracefully();
         }
-
-
-
     }
 }
