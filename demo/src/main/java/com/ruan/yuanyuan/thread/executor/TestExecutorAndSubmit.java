@@ -19,14 +19,12 @@ public class TestExecutorAndSubmit {
 
             }
         });
-
-        executorService.submit(new Runnable() {
+        Future<String> ssss = executorService.submit(new Runnable() {
             @Override
             public void run() {
 
             }
-        });
-
+        }, "ssss");
         executorService.submit(new Callable<Object>() {
             @Override
             public Object call() throws Exception {
@@ -34,12 +32,6 @@ public class TestExecutorAndSubmit {
             }
         });
 
-        Future<String> ssss = executorService.submit(new Runnable() {
-            @Override
-            public void run() {
 
-            }
-        }, "ssss");
-        ssss.get();
     }
 }

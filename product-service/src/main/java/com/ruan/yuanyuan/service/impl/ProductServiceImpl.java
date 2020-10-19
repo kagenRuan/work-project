@@ -1,5 +1,6 @@
 package com.ruan.yuanyuan.service.impl;
 
+import com.baomidou.mybatisplus.extension.service.IService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.ruan.yuanyuan.dao.ProductMapper;
 import com.ruan.yuanyuan.entity.Product;
