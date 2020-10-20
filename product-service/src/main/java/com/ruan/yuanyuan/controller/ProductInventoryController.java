@@ -91,6 +91,7 @@ public class ProductInventoryController {
                     request = new ProductInventoryCacheReLoadRequest(productId,productInventoryService,true);
                     requestAsyncProcessorService.processor(request);
                     System.out.println("第N次读请求，进行阻塞获取到库存数据="+dataBaseProductVo.getInventory());
+                    resultObject.setData(dataBaseProductVo);
                     return resultObject;
                 }
                 System.out.println("第N次读请求，进行阻塞未获取到库存数据");

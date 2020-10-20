@@ -23,6 +23,7 @@ public class IRequestAsyncProcessorServiceImpl implements IRequestAsyncProcessor
             ArrayBlockingQueue routeQueue = getRouteQueue(request.getProductId());
             //将请求添加到队列中
             routeQueue.put(request);
+            System.out.println("队列的长度="+routeQueue.size());
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

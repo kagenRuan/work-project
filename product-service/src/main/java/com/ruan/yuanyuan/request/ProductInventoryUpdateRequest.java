@@ -26,8 +26,7 @@ public class ProductInventoryUpdateRequest implements Request {
     @Override
     public void process() {
         //TODO 1、先删除缓存
-        String key = "product:inventory:"+productVo.getId();
-        iProductInventoryService.removeInventoryConCache(key);
+        iProductInventoryService.removeInventoryConCache(productVo.getId());
         //TODO 2、再更新数据库
         iProductInventoryService.updateInventoryCon(productVo);
         System.out.println("数据修改请求-》商品ID="+productVo.getId()+"，先删除缓存，在更新数据库");
