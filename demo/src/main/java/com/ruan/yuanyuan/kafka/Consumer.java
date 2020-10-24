@@ -33,14 +33,16 @@ public class Consumer extends Thread{
         //对数据进行反序列化
         properties.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, IntegerDeserializer.class.getName());
         properties.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName());
-        properties.put(ConsumerConfig.CLIENT_ID_CONFIG,"CONSUMER");
-        properties.put(ConsumerConfig.GROUP_ID_CONFIG,"ID_GROUP");
+        properties.put(ConsumerConfig.CLIENT_ID_CONFIG,"CONSUMER");//声明消费者
+        properties.put(ConsumerConfig.GROUP_ID_CONFIG,"ID_GROUP");//指定分组
         //session的超时事件
         properties.put(ConsumerConfig.SESSION_TIMEOUT_MS_CONFIG,"30000");
         //自动提交事件
         properties.put(ConsumerConfig.AUTO_COMMIT_INTERVAL_MS_CONFIG,"1000");
         //自动提交确认位置
         properties.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG,"earliest");
+        //自定义消费者消费哪个putition
+
         this.consumer = new KafkaConsumer<Integer,String>(properties);
         this.topic = topic;
     }
@@ -57,6 +59,6 @@ public class Consumer extends Thread{
     }
 
     public static void main(String[] args) {
-        new Consumer("test").start();
+        new Consumer("test_topic_partition").start();
     }
 }

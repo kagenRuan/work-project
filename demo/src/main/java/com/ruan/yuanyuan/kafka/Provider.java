@@ -29,6 +29,8 @@ public class Provider extends Thread{
         properties.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
         properties.put(ProducerConfig.CLIENT_ID_CONFIG,"PRODUCER");
         properties.put(ProducerConfig.CONNECTIONS_MAX_IDLE_MS_CONFIG,"15000");
+        //自定义消息指定路由到某个partition中
+        properties.put(ProducerConfig.PARTITIONER_CLASS_CONFIG,"com.ruan.yuanyuan.kafka.MyPartition");
         this.producer = new KafkaProducer<Integer, String>(properties);
         this.topic = topic;
     }
@@ -36,12 +38,12 @@ public class Provider extends Thread{
 
     @Override
     public void run() {
-        String message = "kafka message ";
+        String message = "kafka 测试自定义Partition分区";
         for (int j = 0; j <20 ; j++) {
             RecordMetadata recordMetadata = null;
             try {
                 message= message+j;
-                recordMetadata = producer.send(new ProducerRecord<>(topic, message)).get();
+                recordMetadata = producer.send(new ProducerRecord<>(topic, j,message)).get();
                 long offset = recordMetadata.offset();
                 String topic = recordMetadata.topic();
                 System.out.println("消息offset:"+offset+" 消息主题："+topic);
@@ -55,6 +57,6 @@ public class Provider extends Thread{
 
 
     public static void main(String[] args) {
-        new Provider("test").start();
+        new Provider("test_topic_partition").start();
     }
 }
