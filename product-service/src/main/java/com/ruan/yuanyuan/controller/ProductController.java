@@ -1,10 +1,15 @@
 package com.ruan.yuanyuan.controller;
 
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty;
 import com.ruan.yuanyuan.entity.ResultObject;
+import com.ruan.yuanyuan.exception.BusinessException;
 import com.ruan.yuanyuan.feign.OrderServiceFeign;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.annotation.Resource;
 
 /**
  * @ClassName: ProductController
@@ -16,7 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class ProductController {
 
-    @Autowired
+    @Resource
     private OrderServiceFeign orderServiceFeign;
 
     @RequestMapping("/getProductInfo")

@@ -3,6 +3,12 @@ package com.ruan.yuanyuan.config;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.netflix.client.config.IClientConfig;
+import com.netflix.loadbalancer.AbstractLoadBalancerPing;
+import com.netflix.loadbalancer.AbstractLoadBalancerRule;
+import com.netflix.loadbalancer.IPing;
+import com.netflix.loadbalancer.Server;
+import com.netflix.niws.loadbalancer.NIWSDiscoveryPing;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -29,7 +35,21 @@ import java.time.Duration;
  * @description: Redis缓存配置类
  **/
 @Configuration
-public class RedisCacheConfig {
+public class RedisCacheConfig extends AbstractLoadBalancerPing {
 
 
+    @Bean
+    public IPing iPing(){
+        return new NIWSDiscoveryPing();
+    }
+
+    @Override
+    public boolean isAlive(Server server) {
+        return super.isAlive(server);
+    }
+
+    @Override
+    public void initWithNiwsConfig(IClientConfig clientConfig) {
+
+    }
 }

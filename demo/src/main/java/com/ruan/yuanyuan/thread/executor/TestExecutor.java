@@ -12,12 +12,9 @@ import java.util.concurrent.*;
 public class TestExecutor {
 
     public static void main(String[] args) throws ExecutionException, InterruptedException {
-//        for (int i = 0; i < 10; i++) {
-//
-//        }
-        ForkJoinPool forkJoinPool = new ForkJoinPool();
-        ForkJoinTask task = forkJoinPool.submit(new TestForkJoinPool(5));
-        System.out.println(task.get());
+//        ForkJoinPool forkJoinPool = new ForkJoinPool();
+//        ForkJoinTask task = forkJoinPool.submit(new TestForkJoinPool(5));
+//        System.out.println(task.get());
 
         /**
          * @Author: ruanyuanyuan
@@ -26,14 +23,13 @@ public class TestExecutor {
          * @param args:
          * @return: void
          **/
-//        ExecutorService service = new ThreadPoolExecutor(
-//                2, //核心线程数(线程池初始化线程数量)
-//                3, //最大线程数(线程池最大能创建的线程数量)
-//                5L, //空闲时间(当线程池中的线程数量已经达到最大线程数量，并且后面没有任务提交，则会在多少时间内回收线程数量使其线程数量达到核心梳理)
-//                TimeUnit.MILLISECONDS,//空闲时间单位(时，分，秒)
-//                new LinkedBlockingQueue<Runnable>(10),//队列
-//                new  TestRejectedExecutionHandler());//拒绝策略(当线程池中的线程数量已经达到了最大线程数量，并且还有任务提交，那么就会执行拒绝策略)
-
+        ThreadPoolExecutor service = new ThreadPoolExecutor(
+                2, //核心线程数(线程池初始化线程数量)
+                3, //最大线程数(线程池最大能创建的线程数量)
+                5L, //空闲时间(当线程池中的线程数量已经达到最大线程数量，并且后面没有任务提交，则会在多少时间内回收线程数量使其线程数量达到核心梳理)
+                TimeUnit.MILLISECONDS,//空闲时间单位(时，分，秒)
+                new LinkedBlockingQueue<Runnable>(10),//队列
+                new  TestRejectedExecutionHandler());//拒绝策略(当线程池中的线程数量已经达到了最大线程数量，并且还有任务提交，那么就会执行拒绝策略)
     }
 }
 /**

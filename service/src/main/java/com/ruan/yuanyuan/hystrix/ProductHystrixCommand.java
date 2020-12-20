@@ -1,9 +1,6 @@
 package com.ruan.yuanyuan.hystrix;
 
-import com.netflix.hystrix.HystrixCommand;
-import com.netflix.hystrix.HystrixCommandGroupKey;
-import com.netflix.hystrix.HystrixCommandKey;
-import com.netflix.hystrix.HystrixThreadPoolKey;
+import com.netflix.hystrix.*;
 import com.ruan.yuanyuan.entity.Product;
 import com.ruan.yuanyuan.entity.ResultObject;
 import com.ruan.yuanyuan.enums.ResultObjectEnum;
@@ -22,7 +19,9 @@ public class ProductHystrixCommand extends HystrixCommand<ResultObject> {
     public ProductHystrixCommand(String productId) {
         super(Setter.withGroupKey(HystrixCommandGroupKey.Factory.asKey("ProductHystrixCommandGroup")).
                 andCommandKey(HystrixCommandKey.Factory.asKey("ProductHystrixCommandKey")).
-                andThreadPoolKey(HystrixThreadPoolKey.Factory.asKey("ProductThreadPool"))
+                andThreadPoolKey(HystrixThreadPoolKey.Factory.asKey("ProductThreadPool")).
+                andCommandPropertiesDefaults(HystrixCommandProperties.defaultSetter().withRequestCacheEnabled(false))//关闭Hystrix缓存
+
         );
         this.productId = productId;
     }
@@ -40,5 +39,10 @@ public class ProductHystrixCommand extends HystrixCommand<ResultObject> {
     @Override
     protected ResultObject getFallback() {
         return new ResultObject(-9999, ResultObjectEnum.FAIL.getName());
+    }
+
+    @Override
+    protected String getCacheKey() {
+        return productId;
     }
 }

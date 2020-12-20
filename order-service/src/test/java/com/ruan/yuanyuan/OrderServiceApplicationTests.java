@@ -45,8 +45,6 @@ public class OrderServiceApplicationTests {
     @Autowired
     private IMessageService messageService;
     @Autowired
-    private IProductService productService;
-    @Autowired
     private IZuulApiRouteService service;
 
     @Test
@@ -109,15 +107,15 @@ public class OrderServiceApplicationTests {
     @Test
     @Transactional
     public void testProductPrice() {
-        Product product = productService.getById("1");
-        product.setPrice(new BigDecimal(7));
-        productService.updateById(product);
-        OrderPay orderPay = orderPayService.getById("231f0842c0de23e7d1b749c2ff4fa0fe");
-        orderPay.setAmount(new BigDecimal(70));
-        orderPayService.updateById(orderPay);
-        BusinessAssert.isTrue(false, ExceptionUtil.ProductExceptionEnum.PRODUCT_NUM_NOT_NULL);
-        QueryWrapper queryWrapper = new QueryWrapper();
-        List<ZuulApiRoute> list = service.list(queryWrapper);
+//        Product product = productService.getById("1");
+//        product.setPrice(new BigDecimal(7));
+//        productService.updateById(product);
+//        OrderPay orderPay = orderPayService.getById("231f0842c0de23e7d1b749c2ff4fa0fe");
+//        orderPay.setAmount(new BigDecimal(70));
+//        orderPayService.updateById(orderPay);
+//        BusinessAssert.isTrue(false, ExceptionUtil.ProductExceptionEnum.PRODUCT_NUM_NOT_NULL);
+//        QueryWrapper queryWrapper = new QueryWrapper();
+//        List<ZuulApiRoute> list = service.list(queryWrapper);
     }
 
 

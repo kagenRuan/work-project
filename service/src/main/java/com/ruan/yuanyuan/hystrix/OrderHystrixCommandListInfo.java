@@ -34,6 +34,12 @@ public class OrderHystrixCommandListInfo extends HystrixObservableCommand<Order>
                     /**
                      * 执行调用服务
                      */
+                    //业务处理
+                    subscriber.onNext(new Order());
+                    subscriber.onNext(new Order());
+                    subscriber.onNext(new Order());
+                    //业务处理结束
+                    subscriber.onCompleted();
                 } catch (Exception e) {
                     subscriber.onError(e);
                 }

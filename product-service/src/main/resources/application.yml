@@ -4,14 +4,23 @@ eureka:
   client:
     service-url:
       defaultZone: http://localhost:8761/eureka/
-    registry-fetch-interval-seconds: 1 #order-service该服务每3秒就到读缓存中拉取eureka server服务端中的注册信息并更新本地注册信息
+    registry-fetch-interval-seconds: 3 #order-service该服务每3秒就到读缓存中拉取eureka server服务端中的注册信息并更新本地注册信息
   instance:
     prefer-ip-address: true
     instance-id: ${spring.application.name}:${server.port}
     lease-renewal-interval-in-seconds: 3 #order-service该服务每3秒就发送心跳到eureka server服务端维护注册信息
+
 feign:
   hystrix:
     enabled: true  #打开feign对hystrix的支持
+  compression:
+    request:
+      enabled: true
+      mime-types: text/xml,application/xml,application/json
+      min-request-size: 2048
+    response:
+      enabled: true
+
 spring:
   application:
     name: product-service
@@ -60,4 +69,9 @@ mybatis-plus:
 logging:
   level:
     com.ruan.yuanyuan.dao: DEBUG
-
+#将所有的端口都暴露，提供访问
+management:
+  endpoints:
+    web:
+      exposure:
+        exclude: "*"

@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
  * @version: 1.0
  * @description: 订单服务Feign调用
  **/
-@FeignClient(value = "order-service",fallback = OrderServiceFallBack.class) //value 指定服务名称
+@FeignClient(name = "order-service",value = "order-service",fallback = OrderServiceFallBack.class) //value 指定服务名称
 public interface OrderServiceFeign {
 
     @RequestMapping(value = "/test",method = RequestMethod.GET)
