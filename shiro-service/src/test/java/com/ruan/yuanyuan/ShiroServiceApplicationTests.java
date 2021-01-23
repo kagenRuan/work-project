@@ -1,8 +1,12 @@
 package com.ruan.yuanyuan;
 
+import com.ruan.yuanyuan.dto.UserDto;
+import com.ruan.yuanyuan.entity.User;
+import com.ruan.yuanyuan.service.IUserService;
 import com.ruan.yuanyuan.vo.PermissionsVo;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.BootstrapWith;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -18,6 +22,23 @@ import java.util.stream.Collectors;
 @SpringBootTest
 @RunWith(SpringRunner.class)
 public class ShiroServiceApplicationTests {
+
+    @Autowired
+    private IUserService userService;
+
+    @Test
+    public void testUser(){
+        UserDto userDto = new UserDto();
+        userDto.setCode("ddd");
+        userDto.setUsername("ttt");
+        userDto.setCreateBy("ryy");
+        userDto.setPassword("123456");
+        userDto.setStatus("1");
+        userDto.setType("2");
+        userDto.setUpdateBy("ryy");
+        userDto.setSalt("2342432");
+        userService.add(userDto);
+    }
 
     @Test
     public   void contextLoads() {

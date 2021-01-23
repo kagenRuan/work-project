@@ -51,6 +51,17 @@ public class UserDto implements Serializable {
      */
     private String updateBy;
 
+    private String salt;
+
+
+    public String getSalt() {
+        return salt;
+    }
+
+    public void setSalt(String salt) {
+        this.salt = salt;
+    }
+
     public String getRoleId() {
         return roleId;
     }

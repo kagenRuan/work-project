@@ -1,11 +1,9 @@
 package com.ruan.yuanyuan.spring.controller;
 
-import com.ruan.yuanyuan.spring.entity.TestSayFactoryBean;
 import com.ruan.yuanyuan.spring.factoryBean.TestFactoryBean;
-import com.ruan.yuanyuan.spring.service.TestSayService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * @ClassName TestController
@@ -14,15 +12,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * @Version 1.0
  * @Description TODO
  **/
-@Controller
-public class TestController {
+@RestController
+public class UserController {
 
     private String id;
 
-    public TestController() {
+    public UserController() {
     }
 
-    public TestController(String id) {
+    public UserController(String id) {
         this.id = id;
     }
 

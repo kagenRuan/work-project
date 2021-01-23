@@ -36,6 +36,8 @@ public class User extends BaseEntity implements Serializable {
      */
    private String type;
 
+    private String salt;
+
     public String getUsername() {
         return username;
     }
@@ -66,5 +68,13 @@ public class User extends BaseEntity implements Serializable {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public String getSalt() {
+        return salt;
+    }
+
+    public void setSalt(String salt) {
+        this.salt = salt;
     }
 }

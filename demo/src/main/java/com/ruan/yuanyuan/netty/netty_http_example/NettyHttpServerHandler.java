@@ -28,7 +28,7 @@ public class NettyHttpServerHandler extends SimpleChannelInboundHandler<HttpObje
 
             HttpRequest request = (HttpRequest) msg;
             //对特定的URI请求进行过滤
-            URI uri = new URI(request.uri());
+            URI uri = new URI(request.getUri());
             if(uri.getPath().contains("favicon.ico")){
                 return;
             }

@@ -29,8 +29,6 @@ public class CaptchaFormAuthenticationFilter extends FormAuthenticationFilter {
         }else if(null == SecurityUtils.getSubject().getPrincipal()){
             return false;
         }
-        String token = httpServletRequest.getHeader("authorization");
-        logger.debug("请求token:{}",token);
         return super.isAccessAllowed(servletRequest, servletResponse, o);
     }
 

@@ -8,11 +8,12 @@
         SELECT
             yps.code as permission
         FROM yy_permissions yps LEFT JOIN yy_permissions_role_ref yprr ON yps.id = yprr.permissions_id
-        WHERE 1=1 AND yps.is_valid='Y' AND yprr.role_id
+        WHERE 1=1 AND yps.is_valid='Y'
         <if test="isButton != null and isButton != ''">
             AND yps.is_button=#{isButton}
         </if>
-        <if test="roleIds != null">
+        AND yprr.role_id
+        <if test="roleIds != null and roleIds.size()!=0 ">
             IN
             <foreach collection="roleIds" index="index" item="item" open="(" close=")" separator=",">
                 #{item}

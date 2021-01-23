@@ -81,6 +81,9 @@
         <module>dubbo-project</module>
         <module>shiro-service</module>
         <module>uid-generator</module>
+        <module>hadoop</module>
+        <module>hadoop/hbase-demo</module>
+        <module>hadoop/hadoop-demo</module>
     </modules>
 
     <build>

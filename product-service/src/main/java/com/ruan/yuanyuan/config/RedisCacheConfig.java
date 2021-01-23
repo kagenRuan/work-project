@@ -35,21 +35,6 @@ import java.time.Duration;
  * @description: Redis缓存配置类
  **/
 @Configuration
-public class RedisCacheConfig extends AbstractLoadBalancerPing {
+public class RedisCacheConfig{
 
-
-    @Bean
-    public IPing iPing(){
-        return new NIWSDiscoveryPing();
-    }
-
-    @Override
-    public boolean isAlive(Server server) {
-        return super.isAlive(server);
-    }
-
-    @Override
-    public void initWithNiwsConfig(IClientConfig clientConfig) {
-
-    }
 }

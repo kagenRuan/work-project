@@ -21,7 +21,7 @@ public class OrderServiceFallBack implements OrderServiceFeign {
 
     @Override
     public ResultObject test() {
-        logger.error("<<<<<<OrderServiceFallBack#test>>>>>>>>>订单服务调用失败");
+        logger.error("<<<<<<OrderServiceFallBack#test>>>>>>>>>订单服务调用降级");
         return new ResultObject(ResultObjectEnum.FAIL.getCode(),ResultObjectEnum.FAIL.getMessage());
     }
 }

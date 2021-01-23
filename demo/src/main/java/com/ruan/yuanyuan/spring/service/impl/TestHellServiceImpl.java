@@ -4,6 +4,7 @@ import com.ruan.yuanyuan.spring.service.TestHellService;
 import com.ruan.yuanyuan.spring.service.TestSayService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * @ClassName TestHellServiceImpl
@@ -15,10 +16,11 @@ import org.springframework.stereotype.Service;
 @Service
 public class TestHellServiceImpl implements TestHellService {
 
-    @Autowired
-    private TestSayService testSayService;
+//    @Autowired
+//    private TestSayService testSayService;
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public void hello() {
         System.out.println("test hello");
     }

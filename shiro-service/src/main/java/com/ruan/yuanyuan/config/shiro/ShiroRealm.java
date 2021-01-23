@@ -70,12 +70,14 @@ public class ShiroRealm extends AuthorizingRealm {
         //获取到所有的role名称
         Set<String> roleNames = roleSet.stream().map(obj -> obj.getName()).collect(Collectors.toSet());
         Set<String> roleIds = roleSet.stream().map(obj -> obj.getId()).collect(Collectors.toSet());
-        //获取到资源
-        Set<PermissionsVo> permissionsVos = permissionsService.findPermissionsByRoleId(roleIds, MenuEnum.BUTTON.getCode());
-        Set<String> permissionsNameVos = permissionsVos.stream().map(obj ->obj.getPermission()).collect(Collectors.toSet());
-        //然后将角色和权限放入到shiro中
-        simpleAuthorizationInfo.setRoles(roleNames);
-        simpleAuthorizationInfo.setStringPermissions(permissionsNameVos);
+        if(roleIds != null && !roleIds.isEmpty()){
+            //获取到资源
+            Set<PermissionsVo> permissionsVos = permissionsService.findPermissionsByRoleId(roleIds, MenuEnum.BUTTON.getCode());
+            Set<String> permissionsNameVos = permissionsVos.stream().map(obj ->obj.getPermission()).collect(Collectors.toSet());
+            //然后将角色和权限放入到shiro中
+            simpleAuthorizationInfo.setRoles(roleNames);
+            simpleAuthorizationInfo.setStringPermissions(permissionsNameVos);
+        }
         return simpleAuthorizationInfo;
     }
 

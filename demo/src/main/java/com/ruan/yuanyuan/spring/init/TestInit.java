@@ -14,8 +14,9 @@ import javax.annotation.PostConstruct;
 @Component
 public class TestInit {
 
-
+    @PostConstruct
     public void init(){
         System.out.println("Bean使用【@PostConstruct】注解初始化");
     }
+
 }

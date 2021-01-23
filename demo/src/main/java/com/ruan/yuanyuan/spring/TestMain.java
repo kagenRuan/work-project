@@ -1,10 +1,7 @@
 package com.ruan.yuanyuan.spring;
 
 import com.ruan.yuanyuan.spring.config.TestConfig;
-import com.ruan.yuanyuan.spring.controller.TestController;
-import com.ruan.yuanyuan.spring.listener.TestApplicationEvent;
 import com.ruan.yuanyuan.spring.service.TestSayService;
-import com.ruan.yuanyuan.spring.service.impl.TestSayServiceImpl;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 /**
@@ -18,7 +15,7 @@ public class TestMain {
 
     public static void main(String[] args) {
         AnnotationConfigApplicationContext annotationConfigApplicationContext = new AnnotationConfigApplicationContext(TestConfig.class);
-        TestSayServiceImpl testSayService = annotationConfigApplicationContext.getBean(TestSayServiceImpl.class);
+        TestSayService testSayService = annotationConfigApplicationContext.getBean(TestSayService.class);
         testSayService.sayHello();
         //Spring事件
 //        TestApplicationEvent event = new TestApplicationEvent("Object","1","yy");
