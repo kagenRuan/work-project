@@ -40,6 +40,7 @@
 		<fastjson.version>1.2.59</fastjson.version>
 		<hutool.version>4.1.1</hutool.version>
 		<lombok.version>1.18.4</lombok.version>
+		<wechatpay.version>0.2.1</wechatpay.version>
 
 
 		<!--wagon plugin 配置  就是说与原创服务器进行连接-->
@@ -225,6 +226,12 @@
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
 			<version>${lombok.version}</version>
+		</dependency>
+		<!-- 微信支付工具包-->
+		<dependency>
+			<groupId>com.github.wechatpay-apiv3</groupId>
+			<artifactId>wechatpay-apache-httpclient</artifactId>
+			<version>${wechatpay.version}</version>
 		</dependency>
 	</dependencies>
 

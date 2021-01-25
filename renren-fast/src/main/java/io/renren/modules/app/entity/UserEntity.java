@@ -47,5 +47,21 @@ public class UserEntity implements Serializable {
 	 * 创建时间
 	 */
 	private Date createTime;
+	/**
+	 * 用户昵称
+	 */
+	private String nickName;
+	/**
+	 * 用户类型1普通用户2微信用户3支付宝用户
+	 */
+	private Integer type;
+	/**
+	 * 登录小程序的openId
+	 */
+	private String openId;
+	/**
+	 * 用户图片
+	 */
+	private String photo;
 
 }

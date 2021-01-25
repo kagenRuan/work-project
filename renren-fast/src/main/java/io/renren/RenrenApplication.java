@@ -10,9 +10,10 @@ package io.renren;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-
+import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
+@ComponentScan({"io.renren","com.github.wxpay.sdk"})
 public class RenrenApplication {
 
 	public static void main(String[] args) {

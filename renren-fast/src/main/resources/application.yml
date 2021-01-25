@@ -74,3 +74,16 @@ renren:
     # token有效时长，7天，单位秒
     expire: 604800
     header: token
+
+
+application:
+  # 小程序appId
+  app-id: wxa71b9a571860096a
+  # 小程序 密钥
+  app-secret: 23c66ab328dab5cf4e421006c972f3d0
+  # 商户ID
+  mch-id:
+  # 商户ID对应的密钥
+  mch-key:
+  # 商户号对应的数字证书路径
+  cert-path:
