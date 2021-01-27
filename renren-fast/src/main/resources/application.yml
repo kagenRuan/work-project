@@ -77,13 +77,28 @@ renren:
 
 
 application:
-  # 小程序appId
-  app-id: wxa71b9a571860096a
-  # 小程序 密钥
-  app-secret: 23c66ab328dab5cf4e421006c972f3d0
-  # 商户ID
-  mch-id:
-  # 商户ID对应的密钥
-  mch-key:
-  # 商户号对应的数字证书路径
-  cert-path:
+  weixin:
+    # 是否打开MyWXPayConfig类中init()方法
+    is-open: false
+    # 小程序appId
+    app-id: wxa71b9a571860096a
+    # 小程序 密钥
+    app-secret: 23c66ab328dab5cf4e421006c972f3d0
+    # 商户ID
+    mch-id:
+    # 商户ID对应的密钥
+    mch-key:
+    # 商户号对应的数字证书路径
+    cert-path:
+    # 微信小程序支付回调通知路径
+    micro-app-notify-url: https://127.0.0.1/test
+  ali:
+    # 沙箱网关，正式环境不需要
+    gateway: https://openapi.alipaydev.com/gateway.do
+    micro-app:
+      # 小程序appID
+      appid: 2017052600897604
+      # 支付宝公钥
+      public-key: MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAsuVB8dbIzJt0mF9b2e/4Yjvo2j3UNriHWamD0QM/Y/fcp6E01fQPvI1c6jJKg9M0HbEXONKY6TokKIuaU7ELwa9ynFt8iRIeCBhZYT+GIFuAzsTmxakrVlL4pPq2ivJNgZwkFYwpP9bBE5+w6/XxtR/rLoLl5EXrTqlSpXgZLYVDHHUWVHpOPxeXn8OYU8+ZrkYYhbFrHK3p4mRihghe4J/X/QpXygWhqBvAuB6q0wh6v9SA1zopbZ4p4RE1iUcdVSa0yflz7L3JIkGQhpwRLWQT1XFMAJICixuxX3SAEh1RUW2l5j0fI0CtiR4Fg24NaRTjKgrkT3LTMZHJyEV1KwIDAQAB
+      # 小程序私钥
+      private-key: MIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQCS7WRwG/dDVq+y4H2qnYNVhnqWPpbDY8vYRXJ0xyJE4LUTp8tO+q+KbZZlqWfbX51lHtPAqpJ+EIhCpGGfGEWfd9UsNcge0CR7rFNEf11eir3HiNcoeYSKZNM2o1gtGgFv5WLzPY3CEk/KVBnMiiIKvTaHK2U08kuD0wyb2ZZrSOTBqVAZFiV7kXQnldB/RDYx+023Hkp7uUuZuFKoW2R0pPdJ1g14WWlDy1+L+Al+s8HAjrv/BzQKJyZUHz4oq2xNiHbrIbIlkkaqZI+XhjgRyrzBusm5MMitCSV5+HY0Vy2TfPY/J+65ou3mESGAku8WVrvkEDZmhEgOT5TvMFx7AgMBAAECggEAcocDTHQwKFhQ+oEM08qWDjuWILlG8aU/xyRTFH4I02HJJDoeO0EjRicoHbSQVSrR2HnQG5WaPRQL8s6Jnebglm5lR2HgzUv3tENeYL1a/Y/uYLPk6xLV4r62+RcYa4ei6SMIH4yyjD2T3qXxukNOR8q3z2NfL4dSn74KTQ2tt4/Y4n/kg8SYtM2iOsBvcmnwNXU9BRkhDSo20M9SpZEbNRhJockORxN9VnbCYglxllf5LNv5NLS87meWYtdzqrsUksLhJGEFAVlpR6aOMK1ERQgJNEDMOVQYYECfe/XZAR0M0qFuazwn0l/MFNU2IaCjWJzt+1OAcdt+MPtSO6gnCQKBgQDanc8++qLkBmuRgtwX0bul9nkZIgCvr9jzlwBeq78w1OSZ5w+108MVc4wotp1/BPp4MfQg8XL9fIy5Zq9Vnfw7iT2qQKntnebva/Aj9g7DgK/K0o+ZtXYNqaIGjX+JTckTyBTtf7SqdDQGmZw8I+Rs6xVKyVZom/WH4WdBRJqSPQKBgQCsDU6rL8sqcFxMIOLSnevktdDreLnj1Da3x9XrCD4WHeMjppqLLZIw58EWL6RwU+vLDcI/2EO1hxIqXaeuXDI5KVJkWvVc5TUSbyFCasBej5cfb1yTe3tW8RjBj6RnOb3dBQeP7uORknux6RytkADLHdbQeOo5SS/2aOy9nAKtFwKBgQCs4g2JvYVhlB4vBXBuOcMOfPrJQFWQmhyUjf6R33oj8MgTWWHYJe3poeXeMIQedd5pfP+VqbuI8J0M5UKVD4nvvxmP8PEw4yVEg3R1y9ljC/p5B8jeAl2oclSan/2SpHv2c8zxAIPsJFccPRALk0rKQ6Ij8VKvCV7DJSKVv94I9QKBgAlb6/SZ8/ZKCGtHuq70UjmtvkCg35PKHnPe1f8kAqSXWZy92lhJ0VMBuFopm0tU9VWlWPS6IezE/TL6xz1P3JeJbObyn7g+66UmEGwZfH9oVjMqjqGjLPFsygj1dF79IBvewyuMNircCgiCgsHaPIDQDbhna25UUdyYlpA15VtfAoGBAMaoOqZo/Ch/gQxnog3S3ejZ5v/NCK9aTKhgiwYNhRKrv3fDE9VWPSpoZ4i3ioV+/Eupc7wu15cTMyfRtXxjeGQshsfMtP/fU/8ya7WjvjYtz+Nfoi2vQY1AcU3oPKzIotIQEy3nkdKFy3x6/D4dwZwP/XlsnYthSyM/t7usWuAx

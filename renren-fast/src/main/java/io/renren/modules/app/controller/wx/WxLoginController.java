@@ -10,21 +10,18 @@ package io.renren.modules.app.controller.wx;
 
 
 import cn.hutool.http.HttpUtil;
-import cn.hutool.json.JSON;
 import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import io.renren.modules.app.enumutils.UserEnum;
 import io.renren.common.utils.R;
 import io.renren.common.validator.ValidatorUtils;
 import io.renren.modules.app.entity.UserEntity;
-import io.renren.modules.app.enumutils.UserEnum;
-import io.renren.modules.app.form.LoginForm;
 import io.renren.modules.app.form.WxLoginForm;
 import io.renren.modules.app.service.UserService;
 import io.renren.modules.app.utils.JwtUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -36,7 +33,6 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Optional;
 
 /**
  * @Author: ruanyuanyuan
@@ -48,9 +44,9 @@ import java.util.Optional;
 @Api("微信登录接口")
 public class WxLoginController {
 
-    @Value("${application.app-id}")
+    @Value("${application.weixin.app-id}")
     private String appId;
-    @Value("${application.app-secret}")
+    @Value("${application.weixin.app-secret}")
     private String appSecret;
 
     @Autowired
@@ -60,10 +56,10 @@ public class WxLoginController {
     private JwtUtils jwtUtils;
 
     /**
-     * 微信小程序登录
+     * 微信小程序登录同时获取openId
      */
     @PostMapping("xcx/login")
-    @ApiOperation("登录")
+    @ApiOperation("微信小程序登录")
     public R login(@RequestBody WxLoginForm form){
         //表单校验
         ValidatorUtils.validateEntity(form);

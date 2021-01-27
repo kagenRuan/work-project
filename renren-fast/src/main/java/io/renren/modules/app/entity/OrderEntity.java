@@ -39,7 +39,7 @@ public class OrderEntity implements Serializable {
     /**
      * 支付类型1、微信支付2、支付宝支付3、银联支付
      */
-    private Date paymentType;
+    private Integer paymentType;
     /**
      * 订单状态1、未支付2、已支付3、已发货4、已签收5、已取消
      */
@@ -48,4 +48,9 @@ public class OrderEntity implements Serializable {
      * 创建时间
      */
     private Date createTime;
+
+    /**
+     * 支付ID
+     */
+    private String prepayId;
 }

@@ -9,6 +9,7 @@
 package io.renren;
 
 import io.renren.service.DynamicDataSourceTestService;
+import org.apache.commons.codec.digest.DigestUtils;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +34,12 @@ public class DynamicDataSourceTest {
         dynamicDataSourceTestService.updateUser(id);
         dynamicDataSourceTestService.updateUserBySlave1(id);
         dynamicDataSourceTestService.updateUserBySlave2(id);
+    }
+
+    @Test
+    public void test256(){
+        String sha256Hex = DigestUtils.sha256Hex("123456");
+        System.out.println(sha256Hex);
     }
 
 }

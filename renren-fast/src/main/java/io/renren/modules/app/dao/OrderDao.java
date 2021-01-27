@@ -1,8 +1,8 @@
 package io.renren.modules.app.dao;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import io.renren.modules.app.entity.OrderEntity;
 import io.renren.modules.app.vo.order.OrderVO;
+import io.renren.modules.app.entity.OrderEntity;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 

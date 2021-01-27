@@ -8,9 +8,9 @@
 
 package io.renren.modules.job.utils;
 
-import io.renren.common.utils.SpringContextUtils;
 import io.renren.modules.job.entity.ScheduleJobEntity;
 import io.renren.modules.job.entity.ScheduleJobLogEntity;
+import io.renren.common.utils.SpringContextUtils;
 import io.renren.modules.job.service.ScheduleJobLogService;
 import org.apache.commons.lang.StringUtils;
 import org.quartz.JobExecutionContext;

@@ -1,4 +1,4 @@
-package com.github.wxpay.sdk;
+package wxpay.config;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;

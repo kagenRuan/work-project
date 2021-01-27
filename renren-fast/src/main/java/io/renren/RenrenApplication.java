@@ -13,7 +13,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
-@ComponentScan({"io.renren","com.github.wxpay.sdk"})
+@ComponentScan({"io.renren","wxpay.config"})
 public class RenrenApplication {
 
 	public static void main(String[] args) {

@@ -61,4 +61,30 @@ public class AppLoginController {
         return R.ok(map);
     }
 
+    /**
+     * @Author: ruanyuanyuan
+     * @Date: 2021/1/26 15:55
+     * @Description: 主要用于商家系统登录接口
+     * @return: io.renren.common.utils.R
+     **/
+    @PostMapping("/mallManagerLogin")
+    @ApiOperation("商家系统登录")
+    public R mallManagerLogin(@RequestBody LoginForm form){
+
+        //表单校验
+        ValidatorUtils.validateEntity(form);
+
+        //用户登录
+        long userId = userService.login(form);
+
+        //生成token
+        String token = jwtUtils.generateToken(userId);
+
+        Map<String, Object> map = new HashMap<>();
+        map.put("token", token);
+        map.put("expire", jwtUtils.getExpire());
+
+        return R.ok(map);
+    }
+
 }
