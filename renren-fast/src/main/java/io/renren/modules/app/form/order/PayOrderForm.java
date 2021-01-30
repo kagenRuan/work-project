@@ -22,6 +22,6 @@ public class PayOrderForm {
     @ApiModelProperty(value = "订单ID")
     @Min(1)//最小值为1
     @NotBlank(message="订单ID不能为空")
-    private String id;
+    private String orderId;
 
 }

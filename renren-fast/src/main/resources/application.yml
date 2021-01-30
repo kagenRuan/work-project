@@ -23,18 +23,18 @@ spring:
       max-request-size: 100MB
       enabled: true
   redis:
-    open: false  # 是否开启redis缓存  true开启   false关闭
+    open: true  # 是否开启redis缓存  true开启   false关闭
     database: 0
-    host: localhost
+    host: 127.0.0.1
     port: 6379
-    password:    # 密码（默认为空）
-    timeout: 6000ms  # 连接超时时长（毫秒）
-    jedis:
-      pool:
-        max-active: 1000  # 连接池最大连接数（使用负值表示没有限制）
-        max-wait: -1ms      # 连接池最大阻塞等待时间（使用负值表示没有限制）
-        max-idle: 10      # 连接池中的最大空闲连接
-        min-idle: 5       # 连接池中的最小空闲连接
+    password: 123456    # 密码（默认为空）
+    timeout: 6000  # 连接超时时长（毫秒）
+    lettuce:
+          pool:
+            max-active: 20
+            max-wait: 50000
+            max-idle: 10
+            min-idle: 2
   mvc:
     throw-exception-if-no-handler-found: true
 #  resources:
@@ -95,6 +95,7 @@ application:
   ali:
     # 沙箱网关，正式环境不需要
     gateway: https://openapi.alipaydev.com/gateway.do
+    # 支付宝小程序
     micro-app:
       # 小程序appID
       appid: 2017052600897604
@@ -102,3 +103,54 @@ application:
       public-key: MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAsuVB8dbIzJt0mF9b2e/4Yjvo2j3UNriHWamD0QM/Y/fcp6E01fQPvI1c6jJKg9M0HbEXONKY6TokKIuaU7ELwa9ynFt8iRIeCBhZYT+GIFuAzsTmxakrVlL4pPq2ivJNgZwkFYwpP9bBE5+w6/XxtR/rLoLl5EXrTqlSpXgZLYVDHHUWVHpOPxeXn8OYU8+ZrkYYhbFrHK3p4mRihghe4J/X/QpXygWhqBvAuB6q0wh6v9SA1zopbZ4p4RE1iUcdVSa0yflz7L3JIkGQhpwRLWQT1XFMAJICixuxX3SAEh1RUW2l5j0fI0CtiR4Fg24NaRTjKgrkT3LTMZHJyEV1KwIDAQAB
       # 小程序私钥
       private-key: MIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQCS7WRwG/dDVq+y4H2qnYNVhnqWPpbDY8vYRXJ0xyJE4LUTp8tO+q+KbZZlqWfbX51lHtPAqpJ+EIhCpGGfGEWfd9UsNcge0CR7rFNEf11eir3HiNcoeYSKZNM2o1gtGgFv5WLzPY3CEk/KVBnMiiIKvTaHK2U08kuD0wyb2ZZrSOTBqVAZFiV7kXQnldB/RDYx+023Hkp7uUuZuFKoW2R0pPdJ1g14WWlDy1+L+Al+s8HAjrv/BzQKJyZUHz4oq2xNiHbrIbIlkkaqZI+XhjgRyrzBusm5MMitCSV5+HY0Vy2TfPY/J+65ou3mESGAku8WVrvkEDZmhEgOT5TvMFx7AgMBAAECggEAcocDTHQwKFhQ+oEM08qWDjuWILlG8aU/xyRTFH4I02HJJDoeO0EjRicoHbSQVSrR2HnQG5WaPRQL8s6Jnebglm5lR2HgzUv3tENeYL1a/Y/uYLPk6xLV4r62+RcYa4ei6SMIH4yyjD2T3qXxukNOR8q3z2NfL4dSn74KTQ2tt4/Y4n/kg8SYtM2iOsBvcmnwNXU9BRkhDSo20M9SpZEbNRhJockORxN9VnbCYglxllf5LNv5NLS87meWYtdzqrsUksLhJGEFAVlpR6aOMK1ERQgJNEDMOVQYYECfe/XZAR0M0qFuazwn0l/MFNU2IaCjWJzt+1OAcdt+MPtSO6gnCQKBgQDanc8++qLkBmuRgtwX0bul9nkZIgCvr9jzlwBeq78w1OSZ5w+108MVc4wotp1/BPp4MfQg8XL9fIy5Zq9Vnfw7iT2qQKntnebva/Aj9g7DgK/K0o+ZtXYNqaIGjX+JTckTyBTtf7SqdDQGmZw8I+Rs6xVKyVZom/WH4WdBRJqSPQKBgQCsDU6rL8sqcFxMIOLSnevktdDreLnj1Da3x9XrCD4WHeMjppqLLZIw58EWL6RwU+vLDcI/2EO1hxIqXaeuXDI5KVJkWvVc5TUSbyFCasBej5cfb1yTe3tW8RjBj6RnOb3dBQeP7uORknux6RytkADLHdbQeOo5SS/2aOy9nAKtFwKBgQCs4g2JvYVhlB4vBXBuOcMOfPrJQFWQmhyUjf6R33oj8MgTWWHYJe3poeXeMIQedd5pfP+VqbuI8J0M5UKVD4nvvxmP8PEw4yVEg3R1y9ljC/p5B8jeAl2oclSan/2SpHv2c8zxAIPsJFccPRALk0rKQ6Ij8VKvCV7DJSKVv94I9QKBgAlb6/SZ8/ZKCGtHuq70UjmtvkCg35PKHnPe1f8kAqSXWZy92lhJ0VMBuFopm0tU9VWlWPS6IezE/TL6xz1P3JeJbObyn7g+66UmEGwZfH9oVjMqjqGjLPFsygj1dF79IBvewyuMNircCgiCgsHaPIDQDbhna25UUdyYlpA15VtfAoGBAMaoOqZo/Ch/gQxnog3S3ejZ5v/NCK9aTKhgiwYNhRKrv3fDE9VWPSpoZ4i3ioV+/Eupc7wu15cTMyfRtXxjeGQshsfMtP/fU/8ya7WjvjYtz+Nfoi2vQY1AcU3oPKzIotIQEy3nkdKFy3x6/D4dwZwP/XlsnYthSyM/t7usWuAx
+      # 回调通知
+      notify-url: https://127.0.0.1/microAppNotify
+    # 支付宝APP
+    app:
+      # 支付宝APP的APPID
+      app-id:
+      # 支付宝公钥
+      public-key: MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAsuVB8dbIzJt0mF9b2e/4Yjvo2j3UNriHWamD0QM/Y/fcp6E01fQPvI1c6jJKg9M0HbEXONKY6TokKIuaU7ELwa9ynFt8iRIeCBhZYT+GIFuAzsTmxakrVlL4pPq2ivJNgZwkFYwpP9bBE5+w6/XxtR/rLoLl5EXrTqlSpXgZLYVDHHUWVHpOPxeXn8OYU8+ZrkYYhbFrHK3p4mRihghe4J/X/QpXygWhqBvAuB6q0wh6v9SA1zopbZ4p4RE1iUcdVSa0yflz7L3JIkGQhpwRLWQT1XFMAJICixuxX3SAEh1RUW2l5j0fI0CtiR4Fg24NaRTjKgrkT3LTMZHJyEV1KwIDAQAB
+      # 支付宝用户私钥
+      private-key:
+      # 回调通知
+      notify-url: https://127.0.0.1/appNotify
+  # 银联
+  unionpay:
+      # 商户ID
+      mch-id: 777290058188949
+      # PC浏览器跳转的前端通知地址
+      front-url:
+      # 后端通知url
+      back-url: http://149n35b909.51mypc.cn/renren-fast/app/union/pay/backResponse
+      # 订单页面
+      order-url:
+      # wap手机浏览器跳转前端通知地址
+      wap-front-url: http://149n35b909.51mypc.cn/renren-fast/app/union/pay/frontResponse
+      acpsdk:
+        # 交易请求地址
+        # 前台交易请求地址
+        front-trans-url: https://gateway.test.95516.com/gateway/api/frontTransReq.do
+        # 后台交易请求地址(无卡交易配置该地址)
+        back-trans-url: https://gateway.test.95516.com/gateway/api/backTransReq.do
+        # 单笔查询请求地址
+        single-query-trans-url: https://gateway.test.95516.com/gateway/api/queryTrans.do
+        # 批量交易请求地址
+        batch-trans-url: https://gateway.test.95516.com/gateway/api/batchTrans.do
+        # 缴费产品手机APP交易请求地址
+        app-trans-url: https://gateway.test.95516.com/jiaofei/api/appTransReq.do
+        # 后台交易请求地址(若为有卡交易配置该地址)
+        card-trans-url: https://gateway.test.95516.com/gateway/api/cardTransReq.do
+      signCert:
+        # 签名证书路径
+        path: /Users/ruanyuanyuan/Downloads/acp_test_sign.pfx
+        # 签名证书密码 默认000000
+        pwd: 000000
+        # 签名证书类型
+        type: PKCS12
+        validateCert:
+          dir: /Users/ruanyuanyuan/Downloads
+        encryptCert:
+          path: /Users/ruanyuanyuan/Downloads/acp_test_enc.cer
+        singleMode: true
+

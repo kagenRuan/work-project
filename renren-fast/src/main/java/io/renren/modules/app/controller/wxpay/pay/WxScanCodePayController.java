@@ -1,4 +1,4 @@
-package io.renren.modules.app.controller.wx.pay;
+package io.renren.modules.app.controller.wxpay.pay;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import io.renren.modules.app.entity.OrderEntity;
@@ -140,7 +140,7 @@ public class WxScanCodePayController {
             e.printStackTrace();
             return R.error("付款失败");
         }
-        return R.ok("付款成功");
+        return R.ok("付款失败");
     }
 
 

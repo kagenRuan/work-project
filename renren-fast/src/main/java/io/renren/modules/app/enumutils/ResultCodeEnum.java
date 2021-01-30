@@ -11,6 +11,8 @@ public enum ResultCodeEnum {
 
     SUCCESS(1, "SUCCESS"),
     FAIL(2, "FAIL"),
+    TRADE_FINISHED(3,"TRADE_FINISHED"),
+    TRADE_SUCCESS(4,"TRADE_SUCCESS")
     ;
     private Integer code;
     private String message;

@@ -6,7 +6,7 @@
  * 版权所有，侵权必究！
  */
 
-package io.renren.modules.app.controller.wx;
+package io.renren.modules.app.controller.wxpay;
 
 
 import cn.hutool.http.HttpUtil;

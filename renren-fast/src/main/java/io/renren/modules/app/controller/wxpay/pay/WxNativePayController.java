@@ -1,4 +1,4 @@
-package io.renren.modules.app.controller.wx.pay;
+package io.renren.modules.app.controller.wxpay.pay;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import io.renren.modules.app.entity.OrderEntity;
@@ -71,13 +71,13 @@ public class WxNativePayController {
     @ApiOperation("微信【Native支付】创建支付订单")
     public R nativePayOrder(@RequestBody PayOrderForm form, @RequestHeader Map header){
 
-        log.info("/nativePayOrder 微信【Native支付】创建支付订单 orderId:{}",form.getId());
+        log.info("/nativePayOrder 微信【Native支付】创建支付订单 orderId:{}",form.getOrderId());
         //表单校验
         ValidatorUtils.validateEntity(form);
 
         //获取token并解析,获取userId
         long userId = Long.valueOf(jwtUtils.getClaimByToken(header.get("token").toString()).getSubject());
-        String orderId = form.getId();
+        String orderId = form.getOrderId();
 
         //验证此用户是否存在
         UserEntity userInfo = userService.getById(userId);
@@ -151,7 +151,7 @@ public class WxNativePayController {
     @RequestMapping("/nativePayOrderQuery")
     @ApiOperation("Native支付查询订单状态")
     public R nativePayOrderQuery(@RequestBody PayOrderForm form,@RequestHeader Map header){
-        log.info("/nativePayOrderQuery Native支付查询订单状态 orderId:{}",form.getId());
+        log.info("/nativePayOrderQuery Native支付查询订单状态 orderId:{}",form.getOrderId());
 
         //表单校验
         ValidatorUtils.validateEntity(form);
@@ -162,9 +162,9 @@ public class WxNativePayController {
             //验证此用户是否有此订单
             OrderEntity orderInfo = orderService.getOne(new QueryWrapper<OrderEntity>().
                     eq("user_id",userId).
-                    eq("id",form.getId()));
+                    eq("id",form.getOrderId()));
             if(null == orderInfo){
-                log.info("该用户没有订单 userId:{} orderId:{}",userId,form.getId());
+                log.info("该用户没有订单 userId:{} orderId:{}",userId,form.getOrderId());
                 return R.ok("该用户没有订单");
             }
 

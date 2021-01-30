@@ -1,4 +1,4 @@
-package io.renren.modules.app.controller.wx.pay;
+package io.renren.modules.app.controller.wxpay.pay;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
@@ -79,14 +79,14 @@ public class WxMicroPayController {
     @ApiOperation("小程序创建支付订单")
     public R microAppPayOrder(@RequestBody PayOrderForm form, @RequestHeader Map header){
 
-        log.info("/microAppPayOrder 小程序创建支付订单 orderId:{}",form.getId());
+        log.info("/microAppPayOrder 小程序创建支付订单 orderId:{}",form.getOrderId());
 
         //表单校验
         ValidatorUtils.validateEntity(form);
 
         //获取token并解析,获取userId
         long userId = Long.valueOf(jwtUtils.getClaimByToken(header.get("token").toString()).getSubject());
-        String orderId = form.getId();
+        String orderId = form.getOrderId();
 
         //验证此用户是否存在
         UserEntity userInfo = userService.getById(userId);
@@ -102,56 +102,54 @@ public class WxMicroPayController {
             log.info("用户不存在此订单 userId:{} id:{}",userId,orderId);
             return R.error("用户不存在此订单");
         }
-        //验证订单是否有效
-        if(!OrderStatusEnum.NOT_PAY.getCode().equals(orderInfo.getStatus())){
-            log.info("订单无效 id:{} status:{}",orderId,orderInfo.getStatus());
-            return R.error("订单无效");
-        }
+
         //验证购物券是否有效
         //验证团购活动是否有效
 
-        //开始发起微信创建订单流程
-        try {
-            WXPay wxPay = new WXPay(myWXPayConfig);
-            HashMap<String, String> payParam = new HashMap<>();
-            payParam.put("nonce_str", WXPayUtil.generateNonceStr());//随机字符串
-            payParam.put("body", "订单备注");//订单备注
-            payParam.put("out_trade_no", orderId);//订单ID TODO 订单ID必须要唯一最好不要使用数据库自增的ID值因为很容易重复
-            //TODO 由于微信支付的金额不能是小数，所以这里会乘100
-            String amount = orderInfo.getAmount().multiply(new BigDecimal(100)).intValue()+"";
-            payParam.put("total_fee", amount);//金额
-            payParam.put("spbill_create_ip", "127.0.0.1");//创建订单的IP，默认
-            payParam.put("notify_url", microAppNotifyUrl);//创建订单成功后的回调通知地址
-            payParam.put("trade_type", "JSAPI");//支付方式固定写死
-            payParam.put("openid", userInfo.getOpenId());//小程序的appId
-            Map<String, String> resultPayParam = wxPay.unifiedOrder(payParam);//微信SDK已经封装好URL，所以直接传入参数调用就行了
 
-            String resultCode = resultPayParam.get("result_code");//业务结果
-            String returnCode = resultPayParam.get("return_code");//此次通讯结果
+        //TODO 验证订单是否有效 只有订单状态【未支付】才能进行创建支付订单
+        if(OrderStatusEnum.NOT_PAY.getCode().equals(orderInfo.getStatus())){
+            try {
+                WXPay wxPay = new WXPay(myWXPayConfig);
+                HashMap<String, String> payParam = new HashMap<>();
+                payParam.put("nonce_str", WXPayUtil.generateNonceStr());//随机字符串
+                payParam.put("body", "订单备注");//订单备注
+                payParam.put("out_trade_no", orderId);//订单ID TODO 订单ID必须要唯一最好不要使用数据库自增的ID值因为很容易重复
+                //TODO 由于微信支付的金额不能是小数，所以这里会乘100
+                String amount = orderInfo.getAmount().multiply(new BigDecimal(100)).intValue()+"";
+                payParam.put("total_fee", amount);//金额
+                payParam.put("spbill_create_ip", "127.0.0.1");//创建订单的IP，默认
+                payParam.put("notify_url", microAppNotifyUrl);//创建订单成功后的回调通知地址
+                payParam.put("trade_type", "JSAPI");//支付方式固定写死
+                payParam.put("openid", userInfo.getOpenId());//小程序的appId
+                Map<String, String> resultPayParam = wxPay.unifiedOrder(payParam);//微信SDK已经封装好URL，所以直接传入参数调用就行了
 
-            log.info("<<<<<微信平台创建订单结果:{}>>>>>",resultCode);
+                String resultCode = resultPayParam.get("result_code");//业务结果
+                String returnCode = resultPayParam.get("return_code");//此次通讯结果
 
-            if("SUCCESS".equals(resultCode)){
-                //TODO 支付成功后会返回微信平台支付成功的ID,将其保存到数据库中
-                String prepayId = resultPayParam.get("prepay_id");
-                orderInfo.setPrepayId(prepayId);
-                orderService.updateById(orderInfo);
+                log.info("<<<<<微信平台创建订单结果:{}>>>>>",resultCode);
 
-                //生成数字签名
-                payParam.clear();
-                String timeStamp = new Date().getTime()+"";
-                String nonceStr = WXPayUtil.generateNonceStr();
-                createSign(payParam,timeStamp,nonceStr,prepayId);
-                //开始生成数据签名,并返回给小程序
-                String signature = WXPayUtil.generateSignature(payParam, mchKey);
-                return R.ok("创建支付订单成功").put("package","prepay_id="+prepayId).
-                        put("timeStamp",timeStamp).
-                        put("nonceStr",nonceStr).
-                        put("sign",signature);
+                if("SUCCESS".equals(resultCode)){
+                    //TODO 支付成功后会返回微信平台支付成功的ID,将其保存到数据库中
+                    String prepayId = resultPayParam.get("prepay_id");
+                    orderInfo.setPrepayId(prepayId);
+                    orderService.updateById(orderInfo);
+
+                    //生成数字签名
+                    payParam.clear();
+                    String timeStamp = new Date().getTime()+"";
+                    String nonceStr = WXPayUtil.generateNonceStr();
+                    createSign(payParam,timeStamp,nonceStr,prepayId);
+                    //开始生成数据签名,并返回给小程序
+                    String signature = WXPayUtil.generateSignature(payParam, mchKey);
+                    return R.ok("创建支付订单成功").put("package","prepay_id="+prepayId).
+                            put("timeStamp",timeStamp).
+                            put("nonceStr",nonceStr).
+                            put("sign",signature);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
             }
-        } catch (Exception e) {
-            e.printStackTrace();
-            return R.error("创建支付订单失败");
         }
         return R.ok("创建支付订单失败");
     }
@@ -201,7 +199,7 @@ public class WxMicroPayController {
     @RequestMapping("/microAppOrderQuery")
     @ApiOperation("小程序查询订单状态")
     public R microAppOrderQuery(@RequestBody PayOrderForm form,@RequestHeader Map header){
-        log.info("/microAppOrderQuery 小程序查询订单状态 orderId:{}",form.getId());
+        log.info("/microAppOrderQuery 小程序查询订单状态 orderId:{}",form.getOrderId());
 
         //表单校验
         ValidatorUtils.validateEntity(form);
@@ -212,9 +210,9 @@ public class WxMicroPayController {
             //验证此用户是否有此订单
             OrderEntity orderInfo = orderService.getOne(new QueryWrapper<OrderEntity>().
                     eq("user_id",userId).
-                    eq("id",form.getId()));
+                    eq("id",form.getOrderId()));
             if(null == orderInfo){
-                log.info("该用户没有订单 userId:{} orderId:{}",userId,form.getId());
+                log.info("该用户没有订单 userId:{} orderId:{}",userId,form.getOrderId());
                 return R.ok("该用户没有订单");
             }
 

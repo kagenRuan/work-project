@@ -1,4 +1,4 @@
-package io.renren.modules.app.controller.ali;
+package io.renren.modules.app.controller.alipay;
 
 import com.alibaba.fastjson.JSON;
 import com.alipay.api.AlipayApiException;
@@ -23,7 +23,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Optional;
 
 /**
  * @ClassName AliLoginController
