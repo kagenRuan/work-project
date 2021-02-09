@@ -19,6 +19,11 @@ public class ProductServiceApplicationTests {
     private RedisDao redisDao;
 
     @Test
+    public void testRedis(){
+        redisDao.getInstance().set("1","1");
+    }
+
+    @Test
     public void contextLoads() {
 
 //        String getvalue = redisDao.getInstance().get("yyyyyyy");

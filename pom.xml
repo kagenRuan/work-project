@@ -7,7 +7,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.1.4.RELEASE</version>
+        <version>2.3.4.RELEASE</version>
         <relativePath/>
     </parent>
 
@@ -62,6 +62,7 @@
         <mysql.connector.java.version>8.0.15</mysql.connector.java.version>
         <jpa.version>2.2.5.RELEASE</jpa.version>
         <sharding-jdbc.version>4.1.0</sharding-jdbc.version>
+        <gson.version>2.8.5</gson.version>
     </properties>
 
     <modules>
@@ -74,7 +75,6 @@
         <module>pay-service</module>
         <module>user-service</module>
         <module>task</module>
-        <module>demo</module>
         <module>api-gateway</module>
         <module>product-service</module>
         <module>sleuth</module>
@@ -82,8 +82,8 @@
         <module>shiro-service</module>
         <module>uid-generator</module>
         <module>hadoop</module>
-        <module>hadoop/hbase-demo</module>
-        <module>hadoop/hadoop-demo</module>
+        <module>pay</module>
+        <module>search-service</module>
     </modules>
 
     <build>

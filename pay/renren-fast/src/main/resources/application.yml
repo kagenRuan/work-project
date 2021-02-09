@@ -120,11 +120,11 @@ application:
       # 商户ID
       mch-id: 777290058188949
       # PC浏览器跳转的前端通知地址
-      front-url:
+      front-url: http://149n35b909.51mypc.cn/renren-fast/app/union/native/pay/nativeFrontResponse
       # 后端通知url
       back-url: http://149n35b909.51mypc.cn/renren-fast/app/union/pay/backResponse
-      # 订单页面
-      order-url:
+      # Native支付成功后前端需要跳转的页面
+      order-url: http://149n35b909.51mypc.cn/renren-fast/app/order/list
       # wap手机浏览器跳转前端通知地址
       wap-front-url: http://149n35b909.51mypc.cn/renren-fast/app/union/pay/frontResponse
       acpsdk:

@@ -1,5 +1,6 @@
 package com.ruan.yuanyuan;
 
+import com.ruan.yuanyuan.config.redis.RedisUtils;
 import com.ruan.yuanyuan.dto.UserDto;
 import com.ruan.yuanyuan.entity.User;
 import com.ruan.yuanyuan.service.IUserService;
@@ -8,10 +9,12 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.test.context.BootstrapWith;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.util.ObjectUtils;
 import org.springframework.util.StringUtils;
+import redis.clients.jedis.Jedis;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -24,7 +27,15 @@ import java.util.stream.Collectors;
 public class ShiroServiceApplicationTests {
 
     @Autowired
+    private RedisUtils redisUtils;
+
+    @Autowired
     private IUserService userService;
+
+    @Test
+    public void redisTest(){
+        redisUtils.set("1","1");
+    }
 
     @Test
     public void testUser(){

@@ -1,4 +1,4 @@
-package io.renren.modules.app.controller;
+package io.renren.modules.app.controller.wxpay;
 
 import cn.hutool.extra.qrcode.QrCodeUtil;
 import cn.hutool.extra.qrcode.QrConfig;

@@ -17,8 +17,8 @@ import javax.validation.constraints.Pattern;
 @Data
 public class ScanCodePayOrderVo {
 
-    //验证了微信的付款码格式和支付宝的付款码格式
-    @Pattern(regexp = "^1[0-5][0-9]{16}$|^(25|26|27|28|29|30)[0-9]{14,22}$",message = "付款码ID不正确")
+    //验证了微信的付款码格式和支付宝的付款码格式和银联付款码格式
+    @Pattern(regexp = "^1[0-5][0-9]{16}$|^(25|26|27|28|29|30)[0-9]{14,22}$|^622[0-9]{16}$",message = "付款码ID不正确")
     @ApiModelProperty("订单ID")
     @NotBlank
     private String authCode;

@@ -14,14 +14,12 @@
     <version>0.0.1-SNAPSHOT</version>
     <name>大数据</name>
     <description>大数据学习</description>
+    <packaging>pom</packaging>
 
-    <properties>
-        <java.version>1.8</java.version>
-    </properties>
-
-    <dependencies>
-
-    </dependencies>
+    <modules>
+        <module>hadoop-demo</module>
+        <module>hbase-demo</module>
+    </modules>
 
 
     <build>
