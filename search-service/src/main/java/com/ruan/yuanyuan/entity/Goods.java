@@ -30,24 +30,11 @@ public class Goods implements Serializable {
     @Field(type = FieldType.Keyword,index = false)//不会对图片地址查询,指定为false
     String images;
 
-    public Goods(Long id, String title, String category, String brand, float price, String images) {
+    public Goods(Long id, String title, String category, String brand, float price) {
         this.id = id;
         this.title = title;
         this.category = category;
         this.brand = brand;
         this.price = price;
-        this.images = images;
-    }
-
-    @Override
-    public String toString() {
-        return "Item{" +
-                "id=" + id +
-                ", title='" + title + '\'' +
-                ", category='" + category + '\'' +
-                ", brand='" + brand + '\'' +
-                ", price=" + price +
-                ", images='" + images + '\'' +
-                '}';
     }
 }
