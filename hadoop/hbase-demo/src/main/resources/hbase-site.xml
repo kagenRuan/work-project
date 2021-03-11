@@ -22,28 +22,28 @@
 -->
 <configuration>
 
-    <property>
-        <name>hbase.rootdir</name>
-        <value>hdfs://192.168.0.106:9000/hbase</value>
-    </property>
-    <property>
-        <name>hbase.zookeeper.property.dataDir</name>
-        <value>/Users/ruanyuanyuan/software/zookeeper-355/data</value>
-    </property>
-    <property>
-        <name>hbase.cluster.distributed</name>
-        <value>true</value>
-    </property>
-    <property>
-        <name>hbase.unsafe.stream.capability.enforce</name>
-        <value>false</value>
-    </property>
-    <property>
-        <name>phoenix.schema.isNamespaceMappingEnabled</name>
-        <value>true</value>
-    </property>
-    <property>
-        <name>hbase.regionserver.wal.codec</name>
-        <value>org.apache.hadoop.hbase.regionserver.wal.IndexedWALEditCodec</value>
-    </property>
+        <property>
+            <name>hbase.rootdir</name>
+            <value>hdfs://192.168.0.104:9000/hbase</value>
+        </property>
+        <property>
+            <name>hbase.zookeeper.property.dataDir</name>
+            <value>/Users/ruanyuanyuan/software/zookeeper-355/data</value>
+        </property>
+        <property>
+            <name>hbase.cluster.distributed</name>
+            <value>true</value>
+        </property>
+        <property>
+            <name>hbase.unsafe.stream.capability.enforce</name>
+            <value>false</value>
+        </property>
+        <property>
+            <name>phoenix.schema.isNamespaceMappingEnabled</name>
+            <value>true</value>
+        </property>
+        <property>
+            <name>hbase.regionserver.wal.codec</name>
+            <value>org.apache.hadoop.hbase.regionserver.wal.IndexedWALEditCodec</value>
+        </property>
 </configuration>

@@ -25,7 +25,7 @@
 </property>
 <property>
   <name>fs.default.name</name>                                     
-  <value>hdfs://yuanyuan.local:9000</value>
+  <value>hdfs://192.168.0.104:9000</value>
 </property> 
 
 </configuration>

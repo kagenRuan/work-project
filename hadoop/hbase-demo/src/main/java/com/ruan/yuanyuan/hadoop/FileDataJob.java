@@ -39,10 +39,9 @@ public class FileDataJob {
             job.setMapOutputValueClass(MapReduceExtendedCell.class);
 
             //设置文件的输入路径
-            FileInputFormat.setInputPaths(job,new Path("hdfs://192.168.0.106:9000/order/input"));
+            FileInputFormat.setInputPaths(job,new Path("hdfs://192.168.0.104:9000/order/input"));
             //设置文件的输出路径
-            FileOutputFormat.setOutputPath(job,new Path("hdfs://192.168.0.106:9000/order/output"));
-
+            FileOutputFormat.setOutputPath(job,new Path("hdfs://192.168.0.104:9000/order/output"));
             //获取表在那个region的信息
             RegionLocator regionLocator = connection.getRegionLocator(TableName.valueOf("ORDER:MY_DATA"));
             HFileOutputFormat2.configureIncrementalLoad(job,tableName,regionLocator);

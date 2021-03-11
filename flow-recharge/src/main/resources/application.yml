@@ -1,0 +1,57 @@
+order:
+  datasource:
+    url: jdbc:mysql://localhost:3306/rf_order?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull
+    username: ryy
+    password: 123456
+    driverClassName: com.mysql.jdbc.Driver
+    type: com.alibaba.druid.pool.DruidDataSource
+    initialSize: 50
+    minIdle: 50
+    maxActive: 500
+    maxWait: 60000
+    timeBetweenEvictionRunsMillis: 60000
+    minEvictableIdleTimeMillis: 300000
+    validationQuery: select 'x' FROM DUAL
+    testWhileIdle: true
+    testOnBorrow: false
+    testOnReturn: false
+    poolPreparedStatements: true
+    maxPoolPreparedStatementPerConnectionSize: 20
+    filters: stat,wall,log4j
+    connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
+coupon:
+  datasource:
+    url: jdbc:mysql://localhost:3306/rf_coupon?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull
+    username: ryy
+    password: 123456
+    driverClassName: com.mysql.jdbc.Driver
+    type: com.alibaba.druid.pool.DruidDataSource
+    initialSize: 50
+    minIdle: 50
+    maxActive: 500
+    maxWait: 60000
+    timeBetweenEvictionRunsMillis: 60000
+    minEvictableIdleTimeMillis: 300000
+    validationQuery: select 'x' FROM DUAL
+    testWhileIdle: true
+    testOnBorrow: false
+    testOnReturn: false
+    poolPreparedStatements: true
+    maxPoolPreparedStatementPerConnectionSize: 20
+    connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
+#mybatis-plus插件配置
+#mybatis-plus:
+#  mapper-locations: mapper/*.xml
+#  type-aliases-package: com.ruan.yuanyuan.entity
+#  configuration:
+#    map-underscore-to-camel-case: true #驼峰命名
+#    call-setters-on-nulls: true #null忽略
+#  global-config:
+#    db-config:
+#      id-type: input
+#      update-strategy: not_null #可以修改某值为空
+#  aop:
+#    proxy-target-class: true
+logging:
+    level:
+      com.ruan.yuanyuan: DEBUG
