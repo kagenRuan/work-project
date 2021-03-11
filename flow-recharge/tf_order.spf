@@ -1,0 +1,290 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>ContentFilters</key>
+	<dict/>
+	<key>auto_connect</key>
+	<true/>
+	<key>data</key>
+	<dict>
+		<key>connection</key>
+		<dict>
+			<key>database</key>
+			<string>rf_coupon</string>
+			<key>host</key>
+			<string>127.0.0.1</string>
+			<key>kcid</key>
+			<string>-1547445272387153283</string>
+			<key>name</key>
+			<string>localhost</string>
+			<key>rdbms_type</key>
+			<string>mysql</string>
+			<key>sslCACertFileLocation</key>
+			<string></string>
+			<key>sslCACertFileLocationEnabled</key>
+			<integer>0</integer>
+			<key>sslCertificateFileLocation</key>
+			<string></string>
+			<key>sslCertificateFileLocationEnabled</key>
+			<integer>0</integer>
+			<key>sslKeyFileLocation</key>
+			<string></string>
+			<key>sslKeyFileLocationEnabled</key>
+			<integer>0</integer>
+			<key>type</key>
+			<string>SPTCPIPConnection</string>
+			<key>useSSL</key>
+			<integer>0</integer>
+			<key>user</key>
+			<string>ryy</string>
+		</dict>
+		<key>session</key>
+		<dict>
+			<key>connectionEncoding</key>
+			<string>utf8</string>
+			<key>contentPageNumber</key>
+			<integer>1</integer>
+			<key>contentSelection</key>
+			<data>
+			YnBsaXN0MDDUAQIDBAUGBwpYJHZlcnNpb25ZJGFyY2hpdmVyVCR0
+			b3BYJG9iamVjdHMSAAGGoF8QD05TS2V5ZWRBcmNoaXZlctEICVRk
+			YXRhgAGtCwwZGhscHSEoLDA1OlUkbnVsbNMNDg8QFBhXTlMua2V5
+			c1pOUy5vYmplY3RzViRjbGFzc6MREhOAAoADgASjFRYXgAWABoAI
+			gAxUdHlwZVRyb3dzVGtleXNfECZTZWxlY3Rpb25EZXRhaWxUeXBl
+			UHJpbWFyeUtleWVkRGV0YWlsc9MNDg8eHyCgoIAH0iIjJCVaJGNs
+			YXNzbmFtZVgkY2xhc3Nlc18QE05TTXV0YWJsZURpY3Rpb25hcnmj
+			JCYnXE5TRGljdGlvbmFyeVhOU09iamVjdNIODykroSqACYAL0g8t
+			Li9ZTlMuc3RyaW5ngApSaWTSIiMxMl8QD05TTXV0YWJsZVN0cmlu
+			Z6MxMzRYTlNTdHJpbmdYTlNPYmplY3TSIiM2N15OU011dGFibGVB
+			cnJheaM2ODlXTlNBcnJheVhOU09iamVjdNIiIyY7oiY8WE5TT2Jq
+			ZWN0AAgAEQAaACQAKQAyADcASQBMAFEAUwBhAGcAbgB2AIEAiACM
+			AI4AkACSAJYAmACaAJwAngCjAKgArQDWAN0A3gDfAOEA5gDxAPoB
+			EAEUASEBKgEvATEBMwE1AToBRAFGAUkBTgFgAWQBbQF2AXsBigGO
+			AZYBnwGkAacAAAAAAAACAQAAAAAAAAA9AAAAAAAAAAAAAAAAAAAB
+			sA==
+			</data>
+			<key>contentSortColIsAsc</key>
+			<true/>
+			<key>contentViewport</key>
+			<string>{{0, 0}, {734, 527}}</string>
+			<key>isToolbarVisible</key>
+			<true/>
+			<key>queries</key>
+			<string>CREATE TABLE IF NOT EXISTS tf_order(
+   id int primary key not null COMMENT 'ID',
+   order_no varchar(20) not null COMMENT '订单编号',
+   user_account_id long not null COMMENT '用户ID',
+   business_account_id long not null COMMENT '商户ID',
+   business_name varchar(20) not null COMMENT '商户名称',
+   amount DECIMAL(10,2) not null COMMENT '订单金额',
+   title varchar(20) not null COMMENT '订单标题',
+   type varchar(20) not null COMMENT '订单类型',
+   status int not null COMMENT '订单状态',
+   pay_type int not null COMMENT '支付类型',
+   refill_comment varchar(20) not null COMMENT '充值说明',
+   refill_phone_number varchar(20) not null COMMENT '充值手机号',
+   refill_data DATE not null COMMENT '充值时间', 
+   credit DATE not null COMMENT '赠送积分',
+   created_time DATE not null COMMENT '创建时间',
+   modified_time DATE not null COMMENT '修改还是件'
+   )ENGINE=InnoDB DEFAULT CHARSET=utf8;</string>
+			<key>table</key>
+			<string>tf_order</string>
+			<key>view</key>
+			<string>SP_VIEW_CUSTOMQUERY</string>
+			<key>windowVerticalDividerPosition</key>
+			<real>214</real>
+		</dict>
+	</dict>
+	<key>encrypted</key>
+	<false/>
+	<key>format</key>
+	<string>connection</string>
+	<key>queryFavorites</key>
+	<array/>
+	<key>queryHistory</key>
+	<array>
+		<string>CREATE TABLE IF NOT EXISTS tf_coupon(
+   id int primary key not null COMMENT 'ID',
+   user_account_id long not null COMMENT '用户ID',
+   coupon_amount long not null COMMENT '优惠券金额',
+   status int not null COMMENT '优惠券状态',
+   start_time DATE not null COMMENT '开始时间', 
+   end_time DATE not null COMMENT '结束时间',
+   created_time DATE not null COMMENT '创建时间',
+   modified_time DATE not null COMMENT '修改时间'
+   )ENGINE=InnoDB DEFAULT CHARSET=utf8</string>
+		<string>CREATE TABLE IF NOT EXISTS tf_order(
+   id int primary key not null COMMENT 'ID',
+   order_no varchar(20) not null COMMENT '订单编号',
+   user_account_id long not null COMMENT '用户ID',
+   business_account_id long not null COMMENT '商户ID',
+   business_name varchar(20) not null COMMENT '商户名称',
+   amount DECIMAL(10,2) not null COMMENT '订单金额',
+   title varchar(20) not null COMMENT '订单标题',
+   type varchar(20) not null COMMENT '订单类型',
+   status int not null COMMENT '订单状态',
+   pay_type int not null COMMENT '支付类型',
+   refill_comment varchar(20) not null COMMENT '充值说明',
+   refill_phone_number varchar(20) not null COMMENT '充值手机号',
+   refill_data DATE not null COMMENT '充值时间', 
+   credit DATE not null COMMENT '赠送积分',
+   created_time DATE not null COMMENT '创建时间',
+   modified_time DATE not null COMMENT '修改还是件'
+   )ENGINE=InnoDB DEFAULT CHARSET=utf8</string>
+		<string>CREATE TABLE IF NOT EXISTS tf_order(
+   id int primary key not null COMMENT 'ID',
+   order_no varchar(20) not null COMMENT '订单编号',
+   user_account_id long not null COMMENT '用户ID',
+   business_account_id long not null COMMENT '商户ID',
+   business_name varchar(20) not null COMMENT '商户名称',
+   amount DECIMAL(10,2) not null COMMENT '订单金额',
+   title varchar(20) not null COMMENT '订单标题',
+   type varchar(20) not null COMMENT '订单类型',
+   status int not null COMMENT '订单状态',
+   pay_type int not null COMMENT '支付类型',
+   refill_comment varchar(20) not null COMMENT '充值说明',
+   refill_phone_number varchar(20) not null COMMENT '充值手机号',
+   refill_data DATE not null, COMMENT '充值时间', 
+   credit DATE not null COMMENT '赠送积分',
+   created_time DATE not null COMMENT '创建时间',
+   modified_time DATE not null COMMENT '修改还是件'
+   )ENGINE=InnoDB DEFAULT CHARSET=utf8</string>
+		<string>CREATE TABLE IF NOT EXISTS tf_order(
+   id int primary key not null COMMENT 'ID',
+   order_no varchar(20) not null COMMENT '订单编号',
+   user_account_id long not null COMMENT '用户ID',
+   business_account_id long not null COMMENT '商户ID',
+   business_name varchar(20) not null COMMENT '商户名称',
+   amount DECIMAL(10,2) not null COMMENT '订单金额',
+   title varchar(20) not null COMMENT '订单标题',
+   type varchar(20) not null COMMENT '订单类型',
+   status int not null COMMENT '订单状态',
+   pay_type int not null COMMENT '支付类型',
+   refill_comment varchar(20) not null COMMENT '充值说明',
+   refill_phone_number varchar(20) not null COMMENT '充值手机号',
+   refill_data DATE not null, COMMENT '充值时间' 
+   credit DATE not null COMMENT '赠送积分',
+   created_time DATE not null COMMENT '创建时间',
+   modified_time DATE not null COMMENT '修改还是件'
+   )ENGINE=InnoDB DEFAULT CHARSET=utf8</string>
+		<string>CREATE TABLE IF NOT EXISTS tf_order(
+   id int primary key not null COMMENT 'ID',
+   order_no varchar(20) not null COMMENT '订单编号',
+   user_account_id long not null COMMENT '用户ID',
+   business_account_id long not null COMMENT '商户ID',
+   business_name varchar(20) not null COMMENT '商户名称',
+   amount DECIMAL(10,2) not null COMMENT '订单金额',
+   title varchar(20) not null COMMENT '订单标题',
+   type varchar(20) not null COMMENT '订单类型',
+   status int not null COMMENT '订单状态',
+   payType int not null COMMENT '支付类型',
+   refillComment varchar(20) not null COMMENT '充值说明',
+   refillPhoneNumber varchar(20) not null COMMENT '充值手机号',
+   refillData int not null, COMMENT '充值时间' 
+   credit date not null COMMENT '赠送积分',
+   created_time date not null COMMENT '创建时间',
+   modified_time date not null COMMENT '修改还是件'
+   )ENGINE=InnoDB DEFAULT CHARSET=utf8</string>
+		<string>CREATE TABLE IF NOT EXISTS tf_order(
+   id int primary key not null COMMENT 'ID',
+   order_no varchar(20) not null COMMENT '订单编号',
+   user_account_id long not null COMMENT '用户ID',
+   business_account_id long not null COMMENT '商户ID',
+   business_name varchar(20) not null COMMENT '商户名称',
+   amount duble(10,2) not null COMMENT '订单金额',
+   title varchar(20) not null COMMENT '订单标题',
+   type varchar(20) not null COMMENT '订单类型',
+   status int not null COMMENT '订单状态',
+   payType int not null COMMENT '支付类型',
+   refillComment varchar(20) not null COMMENT '充值说明',
+   refillPhoneNumber varchar(20) not null COMMENT '充值手机号',
+   refillData int not null, COMMENT '充值时间' 
+   credit date not null COMMENT '赠送积分',
+   created_time date not null COMMENT '创建时间',
+   modified_time date not null COMMENT '修改还是件'
+   )ENGINE=InnoDB DEFAULT CHARSET=utf8</string>
+		<string>CREATE TABLE IF NOT EXISTS tf_order(
+   id int primary key not null,
+   orderNo varchar(20) not null,
+   userAccountId long not null
+   )ENGINE=InnoDB DEFAULT CHARSET=utf8</string>
+		<string>CREATE TABLE IF NOT EXISTS tf_order(
+   id int primary key not null,
+   orderNo varchar(20) not null,
+   userAccountId long not null,   
+   PRIMARY KEY ( 'id' )
+)ENGINE=InnoDB DEFAULT CHARSET=utf8</string>
+		<string>CREATE TABLE IF NOT EXISTS "tf_order"(
+   id int primary key not null,
+   orderNo varchar(20) not null,
+   userAccountId long not null,   
+   PRIMARY KEY ( 'id' )
+)ENGINE=InnoDB DEFAULT CHARSET=utf8</string>
+		<string>CREATE TABLE IF NOT EXISTS "tf_order"(
+   id int primary key not null,
+   orderNo varchar(20) not null,
+   userAccountId long not null   
+   PRIMARY KEY ( 'id' )
+)ENGINE=InnoDB DEFAULT CHARSET=utf8</string>
+		<string>CREATE TABLE IF NOT EXISTS "order"(
+   id int primary key not null,
+   orderNo varchar(20) not null,
+   userAccountId long not null   
+   PRIMARY KEY ( 'id' )
+)ENGINE=InnoDB DEFAULT CHARSET=utf8</string>
+		<string>CREATE TABLE IF NOT EXISTS 'order'(
+   id int primary key not null,
+   orderNo varchar(20) not null,
+   userAccountId long not null   
+   PRIMARY KEY ( 'id' )
+)ENGINE=InnoDB DEFAULT CHARSET=utf8</string>
+		<string>CREATE TABLE IF NOT EXISTS 'order'(
+   id long primary key not null,
+   orderNo varchar(20) not null,
+   userAccountId long not null   
+   PRIMARY KEY ( 'id' )
+)ENGINE=InnoDB DEFAULT CHARSET=utf8</string>
+		<string>CREATE TABLE IF NOT EXISTS `order`(
+   id long primary key not null,
+   orderNo varchar(20) not null,
+   userAccountId long not null   
+   PRIMARY KEY ( `id` )
+)ENGINE=InnoDB DEFAULT CHARSET=utf8</string>
+		<string>create table if not exists  order(
+   id long primary key not null,
+   orderNo varchar(20) not null,
+   userAccountId long not null   
+
+)</string>
+		<string>insert into(id,code,user_id,amount,payment_type,status,create_time)values(98765432363,'CSewewew','1',1,0,1,'2021-01-30 14:02:22')</string>
+		<string>insert into(id,code,user_id,amount,payment_type,status,create_time)values(98765432363,'CSewewewewe','1',1,0,1,'2021-01-30 14:02:22')</string>
+		<string>SELECT yps.code as permission,yprr.role_id FROM yy_permissions yps LEFT JOIN yy_permissions_role_ref yprr ON yps.id = yprr.permissions_id WHERE 1=1 AND yps.is_valid='Y'  AND yps.is_button='0' AND yprr.role_id IN ( '1' )</string>
+		<string>select * from yy_permissions_role_ref</string>
+		<string>INSERT INTO `yy_permissions_role_ref` VALUES ('1', '4', '1', 'Y', 'admin', '2020-07-06 19:46:04', 'admin', '2020-07-06 19:46:11');
+INSERT INTO `yy_permissions_role_ref` VALUES ('10', '2', '1', 'Y', 'admin', '2020-07-07 22:18:31', 'admin', '2020-07-07 22:18:37');
+INSERT INTO `yy_permissions_role_ref` VALUES ('11', '3', '1', 'Y', 'admin', '2020-07-07 22:18:31', 'admin', '2020-07-07 22:18:37');
+INSERT INTO `yy_permissions_role_ref` VALUES ('12', '8', '2', 'Y', 'admin', '2020-07-07 22:18:31', 'admin', '2020-07-07 22:18:37');
+INSERT INTO `yy_permissions_role_ref` VALUES ('13', '14', '2', 'Y', 'admin', '2020-07-07 22:18:31', 'admin', '2020-07-07 22:18:37');
+INSERT INTO `yy_permissions_role_ref` VALUES ('14', '8', '3', 'Y', 'admin', '2020-07-07 22:18:31', 'admin', '2020-07-07 22:18:37');
+INSERT INTO `yy_permissions_role_ref` VALUES ('15', '14', '3', 'Y', 'admin', '2020-07-07 22:18:31', 'admin', '2020-07-07 22:18:37');
+INSERT INTO `yy_permissions_role_ref` VALUES ('16', '1', '2', 'Y', 'admin', '2020-07-08 16:56:09', 'admin', '2020-07-08 16:56:14');
+INSERT INTO `yy_permissions_role_ref` VALUES ('17', '1', '3', 'Y', 'admin', '2020-07-08 16:57:01', 'admin', '2020-07-08 16:57:07');
+INSERT INTO `yy_permissions_role_ref` VALUES ('2', '5', '1', 'Y', 'admin', '2020-07-06 19:51:51', 'admin', '2020-07-06 19:51:59');
+INSERT INTO `yy_permissions_role_ref` VALUES ('3', '6', '1', 'Y', 'admin', '2020-07-07 21:58:03', 'admin', '2020-07-07 21:58:09');
+INSERT INTO `yy_permissions_role_ref` VALUES ('4', '7', '1', 'Y', 'admin', '2020-07-07 21:58:03', 'admin', '2020-07-07 21:58:09');
+INSERT INTO `yy_permissions_role_ref` VALUES ('5', '10', '2', 'Y', 'admin', '2020-07-07 21:58:03', 'admin', '2020-07-07 21:58:09');
+INSERT INTO `yy_permissions_role_ref` VALUES ('6', '11', '2', 'Y', 'admin', '2020-07-07 21:58:03', 'admin', '2020-07-07 21:58:09');
+INSERT INTO `yy_permissions_role_ref` VALUES ('7', '12', '3', 'Y', 'admin', '2020-07-07 21:58:03', 'admin', '2020-07-07 21:58:09');
+INSERT INTO `yy_permissions_role_ref` VALUES ('8', '13', '3', 'Y', 'admin', '2020-07-07 21:58:03', 'admin', '2020-07-07 21:58:09');
+INSERT INTO `yy_permissions_role_ref` VALUES ('9', '1', '1', 'Y', 'admin', '2020-07-07 22:18:31', 'admin', '2020-07-07 22:18:37')</string>
+	</array>
+	<key>rdbms_type</key>
+	<string>mysql</string>
+	<key>rdbms_version</key>
+	<string>5.7.31</string>
+	<key>version</key>
+	<integer>1</integer>
+</dict>
+</plist>
