@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Date;
 
 /**
@@ -28,7 +29,7 @@ public class CouponEntity implements Serializable {
      * 流量券金额
      */
     @TableField("coupon_amount")
-    private Double couponAmount;
+    private BigDecimal couponAmount;
     /**
      * 流量券的状态
      */
@@ -66,10 +67,10 @@ public class CouponEntity implements Serializable {
     public void setUserAccountId(Long userAccountId) {
         this.userAccountId = userAccountId;
     }
-    public Double getCouponAmount() {
+    public BigDecimal getCouponAmount() {
         return couponAmount;
     }
-    public void setCouponAmount(Double couponAmount) {
+    public void setCouponAmount(BigDecimal couponAmount) {
         this.couponAmount = couponAmount;
     }
     public Integer getStatus() {

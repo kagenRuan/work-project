@@ -1,6 +1,9 @@
 package com.ruan.yuanyuan.config;
 
 import com.alibaba.druid.pool.DruidDataSource;
+import com.alibaba.druid.pool.xa.DruidXADataSource;
+import com.atomikos.icatch.jta.UserTransactionImp;
+import com.atomikos.icatch.jta.UserTransactionManager;
 import com.baomidou.mybatisplus.annotation.FieldStrategy;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.core.MybatisConfiguration;
@@ -13,14 +16,17 @@ import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.jta.atomikos.AtomikosDataSourceBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.jta.JtaTransactionManager;
 
 import javax.sql.DataSource;
+import javax.transaction.UserTransaction;
 import java.io.IOException;
 import java.sql.SQLException;
 
@@ -75,12 +81,15 @@ public class OrderDataSourcesConfig {
     @Bean("orderDataSource")
     @Primary  //主要是用于优先加载实例化
     public DataSource orderDataSource() throws SQLException {
-        DruidDataSource orderDruidDataSource = new DruidDataSource();
+        //TODO DruidXADataSource 主要支持JTA跨多库事务操作
+        DruidXADataSource orderDruidDataSource = new DruidXADataSource();
+        //TODO 如果不是跨多库事务操作可以使用DruidDataSource
+        //DruidDataSource orderDruidDataSource = new DruidDataSource();
         orderDruidDataSource.setUrl(url);
         orderDruidDataSource.setDriverClassName(driverClassName);
         orderDruidDataSource.setUsername(username);
         orderDruidDataSource.setPassword(password);
-        orderDruidDataSource.setDbType(type);
+//        orderDruidDataSource.setDbType(type);
         orderDruidDataSource.setInitialSize(initialSize);
         orderDruidDataSource.setMinIdle(minIdle);
         orderDruidDataSource.setMaxActive(maxActive);
@@ -95,36 +104,18 @@ public class OrderDataSourcesConfig {
         orderDruidDataSource.setMaxPoolPreparedStatementPerConnectionSize(maxPoolPreparedStatementPerConnectionSize);
 //        orderDruidDataSource.setFilters(filters);
         orderDruidDataSource.setConnectionProperties(connectionProperties);
-        return orderDruidDataSource;
+
+        //TODO JTA跨多库事务操作
+        AtomikosDataSourceBean atomikosDataSourceBean = new AtomikosDataSourceBean();
+        atomikosDataSourceBean.setXaDataSource(orderDruidDataSource);
+        return atomikosDataSourceBean;
     }
 
     //设置数据源管理器
-    @Bean("orderPlatformTransactionManager")
-    @Primary
-    public PlatformTransactionManager orderPlatformTransactionManager(@Qualifier("orderDataSource") DataSource orderDataSource) throws SQLException {
-        return new DataSourceTransactionManager(orderDataSource);
-    }
-
-//    /**
-//     * MyBatis Plus 全局变量配置
-//     */
-//    @Bean("dbConfig")
-//    public GlobalConfig.DbConfig dbConfig(){
-//        GlobalConfig.DbConfig dbConfig = new GlobalConfig.DbConfig();
-//        dbConfig.setIdType(IdType.INPUT);
-//        dbConfig.setUpdateStrategy(FieldStrategy.NOT_EMPTY);
-//        return dbConfig;
-//    }
-//
-//    /**
-//     * MyBatis Plus 全局变量
-//     * @param dbConfig
-//     */
-//    @Bean("globalConfig")
-//    public GlobalConfig globalConfig(@Qualifier("dbConfig")GlobalConfig.DbConfig dbConfig){
-//        GlobalConfig globalConfig = new GlobalConfig();
-//        globalConfig.setDbConfig(dbConfig);
-//        return globalConfig;
+//    @Bean("orderPlatformTransactionManager")
+//    @Primary
+//    public PlatformTransactionManager orderPlatformTransactionManager(@Qualifier("orderDataSource") DataSource orderDataSource) throws SQLException {
+//        return new DataSourceTransactionManager(orderDataSource);
 //    }
 
     /**
@@ -152,9 +143,18 @@ public class OrderDataSourcesConfig {
     }
 
     @Bean("orderSqlSession")
+    @Primary
     public SqlSessionTemplate orderSqlSession() throws Exception{
         SqlSessionTemplate sqlSessionTemplate=new SqlSessionTemplate(orderSqlSessionFactory());
         return sqlSessionTemplate;
+    }
+
+    @Bean(name = "orderTransactionManager")
+    @Primary
+    public JtaTransactionManager orderTransactionManager() {
+        UserTransactionManager userTransactionManager = new UserTransactionManager();
+        UserTransaction userTransaction = new UserTransactionImp();
+        return new JtaTransactionManager(userTransaction, userTransactionManager);
     }
 
 }

@@ -16,7 +16,6 @@ import com.ruan.yuanyuan.util.MessageIdCorrelationData;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mybatis.spring.annotation.MapperScan;
-import org.springframework.amqp.rabbit.connection.CorrelationData;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.FactoryBean;
@@ -71,8 +70,6 @@ public class OrderServiceApplicationTests {
         //创建支付订单
         OrderPay orderPay = orderPayService.create(orderList.stream().map(obj -> obj.getId()).collect(Collectors.toList()));
         Thread.sleep(10000);
-        CorrelationData correlationData = new CorrelationData();
-        correlationData.setId(orderPay.getPaySn());
         /**
          * 支付成功后进行消息通知
          * TODO 对于第三方的消息通知只需要先保存消息，然后在发送消息到本地mq中。
@@ -91,7 +88,7 @@ public class OrderServiceApplicationTests {
         message.setFiled1(orderPay.getPaySn());
         boolean result = messageService.save(message);
         BusinessAssert.isTrue(result, ExceptionUtil.OrderPayExceptionEnum.ORDER_PAY_FAIL);
-        rabbitMessageProvider.sendMessage(RabbitMqExchangeEnum.ORDER_PAY_EXCHANGE, RabbitMqRoutingKeyEnum.ORDER_PAY_ROUTING_KEY, orderPay, correlationData);
+        rabbitMessageProvider.sendMessage(RabbitMqExchangeEnum.ORDER_PAY_EXCHANGE, RabbitMqRoutingKeyEnum.ORDER_PAY_ROUTING_KEY, orderPay, null);
     }
 
 
@@ -101,7 +98,7 @@ public class OrderServiceApplicationTests {
         orderPay.setPaySn("1");
         MessageIdCorrelationData correlationData = new MessageIdCorrelationData();
         correlationData.setId("3");
-        rabbitMessageProvider.sendMessage(RabbitMqExchangeEnum.ORDER_PAY_EXCHANGE, RabbitMqRoutingKeyEnum.ORDER_PAY_ROUTING_KEY, orderPay, correlationData);
+        rabbitMessageProvider.sendMessage(RabbitMqExchangeEnum.ORDER_PAY_EXCHANGE, RabbitMqRoutingKeyEnum.ORDER_PAY_ROUTING_KEY, orderPay, null);
     }
 
     @Test

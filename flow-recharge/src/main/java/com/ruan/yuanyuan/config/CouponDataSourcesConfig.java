@@ -1,6 +1,9 @@
 package com.ruan.yuanyuan.config;
 
 import com.alibaba.druid.pool.DruidDataSource;
+import com.alibaba.druid.pool.xa.DruidXADataSource;
+import com.atomikos.icatch.jta.UserTransactionImp;
+import com.atomikos.icatch.jta.UserTransactionManager;
 import com.baomidou.mybatisplus.core.MybatisConfiguration;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
@@ -9,14 +12,17 @@ import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.jta.atomikos.AtomikosDataSourceBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.jta.JtaTransactionManager;
 
 import javax.sql.DataSource;
+import javax.transaction.UserTransaction;
 import java.sql.SQLException;
 
 /**
@@ -63,19 +69,20 @@ public class CouponDataSourcesConfig {
     private boolean poolPreparedStatements;
     @Value("${coupon.datasource.maxPoolPreparedStatementPerConnectionSize}")
     private int maxPoolPreparedStatementPerConnectionSize;
-//    @Value("${coupon.datasource.filters}")
-//    private String filters;
     @Value("${coupon.datasource.connectionProperties}")
     private String connectionProperties;
 
     @Bean("couponDataSource")
     public DataSource couponDataSource() throws SQLException {
-        DruidDataSource couponDruidDataSource = new DruidDataSource();
+        //TODO DruidXADataSource 主要支持JTA跨多库事务操作
+        DruidXADataSource couponDruidDataSource = new DruidXADataSource();
+        //TODO 如果不是跨多库事务操作可以使用DruidDataSource
+        //DruidDataSource couponDruidDataSource = new DruidDataSource();
         couponDruidDataSource.setUrl(url);
         couponDruidDataSource.setDriverClassName(driverClassName);
         couponDruidDataSource.setUsername(username);
         couponDruidDataSource.setPassword(password);
-        couponDruidDataSource.setDbType(type);
+//        couponDruidDataSource.setDbType(type);
         couponDruidDataSource.setInitialSize(initialSize);
         couponDruidDataSource.setMinIdle(minIdle);
         couponDruidDataSource.setMaxActive(maxActive);
@@ -88,16 +95,20 @@ public class CouponDataSourcesConfig {
         couponDruidDataSource.setTestOnReturn(testOnReturn);
         couponDruidDataSource.setPoolPreparedStatements(poolPreparedStatements);
         couponDruidDataSource.setMaxPoolPreparedStatementPerConnectionSize(maxPoolPreparedStatementPerConnectionSize);
-//        couponDruidDataSource.setFilters(filters);
+        //couponDruidDataSource.setFilters(filters);
         couponDruidDataSource.setConnectionProperties(connectionProperties);
-        return couponDruidDataSource;
+
+        //TODO JTA跨多库事务操作
+        AtomikosDataSourceBean atomikosDataSourceBean = new AtomikosDataSourceBean();
+        atomikosDataSourceBean.setXaDataSource(couponDruidDataSource);
+        return atomikosDataSourceBean;
     }
 
     //设置数据源管理器
-    @Bean("couponPlatformTransactionManager")
-    public PlatformTransactionManager couponPlatformTransactionManager(@Qualifier("couponDataSource") DataSource couponDataSource) throws SQLException {
-        return new DataSourceTransactionManager(couponDataSource);
-    }
+//    @Bean("couponPlatformTransactionManager")
+//    public PlatformTransactionManager couponPlatformTransactionManager(@Qualifier("couponDataSource") DataSource couponDataSource) throws SQLException {
+//        return new DataSourceTransactionManager(couponDataSource);
+//    }
 
     /**
      * MyBatis Plus 全局变量
@@ -126,5 +137,12 @@ public class CouponDataSourcesConfig {
     public SqlSessionTemplate couponSqlSession() throws Exception{
         SqlSessionTemplate sqlSessionTemplate=new SqlSessionTemplate(couponSqlSessionFactory());
         return sqlSessionTemplate;
+    }
+
+    @Bean(name = "couponJtaTransactionManager")
+    public JtaTransactionManager couponJtaTransactionManager() {
+        UserTransactionManager userTransactionManager = new UserTransactionManager();
+        UserTransaction userTransaction = new UserTransactionImp();
+        return new JtaTransactionManager(userTransaction, userTransactionManager);
     }
 }

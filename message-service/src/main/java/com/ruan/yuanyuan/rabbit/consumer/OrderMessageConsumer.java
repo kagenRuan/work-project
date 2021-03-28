@@ -50,7 +50,7 @@ public class OrderMessageConsumer {
         logger.info("<<<<<<<<OrderMessageConsumer#onOrderMessage>>>>>>>>订单消息消费方法 orderMessage:{}", JSON.toJSONString(orderMessageVo));
         Long deliveryTag = (Long) headers.get(AmqpHeaders.DELIVERY_TAG);
         try {
-
+            // TODO 这里还需要对消息做幂等性
             /**
              * 手动ACK
              * deliveryTag:该消息的index
