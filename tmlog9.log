@@ -1,0 +1,2 @@
+{"id":"127.0.0.1.tm161552160882800001","wasCommitted":true,"participants":[{"uri":"127.0.0.1.tm1","state":"COMMITTING","expires":1615521618936,"resourceName":"orderDataSource"},{"uri":"127.0.0.1.tm2","state":"COMMITTING","expires":1615521618936,"resourceName":"couponDataSource"}]}
+{"id":"127.0.0.1.tm161552160882800001","wasCommitted":true,"participants":[{"uri":"127.0.0.1.tm1","state":"TERMINATED","expires":1615521618953,"resourceName":"orderDataSource"},{"uri":"127.0.0.1.tm2","state":"TERMINATED","expires":1615521618953,"resourceName":"couponDataSource"}]}

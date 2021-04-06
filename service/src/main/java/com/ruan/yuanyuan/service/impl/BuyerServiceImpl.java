@@ -4,6 +4,8 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.ruan.yuanyuan.dao.BuyerMapper;
 import com.ruan.yuanyuan.entity.Buyer;
 import com.ruan.yuanyuan.service.IBuyerService;
+import com.ruan.yuanyuan.service.IBuyerServiceTest;
+import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
 
 /**
@@ -15,4 +17,5 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class BuyerServiceImpl extends ServiceImpl<BuyerMapper, Buyer> implements IBuyerService {
+
 }

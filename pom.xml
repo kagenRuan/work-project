@@ -84,6 +84,7 @@
         <module>hadoop</module>
         <module>pay</module>
         <module>search-service</module>
+        <module>test-demo</module>
     </modules>
 
     <distributionManagement>
