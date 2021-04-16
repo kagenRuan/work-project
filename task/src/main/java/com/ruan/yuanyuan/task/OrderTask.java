@@ -17,7 +17,7 @@ import com.ruan.yuanyuan.service.IOrderService;
 import com.ruan.yuanyuan.util.MessageIdCorrelationData;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.amqp.rabbit.connection.CorrelationData;
+import org.springframework.amqp.rabbit.support.CorrelationData;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;

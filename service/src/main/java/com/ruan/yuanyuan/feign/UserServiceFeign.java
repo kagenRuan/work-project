@@ -1,9 +1,10 @@
 package com.ruan.yuanyuan.feign;
 
 import com.ruan.yuanyuan.entity.ResultObject;
-import com.ruan.yuanyuan.feign.callback.UserServiceFallBack;
-import org.mengyun.tcctransaction.api.TransactionContext;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -17,7 +18,7 @@ import java.math.BigDecimal;
  * @version: 1.0
  * @description: 用户服务Feign接口
  **/
-@FeignClient(value = "user-service",fallback = UserServiceFallBack.class) //value 指定服务名称
+@FeignClient(value = "user-service",fallback = UserServiceFeign.UserServiceFallBack.class) //value 指定服务名称
 public interface UserServiceFeign {
 
     /**
@@ -35,4 +36,23 @@ public interface UserServiceFeign {
      */
     @RequestMapping(value = "/user/test",method = RequestMethod.GET)
     ResultObject test();
+
+
+    @Component
+    static  class UserServiceFallBack implements UserServiceFeign{
+
+        private static Logger logger = LoggerFactory.getLogger(UserServiceFallBack.class);
+
+        @Override
+        public ResultObject updateMoneyById(String userId, BigDecimal money, String paySn) {
+            logger.info("UserServiceFeign#updateMoneyById fall back");
+            return null;
+        }
+
+        @Override
+        public ResultObject test() {
+            logger.info("UserServiceFeign#test fall back");
+            return null;
+        }
+    }
 }

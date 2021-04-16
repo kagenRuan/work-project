@@ -3,10 +3,6 @@ server:
 spring:
   application:
     name: eureka-server
-  zipkin:
-    base-url: http://localhost:9411/
-    sender:
-      type: web
 eureka:
   instance:
     hostname: 127.0.0.1
@@ -18,8 +14,6 @@ eureka:
     fetch-registry: false #获取其他eureka server中的数据 不是集群这里设置为false
   server:
     enable-self-preservation: false #开启自我保护机制，主要是保证eureka server能够及时的剔除已下线的服务实例
-    eviction-interval-timer-in-ms: 5000 #每5秒开始清理无效节点
-    response-cache-update-interval-ms: 2000 #3秒内将写缓存中的数据更新到读缓存中
 #logging:
 #  config: classpath:logback-eureka-server.xml
 

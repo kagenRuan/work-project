@@ -1,17 +1,13 @@
 package com.ruan.yuanyuan.config.web;
 
 import com.ruan.yuanyuan.config.web.interceotor.MyHandlerInterceptor;
-import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.boot.web.servlet.MultipartConfigFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.Ordered;
-import org.springframework.util.unit.DataSize;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import javax.servlet.*;
-import java.util.Collections;
 
 /**
  * @ClassName: WebMvcConfig
@@ -32,12 +28,10 @@ public class WebMvcConfig implements WebMvcConfigurer {
     @Bean
     public MultipartConfigElement multipartConfigElement(){
         MultipartConfigFactory factory = new MultipartConfigFactory();
-        DataSize dataSize = DataSize.ofBytes(10000);
         //上传文件大小超出将抛出异常
-        factory.setMaxFileSize(dataSize);
+        factory.setMaxFileSize(10000);
         //上传文件总的大小
-        DataSize requestDataSize = DataSize.ofBytes(10000);
-        factory.setMaxRequestSize(requestDataSize);
+        factory.setMaxRequestSize(10000);
         return factory.createMultipartConfig();
     }
 

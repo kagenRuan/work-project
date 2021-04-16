@@ -1,8 +1,6 @@
 package com.ruan.yuanyuan.config;
 
-import org.springframework.amqp.core.Correlation;
-import org.springframework.amqp.core.Message;
-import org.springframework.amqp.rabbit.connection.CorrelationData;
+import org.springframework.amqp.rabbit.support.CorrelationData;
 
 /**
  * @ClassName: TestCorrelationData
@@ -18,8 +16,4 @@ public class TestCorrelationData extends CorrelationData {
         return super.getId();
     }
 
-    @Override
-    public Message getReturnedMessage() {
-        return super.getReturnedMessage();
-    }
 }

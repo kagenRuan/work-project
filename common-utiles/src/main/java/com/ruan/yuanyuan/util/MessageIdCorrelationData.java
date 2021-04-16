@@ -1,6 +1,5 @@
 package com.ruan.yuanyuan.util;
 
-import org.springframework.amqp.rabbit.connection.CorrelationData;
 
 /**
  * User: ruanyuanyuan
@@ -9,7 +8,7 @@ import org.springframework.amqp.rabbit.connection.CorrelationData;
  * version:
  * Description: 消息唯一ID
  */
-public class MessageIdCorrelationData  extends CorrelationData {
+public class MessageIdCorrelationData {
 
     private String id;
 

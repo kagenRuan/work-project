@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+
+    <properties>
+        <property name="jdbc.driver" value="com.mysql.jdbc.Driver"/>
+        <property name="jdbc.url" value="jdbc:mysql:///mybatis"/>
+        <property name="jdbc.username" value="ryy"/>
+        <property name="jdbc.password" value="123456"/>
+    </properties>
+
+    <settings>
+        <setting name="cacheEnabled" value="true"/>
+        <setting name="lazyLoadingEnabled" value="true"/>
+        <setting name="aggressiveLazyLoading" value="true"/>
+        <setting name="multipleResultSetsEnabled" value="true"/>
+        <setting name="useColumnLabel" value="true"/>
+        <setting name="useGeneratedKeys" value="false"/>
+        <setting name="autoMappingBehavior" value="PARTIAL"/>
+        <setting name="defaultExecutorType" value="SIMPLE"/>
+        <setting name="defaultStatementTimeout" value="25000"/>
+    </settings>
+
+    <typeAliases>
+        <typeAlias type="com.ruan.yuanyuan.mybatis.entity.MyTestEntity" alias="test"/>
+    </typeAliases>
+
+    <!-- 整个包取别名
+    <typeAliases>
+        <package name="com.yan.po"/>
+    </typeAliases>
+    -->
+
+    <typeHandlers>
+        <typeHandler handler="com.ruan.yuanyuan.mybatis.typehander.TestTypeHandler"/>
+    </typeHandlers>
+
+    <!-- 配置分页插件 -->
+<!--    <plugins>-->
+<!--        <plugin interceptor="com.github.pagehelper.PageHelper">-->
+<!--            &lt;!&ndash; 设置数据库类型 Oracle,Mysql,MariaDB,SQLite,Hsqldb,PostgreSQL六种数据库&ndash;&gt;-->
+<!--            <property name="dialect" value="mysql"/>-->
+<!--        </plugin>-->
+<!--    </plugins>-->
+
+
+
+    <environments default="development">
+        <environment id="development">
+            <transactionManager type="JDBC"/>
+            <dataSource type="POOLED">
+                <property name="driver" value="${jdbc.driver}"/>
+                <property name="url" value="${jdbc.url}"/>
+                <property name="username" value="${jdbc.username}"/>
+                <property name="password" value="${jdbc.password}"/>
+            </dataSource>
+        </environment>
+    </environments>
+
+    <!--只针对一个xml文件-->
+    <mappers>
+        <mapper resource="mapper/TestMapper.xml"/>
+    </mappers>
+
+    <!-- 会扫描com.ruan.yuanyuan.mapper包下所有的xml文件,如果使用这里就需要将mapper接口和mapper.xml文件放在同一个目录下-->
+<!--    <mappers>-->
+<!--        <package name="com.ruan.yuanyuan.mybatis.mapper"/>-->
+<!--    </mappers>-->
+
+</configuration>

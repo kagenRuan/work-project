@@ -1,8 +1,10 @@
 package com.ruan.yuanyuan.feign;
 
 import com.ruan.yuanyuan.entity.ResultObject;
-import com.ruan.yuanyuan.feign.callback.OrderServiceFallBack;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -14,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
  * @version: 1.0
  * @description: 订单服务Feign
  **/
-@FeignClient(value = "order-service",fallback = OrderServiceFallBack.class)
+@FeignClient(value = "order-service",fallback = OrderServiceFeign.OrderServiceFallBack.class)
 public interface OrderServiceFeign {
 
     /**
@@ -26,4 +28,16 @@ public interface OrderServiceFeign {
     @RequestMapping(value = "/order/update",method = RequestMethod.GET)
     ResultObject update(@RequestParam("orderId") String orderId,@RequestParam("status") String status);
 
+
+    @Component
+    static class OrderServiceFallBack implements OrderServiceFeign{
+
+        private static Logger logger = LoggerFactory.getLogger(OrderServiceFallBack.class);
+
+        @Override
+        public ResultObject update(String orderId, String status) {
+            logger.info("orderService#update fall back");
+            return null;
+        }
+    }
 }
