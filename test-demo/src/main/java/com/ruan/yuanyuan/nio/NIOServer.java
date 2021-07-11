@@ -1,4 +1,4 @@
-package com.ruan.yuanyuan.netty.nio;
+package com.ruan.yuanyuan.nio;
 
 import java.io.IOException;
 import java.net.InetAddress;
@@ -48,6 +48,7 @@ public class NIOServer {
                      * @Date: 2020/9/26 23:26
                      * @Description: 获取到一个SocketChannel
                      * TODO 而在BIO中这里是会阻塞的因为在BIO中它不知道连接事件，而在NIO是不会阻塞的原因是因为它知道当前的请求是不是连接请求
+                     *      进行三次握手
                      **/
                     SocketChannel socketChannel = serverSocketChannel.accept();
                     socketChannel.configureBlocking(false);
@@ -62,7 +63,18 @@ public class NIOServer {
                     ByteBuffer byteBuffer = (ByteBuffer)selectionKey.attachment();
                     channel.read(byteBuffer);
                     System.out.println("获取到客户端发送的消息："+new String(byteBuffer.array()));
+                    channel.register(selector,SelectionKey.OP_WRITE);
                 }
+                if(selectionKey.isWritable()){//写事件
+                    //TODO 如果是读事件，则需要获取到对应的SocketChannel
+                    SocketChannel channel = (SocketChannel)selectionKey.channel();
+                    //TODO 获取到SocketChannel绑定的ByteBuffer
+                    ByteBuffer byteBuffer = (ByteBuffer)selectionKey.attachment();
+                    byteBuffer.put("服务端接受到数据".getBytes());
+                    channel.write(byteBuffer);
+                    channel.register(selector,SelectionKey.OP_READ);
+                }
+
                 //手动删除事件，否则会造成事件的重复消费
                 keyIterator.remove();
             }

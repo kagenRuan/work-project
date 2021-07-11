@@ -4,7 +4,7 @@
 
     <properties>
         <property name="jdbc.driver" value="com.mysql.jdbc.Driver"/>
-        <property name="jdbc.url" value="jdbc:mysql:///mybatis"/>
+        <property name="jdbc.url" value="jdbc:mysql://localhost:3306/cloudproject"/>
         <property name="jdbc.username" value="ryy"/>
         <property name="jdbc.password" value="123456"/>
     </properties>

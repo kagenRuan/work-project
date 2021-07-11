@@ -1,4 +1,4 @@
-package com.ruan.yuanyuan.netty.nio_liaotian_example;
+package com.ruan.yuanyuan.nio.nio_liaotian_example;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;

@@ -1,5 +1,6 @@
 package com.ruan.yuanyuan.mybatis;
 
+import com.ruan.yuanyuan.mybatis.mapper.TestMapper;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -9,6 +10,8 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
+import java.util.Map;
 
 public class TestMybatis {
 
@@ -16,7 +19,9 @@ public class TestMybatis {
         InputStream inputStream = Resources.getResourceAsStream("mybatis-config.xml");
         SqlSessionFactory sessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
         SqlSession sqlSession = sessionFactory.openSession();
-//        Object o = sqlSession.selectOne("");
+        TestMapper mapper = sqlSession.getMapper(TestMapper.class);
+        Object o = mapper.queryById("1","ryy");
+//        mapper.queryVoidById("1");
 
     }
 }

@@ -47,6 +47,12 @@ public class OrderServiceApplicationTests {
     private IZuulApiRouteService service;
 
     @Test
+    public void queryOrder() throws Exception {
+        Order order = orderService.queryById("1");
+        System.out.println(order.toString());
+    }
+
+    @Test
     public void createOrder() throws Exception {
         //创建订单
         List<ProductDto> productDtoList = new ArrayList<>();

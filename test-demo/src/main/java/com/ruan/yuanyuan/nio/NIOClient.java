@@ -1,4 +1,4 @@
-package com.ruan.yuanyuan.netty.nio;
+package com.ruan.yuanyuan.nio;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
@@ -20,9 +20,9 @@ public class NIOClient {
         socketChannel.configureBlocking(false);
         InetSocketAddress socketAddress = new InetSocketAddress("localhost",8888);
         if(!socketChannel.connect(socketAddress)){
-            while (!socketChannel.finishConnect()){
-                System.out.println("客户端连接需要时间，可以做其他工作不会进行阻塞");
-            }
+//            while (!socketChannel.finishConnect()){
+//                System.out.println("客户端连接需要时间，可以做其他工作不会进行阻塞");
+//            }
         }
 
         //如果连接成功就发送字符串

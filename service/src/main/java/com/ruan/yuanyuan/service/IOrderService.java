@@ -24,6 +24,8 @@ public interface IOrderService extends IService<Order> {
      */
     List<Order> createOrder(List<ProductDto> productDto);
 
+    Order queryById(String id);
+
 
     void getOrder();
 

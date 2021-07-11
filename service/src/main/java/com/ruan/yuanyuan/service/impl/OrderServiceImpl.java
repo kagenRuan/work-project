@@ -107,6 +107,13 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
         return orderList;
     }
 
+    //查询订单
+    @Override
+    public Order queryById(String id) {
+        Order order = super.getById(id);
+        return order;
+    }
+
     @Override
     public void getOrder() {
         System.out.println("sss");
